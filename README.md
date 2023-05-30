@@ -1,6 +1,6 @@
 # **Test project**
 
-![](NewsPortal/src/main/resources/task_description/javaEE_logo.png)
+![](.taskResources/javaEE_logo.png)
 
 ## Software Architecture
 
@@ -14,7 +14,7 @@
 ### *2. Use-Case View*
 
 
-![](NewsPortal/src/main/resources/task_description/NewsPortalUML.png)
+![](.taskResources/NewsPortalUML.png)
 
 
 
