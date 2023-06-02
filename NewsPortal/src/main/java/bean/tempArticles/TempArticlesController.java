@@ -1,8 +1,10 @@
 package bean.tempArticles;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -15,7 +17,13 @@ public class TempArticlesController {
 	public News article (int id) {
 		News news = new News();
 	String lineText;
-    try (var fileRead = new BufferedReader(new FileReader("tempAtricles/art"+id+".txt"))) {
+	File file = null;
+	try {
+		file = new File(getClass().getClassLoader().getResource("art"+id+".txt").toURI());
+	} catch (URISyntaxException e) {
+		e.printStackTrace();
+	}
+    try (var fileRead = new BufferedReader(new FileReader(file))) {
         lineText = fileRead.readLine();
         while (lineText != null) {
             switch (lineText) {

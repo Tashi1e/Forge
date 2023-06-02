@@ -1,0 +1,6 @@
+<head>
+Head или заголовок
+<img>
+C:/asdf
+<body>
+This is body text. Он может быть и русским.
