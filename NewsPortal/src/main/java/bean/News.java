@@ -8,16 +8,18 @@ public class News implements Serializable {
 	
 	private Integer idNews=0;
 	private String title="";
+	private String img="";
 	private String briefNews="";
 	private String content="";
 	private String newsDate="";
 	
 	public News(){}
 
-	public News(int idNews, String title, String briefNews, String content, String newsDate) {
+	public News(int idNews, String title, String img, String briefNews, String content, String newsDate) {
 		super();
 		this.idNews = idNews;
 		this.title = title;
+		this.img = img;
 		this.briefNews = briefNews;
 		this.content = content;
 		this.newsDate = newsDate;
@@ -37,6 +39,14 @@ public class News implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	public String getBriefNews() {
