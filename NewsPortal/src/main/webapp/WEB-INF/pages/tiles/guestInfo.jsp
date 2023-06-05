@@ -11,7 +11,7 @@ guest info
 		<div class="single-news-wrapper">
 			<div class="single-news-header-wrapper">
 				<div class="news-title">
-					<c:out value="${news.title}" />
+					<h3><c:out value="${news.title}" /></h3>
 				</div>
 				<div class="news-date">
 					<c:out value="${news.newsDate}" />

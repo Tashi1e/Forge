@@ -10,7 +10,7 @@
 		<div class="single-news-wrapper">
 			<div class="single-news-header-wrapper">
 				<div class="news-title">
-					<c:out value="${news.title}" />
+					<h3><c:out value="${news.title}" /></h3>
 				</div>
 				<div class="news-date">
 					<c:out value="${news.newsDate}" />
@@ -24,9 +24,7 @@
 						<c:if test="${sessionScope.role eq 'admin'}">
 						      <a href="">editlink </a> 
 						</c:if>
-						
-						<a href="controller?command=go_to_view_news&id=${news.idNews}">viewlink </a> 
-   					    
+						<a href="controller?command=go_to_view_news&id=${news.idNews}">viewlink</a> 
    					    <c:if test="${sessionScope.role eq 'admin'}">
    					         <input type="checkbox" name="idNews" value="${news.idNews }" />
    					    </c:if>

@@ -16,8 +16,8 @@ public class NewsDAO implements INewsDAO {
 	public List<News> getLatestsList(int count) throws NewsDAOException {
 		List<News> result = new ArrayList<News>();
 		
-		for (int i=1; i<=5; i++)
-			result.add(tempArticlesController.article(1));
+		for (Integer i=1; i<=5; i++)
+			result.add(tempArticlesController.article(i));
 
 		return result;
 	}
@@ -26,15 +26,15 @@ public class NewsDAO implements INewsDAO {
 	public List<News> getList() throws NewsDAOException {
 		List<News> result = new ArrayList<News>();
 
-		for (int i=1; i<=5; i++)
-			result.add(tempArticlesController.article(1));
+		for (Integer i=1; i<=5; i++)
+			result.add(tempArticlesController.article(i));
 
 		return result;
 	}
 
 	@Override
 	public News fetchById(int id) throws NewsDAOException {
-		return tempArticlesController.article(1);
+		return tempArticlesController.article(id);
 	}
 
 	@Override

@@ -10,7 +10,7 @@
 			<td class="space_around_title_text">News Title</td>
 
 			<td class="space_around_view_text"><div class="word-breaker">
-					<c:out value="${requestScope.news.title }" />
+					<h3><c:out value="${requestScope.news.title }" /></h3>
 				</div></td>
 		</tr>
 		<tr>
@@ -27,6 +27,13 @@
 				</div></td>
 		</tr>
 		<tr>
+			<td class="space_around_title_text">Image</td>
+			<td class="space_around_view_text"><div class="word-breaker">
+					<img src="${requestScope.news.img}" alt="img"
+						style="width: 100%; height: auto" />
+				</div></td>
+		</tr>
+		<tr>
 			<td class="space_around_title_text">Content</td>
 			<td class="space_around_view_text"><div class="word-breaker">
 					<c:out value="${requestScope.news.content }" />
@@ -37,19 +44,19 @@
 
 
 <c:if test="${sessionScope.role eq 'admin'}">
-<div class="first-view-button">
-	<form action="controller" method="post">
-		<input type="hidden" name="command" value="edit" /> <input
-			type="hidden" name="id" value="${news.idNews}" /> <input
-			type="submit" value="Edit" />
-	</form>
-</div>
+	<div class="first-view-button">
+		<form action="controller" method="post">
+			<input type="hidden" name="command" value="edit" /> <input
+				type="hidden" name="id" value="${news.idNews}" /> <input
+				type="submit" value="Edit" />
+		</form>
+	</div>
 
-<div class="second-view-button">
-	<form action="controller" method="post">
-		<input type="hidden" name="command" value="delete" /> <input
-			type="hidden" name="id" value="${news.idNews}" /> <input
-			type="submit" value="Delete" />
-	</form>
-</div>
+	<div class="second-view-button">
+		<form action="controller" method="post">
+			<input type="hidden" name="command" value="delete" /> <input
+				type="hidden" name="id" value="${news.idNews}" /> <input
+				type="submit" value="Delete" />
+		</form>
+	</div>
 </c:if>
