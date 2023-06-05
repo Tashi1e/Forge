@@ -9,16 +9,20 @@ import dao.INewsDAO;
 import dao.NewsDAOException;
 
 public class NewsDAO implements INewsDAO {
-	
+
 	private final TempArticlesController tempArticlesController = new TempArticlesController();
 
 	@Override
 	public List<News> getLatestsList(int count) throws NewsDAOException {
 		List<News> result = new ArrayList<News>();
-		
-		for (Integer i=1; i<=5; i++)
-			result.add(tempArticlesController.article(i));
 
+		for (Integer i = 1; i <= 10; i++) {
+			News news = tempArticlesController.article(i);
+			if (news==null)
+				continue;
+			else
+				result.add(tempArticlesController.article(i));
+		}
 		return result;
 	}
 
@@ -26,9 +30,13 @@ public class NewsDAO implements INewsDAO {
 	public List<News> getList() throws NewsDAOException {
 		List<News> result = new ArrayList<News>();
 
-		for (Integer i=1; i<=5; i++)
+		for (Integer i = 1; i <= 10; i++) {
+			News news = tempArticlesController.article(i);
+		if (news==null)
+			continue;
+		else
 			result.add(tempArticlesController.article(i));
-
+	}
 		return result;
 	}
 
