@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+body {
+	height: 90%;
+}
+
+body {
+	display: flex;
+}
+
+div {
+height: 90%;
+	align-self: center;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 4%;
+	margin-bottom: auto;
+	padding: 40px;
+
+}
+
+.grid-container {
+	display: grid;
+	grid-template-columns: repeat(2, auto);
+	grid-column-gap: 20px;
+}
+
+.special-item {
+	grid-column-start: 1; 
+	grid-column-end: 3;	
+}
+
+input, button {
+	border-radius: 7px;
+	padding: 10px;
+	align-self: center;
+	border-style: solid;
+	width: 250px; 
+	font-family: "Times New Roman";
+	font-size: 18px;	
+}
+
+input {
+	border-color: rgba(0, 110, 255, 0.75);
+	color: rgb(55, 125, 125);
+	height: 20px;
+	font-size: 18px;
+}
+
+input:focus {
+      outline: 0;
+      box-shadow: 0 0 0 0.2rem rgba(0, 95, 225, 0.25);
+}
+
+button {
+	border-color: rgb(0, 110, 255);
+	background-color: rgb(0, 125, 225);
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	height: 44px;
+	padding: 7px;
+	width: 100%;
+	transition: all 200ms;
+}
+
+button:hover {
+	scale: 1.02 1.1;
+	border-color: rgb(0, 90, 205);
+	background-color: rgb(0, 95, 205);
+}
+
+h1 {
+	font-family: "Times New Roman";
+	color: rgb(0, 50, 150);
+    opacity: 0.8	
+}
+
+.ph-container {
+    position: relative;
+}
+
+.ph-container label {
+    pointer-events: none;
+    color: rgba(0, 110, 255, 0.6);
+    font-size: 18px;
+    font-weight: bold;
+    font-style: italic;
+    top: 25%;
+    left: 5%;
+    position: absolute;
+    transition: all 200ms;
+}
+
+.ph-container input:focus + label,
+.ph-container input:not(:placeholder-shown) + label{
+    top: -15px;
+    left: 10px;
+    font-size: 14px; 
+}
