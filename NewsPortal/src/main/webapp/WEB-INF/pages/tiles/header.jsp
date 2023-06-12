@@ -18,7 +18,7 @@
 
 		<div align="right">
 
-			<a href=""> en </a> &nbsp;&nbsp; 
+			<a href="controller?command=change_locale"> en </a> &nbsp;&nbsp; 
 			<a	href=""> ru </a>
 		</div>
 

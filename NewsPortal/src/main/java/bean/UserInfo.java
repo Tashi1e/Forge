@@ -1,6 +1,6 @@
 package bean;
 
-public class NewUserInfo {
+public class UserInfo {
 	
 	private String nickName;
 	private String email;

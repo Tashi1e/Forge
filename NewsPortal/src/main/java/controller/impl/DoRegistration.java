@@ -22,6 +22,8 @@ public class DoRegistration implements Command {
 		String phoneNumber = request.getParameter("tel");
 		String password = request.getParameter("pass");
 		
+
+		
 		
 		
 		response.sendRedirect("controller?command=go_to_main_page");

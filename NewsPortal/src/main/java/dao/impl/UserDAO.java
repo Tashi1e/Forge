@@ -3,7 +3,7 @@ package dao.impl;
 import java.sql.SQLException;
 import java.util.Random;
 
-import bean.NewUserInfo;
+import bean.UserInfo;
 import dao.DaoException;
 import dao.IUserDAO;
 
@@ -30,7 +30,7 @@ public class UserDAO implements IUserDAO{
 	}
 
 	@Override
-	public boolean registration(NewUserInfo user) throws DaoException  {
+	public boolean registration(UserInfo user) throws DaoException  {
 		// TODO Auto-generated method stub
 		return false;
 	}

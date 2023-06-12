@@ -1,10 +1,10 @@
 package service;
 
-import bean.NewUserInfo;
+import bean.UserInfo;
 
 public interface IUserService {
 	
 	String signIn(String login, String password) throws ServiceException;
-	boolean registration(NewUserInfo user) throws ServiceException;
+	boolean registration(UserInfo user) throws ServiceException;
 
 }

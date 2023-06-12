@@ -1,6 +1,6 @@
 package util.validation;
 
-import bean.NewUserInfo;
+import bean.UserInfo;
 
 @SuppressWarnings("unused")
 public class UserDataValidationImpl implements UserDataValidation{

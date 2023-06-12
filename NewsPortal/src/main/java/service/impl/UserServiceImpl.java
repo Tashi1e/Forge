@@ -1,6 +1,6 @@
 package service.impl;
 
-import bean.NewUserInfo;
+import bean.UserInfo;
 import dao.DaoException;
 import dao.DaoProvider;
 import dao.IUserDAO;
@@ -34,7 +34,7 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public boolean registration(NewUserInfo user) {
+	public boolean registration(UserInfo user) {
 		// TODO Auto-generated method stub
 		return false;
 	}
