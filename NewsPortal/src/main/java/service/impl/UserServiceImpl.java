@@ -7,36 +7,41 @@ import dao.IUserDAO;
 import service.ServiceException;
 import service.IUserService;
 
-public class UserServiceImpl implements IUserService{
+public class UserServiceImpl implements IUserService {
 
 	private final IUserDAO userDAO = DaoProvider.getInstance().getUserDao();
 //	private final UserDataValidation userDataValidation = ValidationProvider.getIntsance().getUserDataVelidation();
-	
+
 	@Override
 	public String signIn(String login, String password) throws ServiceException {
-		
+
 		/*
 		 * if(!userDataValidation.checkAUthData(login, password)) { throw new
 		 * ServiceException("login ...... "); }
 		 */
-		
+
 		try {
-			if(userDAO.logination(login, password)) {
+			if (userDAO.logination(login, password)) {
 				return userDAO.getRole(login, password);
-			}else {
+			} else {
 				return "guest";
 			}
-			
-		}catch(DaoException e) {
+
+		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
-		
+
 	}
 
 	@Override
-	public boolean registration(UserInfo user) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean registration(UserInfo user) throws ServiceException {
+		try {
+			if (userDAO.registration(user))
+				return true;
+			else
+				return false;
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
 	}
-
 }

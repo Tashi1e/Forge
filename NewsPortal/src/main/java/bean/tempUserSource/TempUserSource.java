@@ -7,27 +7,8 @@ import java.util.List;
 
 public class TempUserSource {
 
-	private final File file = new File("src/usersInfo/", "users.usr");
+	private final File file = new File("D:/_Java/_Workspace/Forge/NewsPortal/src/main/resources", "users.usr");
 	private List<UserInfo> userList = new ArrayList<>();
-
-	private boolean findUserByLogin(String login) throws ClassNotFoundException, IOException {
-		readFile();
-			
-		for (UserInfo user: userList ) {
-			return (user.getNickName().equals(login) || user.getEmail().equals(login)) 	
-		}
-	}
-
-	public boolean saveNewUser(UserInfo newUser) throws ClassNotFoundException, IOException {
-		String nickName = newUser.getNickName();
-		String email = newUser.getEmail();
-		
-		if (findUserByLogin(nickName) && findUserByLogin(email)) {
-			saveNewUser(newUser);
-			return true;
-		}
-		else return false;
-	}
 
 	@SuppressWarnings("all")
 	public TempUserSource() {
@@ -37,6 +18,36 @@ public class TempUserSource {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public UserInfo checkLogPass(String login, String password) throws ClassNotFoundException, IOException {
+		UserInfo user = findUser(login);
+		UserInfo result = null;
+		if (user!=null && user.getPassword().equals(password)) {
+			result =  user;
+		}
+		return result;
+	}
+
+	public boolean saveNewUser(UserInfo newUser) throws ClassNotFoundException, IOException {
+		if (findUser(newUser.getEmail())==null) {
+			userList.add(newUser);
+			writeFile();
+			return true;
+		} else
+			return false;
+	}
+
+	private UserInfo findUser(String login) throws ClassNotFoundException, IOException {
+		readFile();
+		UserInfo found = null;
+		for (UserInfo user : userList) {
+			if (user.getEmail()!=null && user.getEmail().equals(login)) {
+				found = user;
+				break;
+			}
+		}
+		return found;
 	}
 
 	private void writeFile() throws IOException {

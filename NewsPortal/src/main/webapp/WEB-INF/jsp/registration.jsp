@@ -13,7 +13,7 @@
 <div align="center">
 <h1 align = "center">Please fill the registration form</h1>
 <form method="post" action="controller" class = "grid-container" >
-<input type="hidden" name="command" value="registration">
+<input type="hidden" name="command" value="do_registration">
 
 <p class = "ph-container">
 <input type="text" name="nick" id = "nick" placeholder=" " autocomplete = "new-name">

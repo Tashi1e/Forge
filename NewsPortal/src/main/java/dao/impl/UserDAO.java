@@ -1,38 +1,60 @@
 package dao.impl;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Random;
 
+import dao.DaoException;
 import bean.UserInfo;
+import bean.tempUserSource.TempUserSource;
 import dao.DaoException;
 import dao.IUserDAO;
 
 @SuppressWarnings("unused")
-public class UserDAO implements IUserDAO{
+public class UserDAO implements IUserDAO {
 
-	@Override
+	TempUserSource tempUserSource = new TempUserSource();
+
 	public boolean logination(String login, String password) throws DaoException {
-		
-		/*
-		 * Random rand = new Random(); int value = rand.nextInt(1000);
-		 * 
-		 * if(value % 3 == 0) { try { throw new SQLException("stub exception");
-		 * }catch(SQLException e) { throw new DaoException(e); } }else if (value % 2 ==
-		 * 0) { return true; }else { return false; }
-		 */
-		
-		return true;
-		
-	}
-	
-	public String getRole(String login, String password) {
-		return "user";
+
+		try {
+			if (tempUserSource.checkLogPass(login, password)!=(null))
+				return true;
+			else
+				return false;
+		} catch (ClassNotFoundException e) {
+			throw new DaoException(e);
+		} catch (IOException e) {
+			throw new DaoException(e);
+		}
+
 	}
 
-	@Override
-	public boolean registration(UserInfo user) throws DaoException  {
-		// TODO Auto-generated method stub
-		return false;
+	public String getRole(String login, String password) throws DaoException {
+
+		try {
+			UserInfo user = tempUserSource.checkLogPass(login, password);
+			if (!user.equals(null))
+				return user.getRole();
+			else
+				return "guest";
+
+		} catch (ClassNotFoundException e) {
+			throw new DaoException(e);
+		} catch (IOException e) {
+			throw new DaoException(e);
+		}
+	}
+
+	public boolean registration(UserInfo user) throws DaoException {
+		try {
+				return tempUserSource.saveNewUser(user);
+
+		} catch (ClassNotFoundException e) {
+			throw new DaoException(e);
+		} catch (IOException e) {
+			throw new DaoException(e);
+		}
 	}
 
 }

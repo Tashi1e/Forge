@@ -6,7 +6,7 @@ guest info
 	<a href="">News >> </a> Latest News
 </div>
 
-<form action="command.do?method=delete" method="post">
+<form>
 	<c:forEach var="news" items="${requestScope.news}">
 		<div class="single-news-wrapper">
 			<div class="single-news-header-wrapper">

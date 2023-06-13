@@ -1,12 +1,18 @@
 package bean;
 
-public class UserInfo {
+import java.io.Serializable;
+
+public class UserInfo implements Serializable{
+
+	private static final long serialVersionUID = -1421192482328889996L;
 	
 	private String nickName;
 	private String email;
 	private String country;
 	private String phoneNumber;
 	private String password;
+	private String role;
+	
 	public String getNickName() {
 		return nickName;
 	}
@@ -37,6 +43,17 @@ public class UserInfo {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	
+	@Override
+	public String toString() {
+		return "UserInfo [nickName=" + nickName + ", email=" + email + ", country=" + country + ", phoneNumber="
+				+ phoneNumber + ", password=" + password + ", role=" + role + "]";
+	}
 	
 }

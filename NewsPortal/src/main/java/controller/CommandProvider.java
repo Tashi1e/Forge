@@ -3,6 +3,7 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import controller.impl.DoRegistration;
 import controller.impl.DoSIgnIn;
 import controller.impl.DoSignOut;
 import controller.impl.GoToBasePage;
@@ -20,6 +21,7 @@ public class CommandProvider {
 		commands.put(CommandName.DO_SIGN_OUT, new DoSignOut());
 		commands.put(CommandName.GO_TO_NEWS_LIST, new GoToNewsList());
 		commands.put(CommandName.GO_TO_VIEW_NEWS, new GoToViewNews());
+		commands.put(CommandName.DO_REGISTRATION, new DoRegistration());
 	}
 	
 	

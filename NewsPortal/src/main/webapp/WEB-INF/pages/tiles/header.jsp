@@ -6,6 +6,7 @@
 	<div class="newstitle">News management
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <span>
+
 	<c:if test="${not (requestScope.AuthenticationError eq null)}">
 						<font color="red"> 
 						   <c:out value="${requestScope.AuthenticationError}" />
@@ -18,8 +19,8 @@
 
 		<div align="right">
 
-			<a href="controller?command=change_locale"> en </a> &nbsp;&nbsp; 
-			<a	href=""> ru </a>
+			<a href="controller?local=en"> en </a> &nbsp;&nbsp; 
+			<a href="controller?local=ru"> ru </a>
 		</div>
 
 		<c:if test="${not (sessionScope.user eq 'active')}">
