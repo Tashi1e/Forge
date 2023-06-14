@@ -1,6 +1,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<link rel="stylesheet" type="text/css" href="./styles/loginFormStyle.css">
+<fmt:setLocale value="${sessionScope.local}" />
+<fmt:setBundle basename="localization.local" var="loc" />
+
+<fmt:message bundle="${loc}" key="local.login.button.name" var="loginButton" />
+<fmt:message bundle="${loc}" key="local.signup.button.name" var="signupButton" />
+<fmt:message bundle="${loc}" key="local.signin.button.name" var="signinButton" />
+<fmt:message bundle="${loc}" key="local.remember.button.name" var="rememberButton" />
+<fmt:message bundle="${loc}" key="local.header" var="header" />
+
+<link rel="stylesheet" type="text/css" href="./styles/loginFormStyles.css">
 
 <div class="wrapper">
 	<div class="newstitle">News management
@@ -19,8 +29,8 @@
 
 		<div align="right">
 
-			<a href="controller?local=en"> en </a> &nbsp;&nbsp; 
-			<a href="controller?local=ru"> ru </a>
+			<a href="controller?local=en&command=go_to_base_page"> en </a> &nbsp;&nbsp; 
+			<a href="controller?local=ru&command=go_to_base_page"> ru </a>
 		</div>
 
 		<c:if test="${not (sessionScope.user eq 'active')}">
@@ -28,8 +38,9 @@
 			<div align="right">
 				<form action="controller" method="post" id="box">
 			<input type="hidden" name="command" value="go_to_registration_page" id="command" />
-			<input type="checkbox" id="checkbox" style="display: none" />
-			<input type="button" value="Login" id="login" /> 
+			<input type="checkbox" name="remember_me" id="checkbox" style="display: none" />
+			<input type="hidden" value="${signinButton}" id="sign_in">
+			<input type="button" value="${loginButton}" id="login" /> 
 			<span class="ph-container"> 
 				<input type="text" name="login" id="logName" class="text" placeholder=" " autocomplete="new-username" /> 
 				<label for="logName">Login</label>
@@ -38,8 +49,8 @@
 			    <input type="password" name="password" id="password" class="text" placeholder=" " autocomplete="new-password" /> 
 				<label for="password">Password</label>
 			</span> 
-			<input type="submit" value="Sign-up" id="registration" />
-							
+			<input type="submit" value="${signupButton}" id="registration" />
+			<input type="hidden" value="${rememberButton}" id="remember" />				
 				</form>
 			</div>
 
