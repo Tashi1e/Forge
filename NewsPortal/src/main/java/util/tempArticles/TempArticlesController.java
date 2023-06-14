@@ -1,4 +1,4 @@
-package bean.tempArticles;
+package util.tempArticles;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

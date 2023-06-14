@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.News;
-import bean.tempArticles.TempArticlesController;
 import dao.INewsDAO;
 import dao.NewsDAOException;
+import util.tempArticles.TempArticlesController;
 
 public class NewsDAO implements INewsDAO {
 

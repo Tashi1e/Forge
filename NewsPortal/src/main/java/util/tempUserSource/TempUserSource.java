@@ -1,4 +1,4 @@
-package bean.tempUserSource;
+package util.tempUserSource;
 
 import bean.UserInfo;
 import java.io.*;

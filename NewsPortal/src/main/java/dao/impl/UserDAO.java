@@ -6,9 +6,9 @@ import java.util.Random;
 
 import dao.DaoException;
 import bean.UserInfo;
-import bean.tempUserSource.TempUserSource;
 import dao.DaoException;
 import dao.IUserDAO;
+import util.tempUserSource.TempUserSource;
 
 @SuppressWarnings("unused")
 public class UserDAO implements IUserDAO {
