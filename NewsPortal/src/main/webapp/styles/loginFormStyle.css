@@ -42,7 +42,7 @@ input.text:focus {
 	box-shadow: 0 0 0 0.2rem rgba(0, 95, 225, 0.25);
 }
 
-input#login, input#registration, input#signOut {
+input.login_btn, input.registration_remember_btn, input#signOut {
 	font-size: 16px;
 	white-space: normal;
 	font-weight: bold;
@@ -50,33 +50,33 @@ input#login, input#registration, input#signOut {
 	transition: all 200ms;
 }
 
-input#login, input#signOut{
+input.login_btn, input#signOut{
 	border-color: rgb(0, 110, 255);
 	background-color: white;
 	color: rgb(0, 125, 225);
 	width: 80px;
 }
 
-input#login.signIn {
+input.login_btn#signin {
 	background-color: rgb(0, 125, 225);
 	color: white;
 }
 
-input#registration {
+input.registration_remember_btn {
 	border-color: rgb(250,250 ,0);
 	background-color: rgb(255, 255, 0);
 	color: black;
 	width: 105px;
 }
 
-input#login:hover, input#signOut:hover {
+input.login_btn:hover, input#signOut:hover {
 	scale: 1.02 1.1;
 	border-color: rgb(0, 90, 205);
 	background-color: rgb(0, 95, 205);
 	color: white;
 }
 
-input#registration:hover {
+input.registration_remember_btn:hover {
 	scale: 1.02 1.1;
 	border-color: rgb(240, 240, 0);
 	background-color: rgb(245, 9245, 0);

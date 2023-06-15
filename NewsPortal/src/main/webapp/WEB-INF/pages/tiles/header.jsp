@@ -7,13 +7,12 @@
 <fmt:message bundle="${loc}" key="local.login.button.name" var="loginButton" />
 <fmt:message bundle="${loc}" key="local.signup.button.name" var="signupButton" />
 <fmt:message bundle="${loc}" key="local.signin.button.name" var="signinButton" />
-<fmt:message bundle="${loc}" key="local.remember.button.name" var="rememberButton" />
-<fmt:message bundle="${loc}" key="local.header" var="header" />
+<fmt:message bundle="${loc}" key="local.remember.button.name" var="remembButton" />
 
-<link rel="stylesheet" type="text/css" href="./styles/loginFormStyles.css">
+<link rel="stylesheet" type="text/css" href="./styles/loginFormStyle.css">
 
 <div class="wrapper">
-	<div class="newstitle">News management
+	<div class="newstitle"><fmt:message bundle="${loc}" key="local.header" />
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <span>
 
@@ -28,9 +27,10 @@
 	<div class="local-link">
 
 		<div align="right">
-
+<form>
 			<a href="controller?local=en&command=go_to_base_page"> en </a> &nbsp;&nbsp; 
 			<a href="controller?local=ru&command=go_to_base_page"> ru </a>
+			</form>
 		</div>
 
 		<c:if test="${not (sessionScope.user eq 'active')}">
@@ -38,19 +38,19 @@
 			<div align="right">
 				<form action="controller" method="post" id="box">
 			<input type="hidden" name="command" value="go_to_registration_page" id="command" />
-			<input type="checkbox" name="remember_me" id="checkbox" style="display: none" />
-			<input type="hidden" value="${signinButton}" id="sign_in">
-			<input type="button" value="${loginButton}" id="login" /> 
+			<input type="checkbox" name="remember_me" value="${remembButton}" id="checkbox" style="display: none" />
+			<input type="hidden" class = "login_btn" value="${signinButton}" id="signin">
+			<input type="button" class = "login_btn" value="${loginButton}" id="login" /> 
 			<span class="ph-container"> 
 				<input type="text" name="login" id="logName" class="text" placeholder=" " autocomplete="new-username" /> 
-				<label for="logName">Login</label>
+				<label for="logName"><fmt:message bundle="${loc}" key="local.login.label.name" /></label>
 			</span> 
 			<span class="ph-container"> 
 			    <input type="password" name="password" id="password" class="text" placeholder=" " autocomplete="new-password" /> 
-				<label for="password">Password</label>
+				<label for="password"><fmt:message bundle="${loc}" key="local.password.label.name" /></label>
 			</span> 
-			<input type="submit" value="${signupButton}" id="registration" />
-			<input type="hidden" value="${rememberButton}" id="remember" />				
+			<input type="submit" value="${signupButton}" class="registration_remember_btn" id="registration" />
+			<input type="hidden" class="registration_remember_btn" id="remember" />				
 				</form>
 			</div>
 
@@ -80,4 +80,4 @@
 
 </div>
 
-<script type="text/javascript" src="./script/loginForm.js"></script>
+<script type="text/javascript" src="./script/loginForms.js"></script>

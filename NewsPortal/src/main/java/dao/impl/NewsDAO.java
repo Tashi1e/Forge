@@ -6,22 +6,22 @@ import java.util.List;
 import bean.News;
 import dao.INewsDAO;
 import dao.NewsDAOException;
-import util.tempArticles.TempArticlesController;
+import util.tempArticles.TempArticleSource;
 
 public class NewsDAO implements INewsDAO {
 
-	private final TempArticlesController tempArticlesController = new TempArticlesController();
+	private final TempArticleSource tempArticleSource = new TempArticleSource();
 
 	@Override
 	public List<News> getLatestsList(int count) throws NewsDAOException {
 		List<News> result = new ArrayList<News>();
 
 		for (Integer i = 1; i <= 5; i++) {
-			News news = tempArticlesController.article(i);
+			News news = tempArticleSource.article(i);
 			if (news==null)
 				continue;
 			else
-				result.add(tempArticlesController.article(i));
+				result.add(tempArticleSource.article(i));
 		}
 		return result;
 	}
@@ -31,18 +31,18 @@ public class NewsDAO implements INewsDAO {
 		List<News> result = new ArrayList<News>();
 
 		for (Integer i = 1; i <= 5; i++) {
-			News news = tempArticlesController.article(i);
+			News news = tempArticleSource.article(i);
 		if (news==null)
 			continue;
 		else
-			result.add(tempArticlesController.article(i));
+			result.add(tempArticleSource.article(i));
 	}
 		return result;
 	}
 
 	@Override
 	public News fetchById(int id) throws NewsDAOException {
-		return tempArticlesController.article(id);
+		return tempArticleSource.article(id);
 	}
 
 	@Override

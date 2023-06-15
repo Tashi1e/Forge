@@ -7,7 +7,7 @@ import java.util.List;
 
 public class TempUserSource {
 
-	private final File file = new File("D:/_Java/_Workspace/Forge/NewsPortal/src/main/resources", "users.usr");
+	private final File file = new File("D:/_Java/_Workspace/Forge/NewsPortal/src/main/java/util/tempUserSource", "users.usr");
 	private List<UserInfo> userList = new ArrayList<>();
 
 	@SuppressWarnings("all")
