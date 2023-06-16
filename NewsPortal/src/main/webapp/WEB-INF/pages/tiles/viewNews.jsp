@@ -29,7 +29,7 @@
 		<tr>
 			<td class="space_around_title_text">Image</td>
 			<td class="space_around_view_text"><div class="word-breaker">
-					<img src="${requestScope.news.img}" alt="img"
+					<img src="${requestScope.news.imagePath}" alt="img"
 						style="width: 100%; height: auto" />
 				</div></td>
 		</tr>

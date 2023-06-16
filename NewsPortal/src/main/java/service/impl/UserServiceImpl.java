@@ -32,6 +32,21 @@ public class UserServiceImpl implements IUserService {
 		}
 
 	}
+	
+	public String userNickName(String login, String password) throws ServiceException {
+
+				try {
+			if (userDAO.logination(login, password)) {
+				return userDAO.getNickName(login);
+			} else {
+				return null;
+			}
+
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+
+	}
 
 	@Override
 	public boolean registration(UserInfo user) throws ServiceException {

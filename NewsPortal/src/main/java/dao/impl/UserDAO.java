@@ -14,11 +14,13 @@ import util.tempUserSource.TempUserSource;
 public class UserDAO implements IUserDAO {
 
 	TempUserSource tempUserSource = new TempUserSource();
+	UserInfo user = null;
 
 	public boolean logination(String login, String password) throws DaoException {
 
 		try {
-			if (tempUserSource.checkLogPass(login, password)!=(null))
+			user = tempUserSource.checkLogPass(login, password);
+			if (user!=(null))
 				return true;
 			else
 				return false;
@@ -32,18 +34,18 @@ public class UserDAO implements IUserDAO {
 
 	public String getRole(String login, String password) throws DaoException {
 
-		try {
-			UserInfo user = tempUserSource.checkLogPass(login, password);
-			if (!user.equals(null))
-				return user.getRole();
-			else
-				return "guest";
+		if (!user.equals(null))
+			return user.getRole();
+		else
+			return "guest";
+	}
+	
+	public String getNickName(String login) throws DaoException {
 
-		} catch (ClassNotFoundException e) {
-			throw new DaoException(e);
-		} catch (IOException e) {
-			throw new DaoException(e);
-		}
+		if (!user.equals(null))
+			return user.getNickName();
+		else
+			return null;
 	}
 
 	public boolean registration(UserInfo user) throws DaoException {

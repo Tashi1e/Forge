@@ -23,6 +23,7 @@ public class GoToBasePage implements Command{
 		try {
 			latestNews = newsService.latestList(5);
 			request.setAttribute("news", latestNews);
+			request.getSession(true).setAttribute("currentPage", request.getParameter("command"));
 			//request.setAttribute("news", null);
 
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);

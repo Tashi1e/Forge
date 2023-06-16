@@ -8,6 +8,7 @@
 <fmt:message bundle="${loc}" key="local.signup.button.name" var="signupButton" />
 <fmt:message bundle="${loc}" key="local.signin.button.name" var="signinButton" />
 <fmt:message bundle="${loc}" key="local.remember.button.name" var="remembButton" />
+<fmt:message bundle="${loc}" key="local.signout.button.name" var="signoutButton" />
 
 <link rel="stylesheet" type="text/css" href="./styles/loginFormStyle.css">
 
@@ -28,8 +29,9 @@
 
 		<div align="right">
 <form>
-			<a href="controller?local=en&command=go_to_base_page"> en </a> &nbsp;&nbsp; 
-			<a href="controller?local=ru&command=go_to_base_page"> ru </a>
+			<a href="controller?local=en&command=${sessionScope.currentPage}"> <fmt:message bundle="${loc}" key="local.en.button.name" /> </a> 
+			&nbsp;&nbsp; 
+			<a href="controller?local=ru&command=${sessionScope.currentPage}"> r<fmt:message bundle="${loc}" key="local.ru.button.name" /> </a>
 			</form>
 		</div>
 
@@ -37,7 +39,7 @@
 
 			<div align="right">
 				<form action="controller" method="post" id="box">
-			<input type="hidden" name="command" value="go_to_registration_page" id="command" />
+			<input type="hidden" name="command" value="do_sign_in" id="command" />
 			<input type="checkbox" name="remember_me" value="${remembButton}" id="checkbox" style="display: none" />
 			<input type="hidden" class = "login_btn" value="${signinButton}" id="signin">
 			<input type="button" class = "login_btn" value="${loginButton}" id="login" /> 
@@ -59,20 +61,13 @@
 		<c:if test="${sessionScope.user eq 'active'}">
 
 			<div align="right">
-			
 			<form action="controller" method="post" id="box">
 			<input type="hidden" name="command" value="do_sign_out" />
-			<input type="submit" value="Sign Out" id="signOut" /> 
-			<span class="ph-container"> 
-			    <input type="text" class="text" /> 
-			</span> 
-					
+			<br>
+			<h4 align="right">${sessionScope.userNickName}</h4>
+			<br>
+			<input type="submit" value="${signoutButton}" id="signOut" /> 
 				</form>
-			
-				<!-- <form action="controller" method="post" id="box">
-					<input type="hidden" name="command" value="do_sign_out" /> 
-					<input type="submit" value="Sign Out" id="signOut"/><br />
-				</form> -->
 			</div>
 
 		</c:if>
