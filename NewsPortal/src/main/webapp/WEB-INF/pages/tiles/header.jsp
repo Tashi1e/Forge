@@ -31,7 +31,7 @@
 <form>
 			<a href="controller?local=en&command=${sessionScope.currentPage}"> <fmt:message bundle="${loc}" key="local.en.button.name" /> </a> 
 			&nbsp;&nbsp; 
-			<a href="controller?local=ru&command=${sessionScope.currentPage}"> r<fmt:message bundle="${loc}" key="local.ru.button.name" /> </a>
+			<a href="controller?local=ru&command=${sessionScope.currentPage}"> <fmt:message bundle="${loc}" key="local.ru.button.name" /> </a>
 			</form>
 		</div>
 

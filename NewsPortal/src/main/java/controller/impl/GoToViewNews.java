@@ -22,14 +22,21 @@ public class GoToViewNews implements Command {
 		News news;
 		
 		String id;
-
 		id = request.getParameter("id");
 		
+		request.getSession(true).setAttribute("newsID", id);
+		
+		if(id ==null) {
+			id = (String) request.getSession(true).getAttribute("newsID");
+		}
+		
 		try {
+			
 			news  = newsService.findById(Integer.parseInt(id));
 			request.setAttribute("news", news);
 			request.setAttribute("presentation", "viewNews");
-			request.getSession(true).setAttribute("currentPage", request.getParameter("command"));
+			request.getSession(true).setAttribute("newsID", id);
+			request.getSession().setAttribute("currentPage", request.getParameter("command"));
 
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		} catch (ServiceException e) {
