@@ -10,7 +10,7 @@
 <fmt:message bundle="${loc}" key="local.remember.button.name" var="remembButton" />
 <fmt:message bundle="${loc}" key="local.signout.button.name" var="signoutButton" />
 
-<link rel="stylesheet" type="text/css" href="./styles/loginFormStyle.css">
+<link rel="stylesheet" type="text/css" href="./styles/loginFormStyles.css">
 
 <div class="wrapper">
 	<div class="newstitle"><fmt:message bundle="${loc}" key="local.header" />

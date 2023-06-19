@@ -13,11 +13,22 @@
  -->
 </title>
 
-<link rel="stylesheet" type="text/css" href="styles/newsStyle.css">
+<link rel="stylesheet" type="text/css" href="./styles/newsStyles.css">
 
 </head>
-<body>
-	<div class="page">
+<body style="
+	
+	background-image: url(images/newspaper_background.jpg);
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-attachment: fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	
+	">
+	<div class="page" >
 		<div class="header">
 			<c:import url="/WEB-INF/pages/tiles/header.jsp" />
 		</div>
