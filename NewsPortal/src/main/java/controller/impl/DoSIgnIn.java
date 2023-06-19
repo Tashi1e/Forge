@@ -18,17 +18,18 @@ public class DoSIgnIn implements Command {
 
 	private static final String JSP_LOGIN_PARAM = "login";
 	private static final String JSP_PASSWORD_PARAM = "password";
-	private static final String JSP_REMEMBER_ME_CHECKBOX = "remember_me";
+	private static final String JSP_REMEMBER_ME_PARAM = "remember_me";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login;
 		String password;
-		String checkbox;
+		boolean checkbox;
+	
 
 		login = request.getParameter(JSP_LOGIN_PARAM);
 		password = request.getParameter(JSP_PASSWORD_PARAM);
-		checkbox = request.getParameter(JSP_REMEMBER_ME_CHECKBOX);
+		checkbox = request.getParameter(JSP_REMEMBER_ME_PARAM)==null?false:true;
 		
 		System.out.println(checkbox);
 
@@ -44,10 +45,9 @@ public class DoSIgnIn implements Command {
 				request.getSession().setAttribute("role", role);
 				request.getSession().setAttribute("userNickName", userNickName);
 				response.sendRedirect("controller?command=go_to_news_list");
-			} else {// user   admin
+			} else {
 				request.getSession(true).setAttribute("user", "inactive");
-				request.getSession().setAttribute("AuthenticationError", "Wrong login or password!!!");
-//				request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
+				request.setAttribute("AuthenticationError", "Wrong login or password!!!");
 				response.sendRedirect("controller?command=go_to_base_page");
 			}
 			

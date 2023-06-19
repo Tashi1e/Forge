@@ -24,14 +24,14 @@ public class GoToViewNews implements Command {
 		String id;
 		id = request.getParameter("id");
 		
-		request.getSession(true).setAttribute("newsID", id);
-		
 		if(id ==null) {
 			id = (String) request.getSession(true).getAttribute("newsID");
 		}
+		else {
+			request.getSession(true).setAttribute("newsID", id);	
+		}
 		
 		try {
-			
 			news  = newsService.findById(Integer.parseInt(id));
 			request.setAttribute("news", news);
 			request.setAttribute("presentation", "viewNews");
@@ -40,7 +40,7 @@ public class GoToViewNews implements Command {
 
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
+			response.sendRedirect("controller?command=go_to_news_list");
 			e.printStackTrace();
 		}
 		
