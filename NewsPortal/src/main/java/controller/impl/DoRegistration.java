@@ -40,14 +40,6 @@ public class DoRegistration implements Command {
 		
 		System.out.println(user.toString());
 		
-
-//		user.setNickName("Tashile");
-//		user.setEmail("blkkpr@narod.ru");
-//		user.setCountry("Belarus");
-//		user.setPhoneNumber("+375291301943");
-//		user.setPassword("slk21kpr12");
-//		user.setRole("admin");
-		
 		try {
 			if (service.registration(user))
 				request.getSession(true).setAttribute("message", "Thank You for registration");
