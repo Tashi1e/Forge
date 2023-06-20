@@ -32,6 +32,8 @@ public class FrontController extends HttpServlet {
 			request.getSession(true).setAttribute("local", request.getParameter("local"));
 		}
 		
+		
+		
 		Command command = provider.getCommand(commandName);
 		command.execute(request, response);
 	}

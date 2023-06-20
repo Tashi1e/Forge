@@ -2,22 +2,7 @@
 html,body {
 	height: 100%;
 	width: 1000px;
-}
-
-* {
-	margin: 0 auto;
-}
-
-.page {
-	border: solid 1px black;
-	font: normal 100% Times New Roman, Verdana, Tahoma, sans-serif;
-	height: 99%;
-	min-width: 500px;
-	min-height: 500px;
-	position: relative;
-	width: 1000px;
 	
-	background-image: url(images/newspaper_background.jpg);
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-attachment: fixed;
@@ -27,8 +12,24 @@ html,body {
 	background-size: cover;
 }
 
+* {
+	margin: 0 auto;
+}
+
+.page {
+	border: solid 2px grey;
+	border-radius: 3px;
+	font: normal 100% Times New Roman, Verdana, Tahoma, sans-serif;
+	height: 99%;
+	min-width: 500px;
+	min-height: 500px;
+	position: relative;
+	width: 1000px;
+	
+}
+
 .header {
-	border: solid 1px black;
+	border-bottom: solid 2px grey;
 	height: 110px;
 	font-size : 24px;
 	margin-left: -1px; 
@@ -45,12 +46,12 @@ html,body {
 
 .menu {
 	left: 0;
-	width: 25%;
+	width: 20%;
 	font-size: 18px;
 }
 
 .content {
-	left: 25%; 
+	left: 20%; 
 	right: 0;
 	
 	padding-top: 5px;
@@ -58,12 +59,17 @@ html,body {
 	padding-right: 5px;
  	padding-left: 10px; 
 	
-	border: solid 1px grey;
+	border: solid 2px grey;
+	border-radius: 3px;
+	border-style: solid;
 	
 	margin-top: 5px;
 	margin-bottom: 10px;
 	margin-left: 10px;
 	margin-right: 5px;
+	
+	background-repeat: no-repeat;
+	background-size: cover;
 	
 }
 
@@ -73,7 +79,7 @@ html,body {
 	left: 0;
 	width: 1000px;
 	height: 20px;
-	border: solid 1px black;
+	border-top: solid 2px grey;
 	
 	margin-left: -1px;
 	margin-right: -1px;
@@ -135,7 +141,7 @@ html,body {
 	display: table-cell;
 	vertical-align: middle;
 	text-align: left;
-	color: #353596;
+	color: DimGrey;
 	font-weight: bold;
 }
 
@@ -143,7 +149,7 @@ html,body {
 	position: absolute;
 	bottom: 10px;
 	right: 20px;
-	color: blue;
+	color: black;
 	font-size: 14px;
 } 
 
@@ -164,7 +170,8 @@ html,body {
 	padding-top: 20px;
 	padding-right: 5px;
 	padding-left: 20px;
-	word-break: break-all;
+	hyphens: auto;
+/* 	word-break: break-all; */
 }
 
 /*.news-date {
@@ -178,12 +185,14 @@ html,body {
 } */
 
 .news-content {
-	word-break: break-all;
+/* 	word-break: break-all; */
+	hyphens: auto;
 	text-align: left;
 	padding-bottom: 5px;
 	padding-top: 5px;
 	padding-right: 25%;
-	padding-left: 20px; 
+	padding-left: 20px;
+	text-align:justify;
 }
 
 
@@ -212,14 +221,17 @@ html,body {
  
 /* for view news */
  .news_text_format {
- margin: 0;
-	width: 80%;
+ 	margin: 0;
+	width: 90%;
 	text-align: left;
-	word-break: break-all;
+	hyphens: auto;
+/* 	word-break: break-all; */
 }
 
 .word-breaker {
-	word-break: break-all;
+/* 	word-break: break-all; */
+	hyphens: auto;
+	text-align:justify;
 }
 
 .space_around_view_text {
@@ -281,6 +293,21 @@ a:visited {
 .add-table-cell-space-bottom {
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+.align_container {
+	display:table; 
+	width: 100%;
+}
+
+.align_left {
+	display: table-cell; 
+	text-align: left;
+}
+
+.align_right {
+	display: table-cell; 
+	text-align: right;
 }
 
 .text-font {

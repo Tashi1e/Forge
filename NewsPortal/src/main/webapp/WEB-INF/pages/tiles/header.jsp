@@ -10,7 +10,7 @@
 <fmt:message bundle="${loc}" key="local.remember.button.name" var="remembButton" />
 <fmt:message bundle="${loc}" key="local.signout.button.name" var="signoutButton" />
 
-<link rel="stylesheet" type="text/css" href="./styles/loginFormStyles.css">
+<link rel="stylesheet" type="text/css" href="./styles/loginFormStyles11.css">
 
 <div class="wrapper">
 	<div class="newstitle"><fmt:message bundle="${loc}" key="local.header" />
@@ -64,7 +64,7 @@
 			<form action="controller" method="post" id="box">
 			<input type="hidden" name="command" value="do_sign_out" />
 			<br>
-			<h4 align="right">${sessionScope.userNickName}</h4>
+			<h4 align="right" style="text-shadow: 3px 3px 2px rgba(0,0,0,0.6)">${sessionScope.userNickName}</h4>
 			<br>
 			<input type="submit" value="${signoutButton}" id="signOut" /> 
 				</form>

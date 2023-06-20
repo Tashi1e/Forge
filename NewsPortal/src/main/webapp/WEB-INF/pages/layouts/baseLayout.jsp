@@ -5,7 +5,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 
-<html>
+<html lang="ru, en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="script/validation.js"></script>
@@ -13,21 +13,10 @@
  -->
 </title>
 
-<link rel="stylesheet" type="text/css" href="./styles/newsStyles.css">
+<link rel="stylesheet" type="text/css" href="./styles/newsStyle11.css">
 
 </head>
-<body style="
-	
-	background-image: url(images/newspaper_background.jpg);
-	background-repeat: no-repeat;
-	background-position: center center;
-	background-attachment: fixed;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-	
-	">
+<body style="background-image: url(images/newspaper_background.jpg)">
 	<div class="page" >
 		<div class="header">
 			<c:import url="/WEB-INF/pages/tiles/header.jsp" />
@@ -45,7 +34,8 @@
 				</c:if>
 		</div>
 
-		<div class="content">
+		<div class="content" style="
+		background-image: url(images/newspaper_design_cut1.jpg)">
 
 				<c:if test="${not (sessionScope.user eq 'active')}">
 					<c:import url="/WEB-INF/pages/tiles/guestInfo.jsp" />
