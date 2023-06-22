@@ -2,10 +2,15 @@ package controller;
 
 import java.io.IOException;
 
+import org.apache.commons.lang.RandomStringUtils;
+
+import jakarta.servlet.http.Cookie;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import util.cookies.CookiesTestClass;
 
 
 public class FrontController extends HttpServlet {
@@ -32,6 +37,12 @@ public class FrontController extends HttpServlet {
 			request.getSession(true).setAttribute("local", request.getParameter("local"));
 		}
 		
+		new CookiesTestClass().saveCookiesToAttributes(request, response);
+		String randomString = RandomStringUtils.randomAlphanumeric(32);
+//		String sessionID = request.getSession(false).getId();
+		System.out.println(randomString);
+//		Cookie c11 = new Cookie("JSESSIONID", sessionID);
+//		response.addCookie(c11);
 		
 		
 		Command command = provider.getCommand(commandName);

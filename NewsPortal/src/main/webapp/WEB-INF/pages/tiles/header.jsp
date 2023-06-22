@@ -10,7 +10,7 @@
 <fmt:message bundle="${loc}" key="local.remember.button.name" var="remembButton" />
 <fmt:message bundle="${loc}" key="local.signout.button.name" var="signoutButton" />
 
-<link rel="stylesheet" type="text/css" href="./styles/loginFormStyles11.css">
+<link rel="stylesheet" type="text/css" href="./styles/loginFormStyles123.css">
 
 <div class="wrapper">
 	<div class="newstitle"><fmt:message bundle="${loc}" key="local.header" />
@@ -75,4 +75,4 @@
 
 </div>
 
-<script type="text/javascript" src="./script/loginForms.js"></script>
+<script type="text/javascript" src="./script/loginForms123.js"></script>

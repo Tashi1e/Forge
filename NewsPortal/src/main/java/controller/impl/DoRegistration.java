@@ -20,21 +20,15 @@ public class DoRegistration implements Command {
 		
 		String nickName;
 		String email;
-		String country;
-		String phoneNumber;
 		String password;
 
 		nickName = request.getParameter("nick");
 		email = request.getParameter("mail");
-		country = request.getParameter("country");
-		phoneNumber = request.getParameter("tel");
 		password = request.getParameter("pass");
 
 		UserInfo user = new UserInfo();
 		user.setNickName(nickName);
 		user.setEmail(email);
-		user.setCountry(country);
-		user.setPhoneNumber(phoneNumber);
 		user.setPassword(password);
 		user.setRole("user");
 		

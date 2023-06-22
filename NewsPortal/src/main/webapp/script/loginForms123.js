@@ -15,11 +15,12 @@ btn1.onclick = function() {
 			btn3.type = 'submit';
 			btn2.type = 'hidden';
 			btn4.type = 'button';
+			command.value = 'do_registration';
 			if (!check.checked) {
-				btn4.value = check.value;
+				btn4.value = '\u{2717} '+check.value;
 			}
 			else {
-				btn4.value = '\u{2713}';
+				btn4.value = '\u{2713} '+check.value;
 			}
 
 			btn2.classList.add('checkbox');
@@ -33,10 +34,10 @@ btn1.onclick = function() {
 btn4.onclick = function() {
 	if (!check.checked) {
 		check.checked = true;
-		btn4.value = '\u{2713}';
+		btn4.value = '\u{2713} '+check.value;
 	} else {
 		check.checked = false;
-		btn4.value = check.value;
+		btn4.value = '\u{2717} '+check.value;
 	}
 }
 
@@ -52,6 +53,7 @@ window.addEventListener('click', function(e) {
 				btn3.type = 'hidden';
 				btn2.type = 'submit';
 				btn4.type = 'hidden';
+				command.value = 'do_sign_in';
 				for (let lbl of lable) {
 					lbl.style.visibility = 'hidden';
 				}

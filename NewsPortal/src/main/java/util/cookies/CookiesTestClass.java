@@ -18,10 +18,11 @@ public class CookiesTestClass extends HttpServlet {
 		if (cookies != null) {
 			Map<String, String> cookieValues = new HashMap<String, String>();
 			for (Cookie cookie : cookies) {
+				System.out.println(cookie.getName() + " - " + cookie.getValue());
 				cookieValues.put(cookie.getName(), cookie.getValue());
 			}
 
-			request.setAttribute("cookies", cookieValues);
+//			request.setAttribute("cookies", cookieValues);
 		}
 	}
 

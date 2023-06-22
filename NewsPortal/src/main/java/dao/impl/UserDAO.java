@@ -1,62 +1,62 @@
 package dao.impl;
 
-import java.io.IOException;
-import java.sql.SQLException;
-import java.util.Random;
-
 import dao.DaoException;
 import bean.UserInfo;
-import dao.DaoException;
 import dao.IUserDAO;
-import util.tempUserSource.TempUserSource;
 
-@SuppressWarnings("unused")
+import java.sql.SQLException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+//@SuppressWarnings("unused")
 public class UserDAO implements IUserDAO {
 
-	TempUserSource tempUserSource = new TempUserSource();
-	UserInfo user = null;
+	String AUTHORIZATION_INFO = null;
 
-	public boolean logination(String login, String password) throws DaoException {
+	public PreparedStatement setQuery () {
+		
+		PreparedStatement ps = null;
+		
+		String sqlQuery = "SELECT * FROM users";
 
 		try {
-			user = tempUserSource.checkLogPass(login, password);
-			if (user!=(null))
-				return true;
-			else
-				return false;
-		} catch (ClassNotFoundException e) {
-			throw new DaoException(e);
-		} catch (IOException e) {
-			throw new DaoException(e);
-		}
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			
+			try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost/news_db?" + "user=root&password=12345")){
+			ps = con.prepareStatement(sqlQuery); //"SELECT * FROM users"
+			
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return ps;
+	}
+	
+	public boolean logination(String login, String password) throws DaoException {
+
+		return false;
 	}
 
 	public String getRole(String login, String password) throws DaoException {
 
-		if (!user.equals(null))
-			return user.getRole();
-		else
-			return "guest";
+		return null;
 	}
-	
+
 	public String getNickName(String login) throws DaoException {
 
-		if (!user.equals(null))
-			return user.getNickName();
-		else
-			return null;
+		return null;
 	}
 
 	public boolean registration(UserInfo user) throws DaoException {
-		try {
-				return tempUserSource.saveNewUser(user);
 
-		} catch (ClassNotFoundException e) {
-			throw new DaoException(e);
-		} catch (IOException e) {
-			throw new DaoException(e);
-		}
+		return false;
 	}
 
 }
