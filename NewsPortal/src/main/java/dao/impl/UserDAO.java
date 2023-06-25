@@ -12,58 +12,77 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-//@SuppressWarnings("unused")
 public class UserDAO implements IUserDAO {
-
-	private PreparedStatement setQuery(String sqlQuery) {
-
-		PreparedStatement ps = null;
-
-//		String sqlQuery = "SELECT * FROM users";
-
+	
+	private final String DB_TYPE_NAME = "jdbc:mysql://localhost/news_db?";
+	private final String DB_USER_PASS = "user=root&password=12345";
+	
+	private Connection con;
+	private PreparedStatement ps;
+	private ResultSet rs;
+	
+	private Connection getConnection () {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
-			try (Connection con = DriverManager
-					.getConnection("jdbc:mysql://localhost/news_db?" + "user=root&password=12345")) {
-				ps = con.prepareStatement(sqlQuery); // "SELECT * FROM users"
-
+			try 
+			{con = DriverManager.getConnection(DB_TYPE_NAME + DB_USER_PASS);
+			
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				// TODO Connection Error
 				e.printStackTrace();
 			}
 
 		} catch (ClassNotFoundException e) {
+			// TODO Driver Error
+			e.printStackTrace();
+		}
+		return con;
+	}
+
+	
+	private PreparedStatement getPS(String sqlQuery) throws SQLException {
+		ps = getConnection().prepareStatement(sqlQuery);
+		return ps;
+	}
+	
+	private void closeConnection () {
+		try {
+			if (rs != null)
+				rs.close();
+			if (ps !=null)
+				ps.close();
+			if (con !=null)
+				con.close();
+			
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return ps;
 	}
 
+	
 	public boolean logination(String login, String password) throws DaoException {
 
 		boolean logination = false;
-		String sqlQuery = "SELECT * FROM users";
-		PreparedStatement ps = setQuery(sqlQuery);
+		String sqlQuery = "SELECT (login, password) FROM users WHERE "
+				+ "login="+login
+				+ " AND "
+				+ "password="+password;
 		try {
-			ResultSet rs = ps.getResultSet();
-			while (rs.next()) {
-				String dbLogin = rs.getString(2);
-				String dbPassword = rs.getString(3);
-				if (dbLogin.equals(login) && dbPassword.equals(password)) {
-					logination = true;
-					break;
-				}
-			}
-			rs.close();
-			ps.close();
-
+			rs = getPS(sqlQuery).getResultSet();
+			if (rs!=null) 
+				logination=true;
+			closeConnection();
+			
 		} catch (SQLException e) {
-			throw new DaoException(e);
+			closeConnection();
+			throw new DaoException("Wrong Login or Password");
 		}
 		return logination;
 	}
 
+	
 	public String getRole(String login, String password) throws DaoException {
 
 		String role = null;
@@ -71,16 +90,13 @@ public class UserDAO implements IUserDAO {
 				+ "ON roles.role_name = users_has_roles.roles_id " + "JOIN users "
 				+ "ON users_has_roles.users_id = users.id " + "WHERE users.login IS " + login;
 
-		ResultSet rs;
 		try {
-			rs = setQuery(sqlQuery).getResultSet();
-			while (rs.next()) {
+			rs = getPS(sqlQuery).getResultSet();
 				role = rs.getString(1);
-			}
-			rs.close();
-
+				closeConnection();
 		} catch (SQLException e) {
-			throw new DaoException(e);
+			closeConnection();
+			throw new DaoException("Ooops, something went wrong!");
 		}
 		return role;
 	}
@@ -90,17 +106,14 @@ public class UserDAO implements IUserDAO {
 		String nickName = null;
 		String sqlQuery = "SELECT nickname " + "FROM user_details " + "JOIN users "
 				+ "ON user_details.users_id = users.id " + "WHERE users.login IS " + login;
-
-		ResultSet rs;
+		
 		try {
-			rs = setQuery(sqlQuery).getResultSet();
-			while (rs.next()) {
+			rs = getPS(sqlQuery).getResultSet();
 				nickName = rs.getString(1);
-			}
-			rs.close();
-
+				closeConnection();
 		} catch (SQLException e) {
-			throw new DaoException(e);
+			closeConnection();
+			throw new DaoException("Ooops, something went wrong!");
 		}
 		return nickName;
 	}
@@ -127,66 +140,20 @@ public class UserDAO implements IUserDAO {
 
 		String addUsersHasRoles = "INSERT INTO users_has_roles (users_id, roles_id) VALUES (" + userId + ", " + 3 + ")";
 
-		PreparedStatement psUserId = null;
-		PreparedStatement psLogPass = null;
-		PreparedStatement psUsersDetails = null;
-		PreparedStatement psUsersHasRoles = null;
-		ResultSet rs = null;
-
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+				getPS(addUserLogPass).executeUpdate();
+				userId = getPS(getUserId).getResultSet().getInt(1);
+				getPS(addUserDetails).executeUpdate();
+				getPS(addUsersHasRoles).executeUpdate();
 
-			try (Connection con = DriverManager
-					.getConnection("jdbc:mysql://localhost/news_db?" + "user=root&password=12345")) {
-				psLogPass = con.prepareStatement(addUserLogPass);
-				psLogPass.executeUpdate();
-
-				psUserId = con.prepareStatement(getUserId);
-				rs = psUserId.getResultSet();
-				while (rs.next()) {
-					userId = rs.getInt(1);
-				}
-				rs.close();
-
-				psUsersDetails = con.prepareStatement(addUserDetails);
-				psUsersDetails.executeUpdate();
-				psUsersHasRoles = con.prepareStatement(addUsersHasRoles);
-				psUsersHasRoles.executeUpdate();
-
-				psLogPass.close();
-				psUserId.close();
-				psUsersDetails.close();
-				psUsersHasRoles.close();
-
+				closeConnection();
 				registrationComplete = true;
 
 			} catch (SQLException e) {
-
-				try {
-					if (rs != null)
-						rs.close();
-					if (psUserId !=null)
-						psUserId.close();
-					if (psLogPass !=null)
-						psLogPass.close();
-					if (psUsersDetails !=null)
-						psUsersDetails.close();
-					if (psUsersHasRoles != null)
-						psUsersHasRoles.close();
-					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				closeConnection();
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			// Wrong Driver Error
-			e.printStackTrace();
-		}
 		return registrationComplete;
 	}
 }
