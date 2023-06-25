@@ -1,6 +1,7 @@
 package bean;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class UserInfo implements Serializable{
 	private String lastName;
 	private String nickName;
 	private String email;
+	private Instant regDate;
 	private String login;
 	private String password;
 	private String role;
