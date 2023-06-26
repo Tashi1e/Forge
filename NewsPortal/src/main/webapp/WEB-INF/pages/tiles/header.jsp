@@ -39,7 +39,7 @@
 
 			<div align="right">
 				<form action="controller" method="post" id="box">
-			<input type="hidden" name="command" value="do_sign_in" id="command" />
+			<input type="hidden" name="command" value="go_to_registration_page" id="command" />
 			<input type="checkbox" name="remember_me" value="${remembButton}" id="checkbox" style="display: none" />
 			<input type="hidden" class = "login_btn" value="${signinButton}" id="signin">
 			<input type="button" class = "login_btn" value="${loginButton}" id="login" /> 
@@ -75,4 +75,4 @@
 
 </div>
 
-<script type="text/javascript" src="./script/loginForms123.js"></script>
+<script type="text/javascript" src="./script/loginForms1234.js"></script>

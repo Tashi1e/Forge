@@ -37,10 +37,10 @@ public class FrontController extends HttpServlet {
 			request.getSession(true).setAttribute("local", request.getParameter("local"));
 		}
 		
-		new CookiesTestClass().saveCookiesToAttributes(request, response);
-		String randomString = RandomStringUtils.randomAlphanumeric(32);
+//		new CookiesTestClass().saveCookiesToAttributes(request, response);
+//		String randomString = RandomStringUtils.randomAlphanumeric(32);
 //		String sessionID = request.getSession(false).getId();
-		System.out.println(randomString);
+//		System.out.println(randomString);
 //		Cookie c11 = new Cookie("JSESSIONID", sessionID);
 //		response.addCookie(c11);
 		

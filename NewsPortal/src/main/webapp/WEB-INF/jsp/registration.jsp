@@ -16,11 +16,20 @@
 <input type="hidden" name="command" value="do_registration">
 
 <p class = "ph-container">
-<input type="text" name="nick" id = "nick" placeholder=" " autocomplete = "new-name">
+<input type="text" name="firstname" id = "first" placeholder=" " autocomplete = "new-name">
+<label for = "first">First Name</label>
+</p>
+<p class = "ph-container">
+<input type="text" name="lastname" id = "last" placeholder=" " autocomplete = "new-name">
+<label for = "last">Last Name</label>
+</p>
+
+<p class = "ph-container">
+<input type="text" name="nickname" id = "nick" placeholder=" " autocomplete = "new-name">
 <label for = "nick">Nick Name</label>
 </p>
 <p class = "ph-container">
-<input type="email" name="mail" id = "email" placeholder=" " required autocomplete = "new-email">
+<input type="email" name="email" id = "email" placeholder=" " required autocomplete = "new-email">
 <label for = "email">E-mail</label>
 </p>
 <!-- <p class = "ph-container"> -->
@@ -28,16 +37,22 @@
 <!--  onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}"> -->
 <!-- <label for = "birth">Birth Date</label> -->
 <!-- </p> -->
+<!-- <p class = "ph-container"> -->
+<!-- <input type="text" name="country" id="country" placeholder=" " autocomplete="new-country"> -->
+<!-- <label for="tel">Country</label> -->
+<!-- </p> -->
+<!-- <p class = "ph-container"> -->
+<!-- <input type="tel" name="tel" id="tel" placeholder=" " autocomplete = "new-tel"> -->
+<!-- <label for="tel">Phone Number</label> -->
+<!-- </p> -->
 <p class = "ph-container">
-<input type="text" name="country" id="country" placeholder=" " autocomplete="new-country">
-<label for="tel">Country</label>
+<input type="text" name="login" id = "login" placeholder=" " autocomplete = "new-name">
+<label for = "login">Login</label>
 </p>
+<br>
+
 <p class = "ph-container">
-<input type="tel" name="tel" id="tel" placeholder=" " autocomplete = "new-tel">
-<label for="tel">Phone Number</label>
-</p>
-<p class = "ph-container">
-<input type="password" name="pass" id="pass" placeholder=" " required autocomplete = "new-password">
+<input type="password" name="password" id="pass" placeholder=" " required autocomplete = "new-password">
 <label for="pass">Password</label>
 </p>
 <p class = "ph-container">

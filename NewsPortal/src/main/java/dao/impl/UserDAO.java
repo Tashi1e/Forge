@@ -5,7 +5,6 @@ import bean.UserInfo;
 import dao.IUserDAO;
 
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.time.Instant;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,21 +12,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class UserDAO implements IUserDAO {
-	
+
 	private final String DB_TYPE_NAME = "jdbc:mysql://localhost/news_db?";
-	private final String DB_USER_PASS = "user=root&password=12345";
-	
+	private final String DB_USER_PASS = "user=root&password=q1w2e3r4t5y6";
+
 	private Connection con;
 	private PreparedStatement ps;
 	private ResultSet rs;
+
 	
-	private Connection getConnection () {
+	private Connection getConnection() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
-			try 
-			{con = DriverManager.getConnection(DB_TYPE_NAME + DB_USER_PASS);
-			
+			try {
+				con = DriverManager.getConnection(DB_TYPE_NAME + DB_USER_PASS);
+
 			} catch (SQLException e) {
 				// TODO Connection Error
 				e.printStackTrace();
@@ -45,36 +45,39 @@ public class UserDAO implements IUserDAO {
 		ps = getConnection().prepareStatement(sqlQuery);
 		return ps;
 	}
+
 	
-	private void closeConnection () {
+	private void closeConnection() {
 		try {
 			if (rs != null)
 				rs.close();
-			if (ps !=null)
+			if (ps != null)
 				ps.close();
-			if (con !=null)
+			if (con != null)
 				con.close();
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	
 	public boolean logination(String login, String password) throws DaoException {
 
 		boolean logination = false;
-		String sqlQuery = "SELECT (login, password) FROM users WHERE "
-				+ "login="+login
-				+ " AND "
-				+ "password="+password;
+		String sqlQuery = "SELECT login, password FROM news_db.users WHERE " + "login='" + login + "' AND "
+				+ "password='" + password + "'";
+
 		try {
-			rs = getPS(sqlQuery).getResultSet();
-			if (rs!=null) 
-				logination=true;
+			rs = getPS(sqlQuery).executeQuery();
+			while (rs.next()) {
+				System.out.println(rs.getString(1) + rs.getString(2));
+				if (rs.getString(1) != null && rs.getString(2) != null)
+					logination = true;
+			}
+
 			closeConnection();
-			
+
 		} catch (SQLException e) {
 			closeConnection();
 			throw new DaoException("Wrong Login or Password");
@@ -82,18 +85,20 @@ public class UserDAO implements IUserDAO {
 		return logination;
 	}
 
-	
 	public String getRole(String login, String password) throws DaoException {
 
 		String role = null;
-		String sqlQuery = "SELECT role_name " + "FROM roles " + "JOIN users_has_roles "
-				+ "ON roles.role_name = users_has_roles.roles_id " + "JOIN users "
-				+ "ON users_has_roles.users_id = users.id " + "WHERE users.login IS " + login;
+		String sqlQuery = "SELECT role_name " + "FROM news_db.roles " + "JOIN news_db.users_has_roles "
+				+ "ON roles.id = users_has_roles.roles_id " + "JOIN news_db.users "
+				+ "ON users_has_roles.users_id = users.id " + "WHERE users.login= '" + login + "'";
 
 		try {
-			rs = getPS(sqlQuery).getResultSet();
+
+			rs = getPS(sqlQuery).executeQuery();
+			while (rs.next()) {
 				role = rs.getString(1);
-				closeConnection();
+			}
+			closeConnection();
 		} catch (SQLException e) {
 			closeConnection();
 			throw new DaoException("Ooops, something went wrong!");
@@ -104,13 +109,16 @@ public class UserDAO implements IUserDAO {
 	public String getNickName(String login) throws DaoException {
 
 		String nickName = null;
-		String sqlQuery = "SELECT nickname " + "FROM user_details " + "JOIN users "
-				+ "ON user_details.users_id = users.id " + "WHERE users.login IS " + login;
-		
+		String sqlQuery = "SELECT nickname " + "FROM news_db.user_details " + "JOIN news_db.users "
+				+ "ON user_details.users_id = users.id " + "WHERE users.login = '" + login + "'";
+
 		try {
-			rs = getPS(sqlQuery).getResultSet();
+			rs = getPS(sqlQuery).executeQuery();
+			while (rs.next()) {
 				nickName = rs.getString(1);
-				closeConnection();
+//			System.out.println(nickName);
+			}
+			closeConnection();
 		} catch (SQLException e) {
 			closeConnection();
 			throw new DaoException("Ooops, something went wrong!");
@@ -129,31 +137,49 @@ public class UserDAO implements IUserDAO {
 		Instant regDate = user.getRegDate();
 		String login = user.getLogin();
 		String password = user.getPassword();
-		String role = user.getRole();
 
-		String addUserLogPass = "INSERT INTO users (login, password) VALUES (" + login + ", " + password + ")";
+//		System.out.println(user.toString());
 
-		String getUserId = "SELECT FROM users (id) WHERE users.login IS " + login;
+		String addUserLogPass = "INSERT INTO news_db.users (login, password) VALUES (? , ?)";
 
-		String addUserDetails = "INSERT INTO user_details (firstname, lastname, nickname, email, register_date) VALUES ("
-				+ firstName + ", " + lastName + ", " + nickName + ", " + email + ", " + regDate + ")";
+		String getUserId = "SELECT id FROM news_db.users WHERE users.login ='" + login + "'";
 
-		String addUsersHasRoles = "INSERT INTO users_has_roles (users_id, roles_id) VALUES (" + userId + ", " + 3 + ")";
+		String addUserDetails = "INSERT INTO news_db.user_details (users_id, firstname, lastname, nickname, email) VALUES (?, ?, ?, ?, ?)";
+
+		String addUsersHasRoles = "INSERT INTO news_db.users_has_roles (users_id, roles_id) VALUES (?, ?)";
 
 		try {
-				getPS(addUserLogPass).executeUpdate();
-				userId = getPS(getUserId).getResultSet().getInt(1);
-				getPS(addUserDetails).executeUpdate();
-				getPS(addUsersHasRoles).executeUpdate();
+			ps = getPS(addUserLogPass);
+			ps.setString(1, login);
+			ps.setString(2, password);
+			ps.executeUpdate();
 
-				closeConnection();
-				registrationComplete = true;
-
-			} catch (SQLException e) {
-				closeConnection();
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			rs = getPS(getUserId).executeQuery();
+			while (rs.next()) {
+				userId = rs.getInt(1);
 			}
+
+			ps = getPS(addUserDetails);
+			ps.setInt(1, userId);
+			ps.setString(2, firstName);
+			ps.setString(3, lastName);
+			ps.setString(4, nickName);
+			ps.setString(5, email);
+			ps.executeUpdate();
+
+			ps = getPS(addUsersHasRoles);
+			ps.setInt(1, userId);
+			ps.setInt(2, 3);
+			ps.executeUpdate();
+
+			closeConnection();
+			registrationComplete = true;
+
+		} catch (SQLException e) {
+			closeConnection();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return registrationComplete;
 	}
 }

@@ -15,7 +15,7 @@ btn1.onclick = function() {
 			btn3.type = 'submit';
 			btn2.type = 'hidden';
 			btn4.type = 'button';
-			command.value = 'do_registration';
+			command.value = 'do_sign_in';
 			if (!check.checked) {
 				btn4.value = '\u{2717} '+check.value;
 			}
@@ -53,7 +53,7 @@ window.addEventListener('click', function(e) {
 				btn3.type = 'hidden';
 				btn2.type = 'submit';
 				btn4.type = 'hidden';
-				command.value = 'do_sign_in';
+				command.value = 'go_to_registration_page';
 				for (let lbl of lable) {
 					lbl.style.visibility = 'hidden';
 				}
