@@ -1,11 +1,14 @@
 package dao.impl;
 
 import dao.DaoException;
+import bean.User;
 import bean.UserInfo;
 import dao.IUserDAO;
 
 import java.sql.SQLException;
 import java.time.Instant;
+import java.util.Map;
+import java.util.Date;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,173 +16,186 @@ import java.sql.ResultSet;
 
 public class UserDAO implements IUserDAO {
 
-	private final String DB_TYPE_NAME = "jdbc:mysql://localhost/news_db?";
-	private final String DB_USER_PASS = "user=root&password=q1w2e3r4t5y6";
-
-	private Connection con;
-	private PreparedStatement ps;
-	private ResultSet rs;
-
+	private final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
+	private final String DB_URL = "jdbc:mysql://localhost/news_db";
+	private final String DB_USER = "root";
+	private final String DB_PASSWORD = "q1w2e3r4t5y6";
 	
-	private Connection getConnection() {
+	private final String USER_LOG_PASS_QUERY = 
+												"SELECT role_name FROM roles " 
+											  + "JOIN users_has_roles "
+											  + "ON roles.id = users_has_roles.roles_id " 
+											  + "JOIN users " + "ON users_has_roles.users_id = users.id "
+											  + "WHERE users.login = ? AND password = ?";
+	
+	String USER_INFO_QUERY = 
+							"SELECT firstname, lastname, nickname, email, register_date " 
+						  + "FROM user_details "
+						  + "JOIN users " 
+						  + "ON users.id = user_details.users_id " 
+						  + "WHERE users.login = ?";
+
+	private Connection getConnection() throws DaoException {
+		Connection con = null;
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName(DB_DRIVER);
 
 			try {
-				con = DriverManager.getConnection(DB_TYPE_NAME + DB_USER_PASS);
+				con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
 
 			} catch (SQLException e) {
-				// TODO Connection Error
-				e.printStackTrace();
+				throw new DaoException ("Data Base connection error", e);
 			}
 
 		} catch (ClassNotFoundException e) {
-			// TODO Driver Error
-			e.printStackTrace();
+			throw new DaoException ("Data Base driver error", e);
 		}
 		return con;
+
 	}
 
-	
-	private PreparedStatement getPS(String sqlQuery) throws SQLException {
-		ps = getConnection().prepareStatement(sqlQuery);
-		return ps;
-	}
 
-	
-	private void closeConnection() {
+	private void closeConnection(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet)
+			throws DaoException {
 		try {
-			if (rs != null)
-				rs.close();
-			if (ps != null)
-				ps.close();
-			if (con != null)
-				con.close();
-
+			resultSet.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new DaoException("Failed to close ResultSet", e);
+		}
+		try {
+			preparedStatement.close();
+		} catch (SQLException e) {
+			throw new DaoException("Failed to close PreparedStatement", e);
+		}
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			throw new DaoException("Failed to close Connection", e);
 		}
 	}
 
-	public boolean logination(String login, String password) throws DaoException {
 
-		boolean logination = false;
-		String sqlQuery = "SELECT login, password FROM news_db.users WHERE " + "login='" + login + "' AND "
-				+ "password='" + password + "'";
-
-		try {
-			rs = getPS(sqlQuery).executeQuery();
-			while (rs.next()) {
-				System.out.println(rs.getString(1) + rs.getString(2));
-				if (rs.getString(1) != null && rs.getString(2) != null)
-					logination = true;
-			}
-
-			closeConnection();
-
-		} catch (SQLException e) {
-			closeConnection();
-			throw new DaoException("Wrong Login or Password");
-		}
-		return logination;
-	}
-
+	@Override
 	public String getRole(String login, String password) throws DaoException {
 
 		String role = null;
-		String sqlQuery = "SELECT role_name " + "FROM news_db.roles " + "JOIN news_db.users_has_roles "
-				+ "ON roles.id = users_has_roles.roles_id " + "JOIN news_db.users "
-				+ "ON users_has_roles.users_id = users.id " + "WHERE users.login= '" + login + "'";
 
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 		try {
 
-			rs = getPS(sqlQuery).executeQuery();
-			while (rs.next()) {
-				role = rs.getString(1);
+			connection = getConnection();
+			preparedStatement = connection.prepareStatement(USER_LOG_PASS_QUERY);
+			preparedStatement.setString(1, login);
+			preparedStatement.setString(2, password);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				role = resultSet.getString("role_name");
 			}
-			closeConnection();
+
 		} catch (SQLException e) {
-			closeConnection();
-			throw new DaoException("Ooops, something went wrong!");
+			throw new DaoException("Can't find user", e);
+		} finally {
+			closeConnection(connection, preparedStatement, resultSet);
 		}
 		return role;
 	}
 
-	public String getNickName(String login) throws DaoException {
+	@Override
+	public UserInfo getUserInfo(String login) throws DaoException {
 
-		String nickName = null;
-		String sqlQuery = "SELECT nickname " + "FROM news_db.user_details " + "JOIN news_db.users "
-				+ "ON user_details.users_id = users.id " + "WHERE users.login = '" + login + "'";
+		UserInfo userInfo = null;
 
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 		try {
-			rs = getPS(sqlQuery).executeQuery();
-			while (rs.next()) {
-				nickName = rs.getString(1);
-//			System.out.println(nickName);
+
+			connection = getConnection();
+			preparedStatement = connection.prepareStatement(USER_INFO_QUERY);
+			preparedStatement.setString(1, login);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				userInfo.setFirstName(resultSet.getString("firstname"));
+				userInfo.setLastName(resultSet.getString("lastname"));
+				userInfo.setNickName(resultSet.getString("nickname"));
+				userInfo.setEmail(resultSet.getString("email"));
+				userInfo.setRegDate(resultSet.getDate("register_date"));
 			}
-			closeConnection();
+
 		} catch (SQLException e) {
-			closeConnection();
-			throw new DaoException("Ooops, something went wrong!");
+			throw new DaoException("Ooops, something went wrong!", e);
+		} finally {
+			closeConnection(connection, preparedStatement, resultSet);
 		}
-		return nickName;
+		return userInfo;
 	}
 
-	public boolean registration(UserInfo user) throws DaoException {
+	@Override
+	public boolean registration(User user, UserInfo userInfo) throws DaoException {
 
 		boolean registrationComplete = false;
 		int userId = 0;
-		String firstName = user.getFirstName();
-		String lastName = user.getLastName();
-		String nickName = user.getNickName();
-		String email = user.getEmail();
-		Instant regDate = user.getRegDate();
+		String firstName = userInfo.getFirstName();
+		String lastName = userInfo.getLastName();
+		String nickName = userInfo.getNickName();
+		String email = userInfo.getEmail();
+		Date regDate = userInfo.getRegDate();
 		String login = user.getLogin();
 		String password = user.getPassword();
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
 
-//		System.out.println(user.toString());
+		String ADD_USER_QUERY = "INSERT INTO news_db.users (login, password) VALUES (? , ?)";
 
-		String addUserLogPass = "INSERT INTO news_db.users (login, password) VALUES (? , ?)";
+		String getUserId = "SELECT id FROM news_db.users WHERE users.login = ?";
 
-		String getUserId = "SELECT id FROM news_db.users WHERE users.login ='" + login + "'";
+		String ADD_USER_INFO_QUERY = "INSERT INTO news_db.user_details (users_id, firstname, lastname, nickname, email) VALUES (?, ?, ?, ?, ?)";
 
-		String addUserDetails = "INSERT INTO news_db.user_details (users_id, firstname, lastname, nickname, email) VALUES (?, ?, ?, ?, ?)";
-
-		String addUsersHasRoles = "INSERT INTO news_db.users_has_roles (users_id, roles_id) VALUES (?, ?)";
+		String ADD_USER_ROLE_QUERY = "INSERT INTO news_db.users_has_roles (users_id, roles_id) VALUES (?, ?)";
 
 		try {
-			ps = getPS(addUserLogPass);
-			ps.setString(1, login);
-			ps.setString(2, password);
-			ps.executeUpdate();
+			connection = getConnection();
+			preparedStatement = connection.prepareStatement(ADD_USER_QUERY);
+			preparedStatement.setString(1, login);
+			preparedStatement.setString(2, password);
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
 
-			rs = getPS(getUserId).executeQuery();
-			while (rs.next()) {
-				userId = rs.getInt(1);
+			preparedStatement = connection.prepareStatement(getUserId);
+			preparedStatement.setString(1, login);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				userId = resultSet.getInt(1);
 			}
+			preparedStatement.close();
 
-			ps = getPS(addUserDetails);
-			ps.setInt(1, userId);
-			ps.setString(2, firstName);
-			ps.setString(3, lastName);
-			ps.setString(4, nickName);
-			ps.setString(5, email);
-			ps.executeUpdate();
+			preparedStatement = connection.prepareStatement(ADD_USER_INFO_QUERY);
+			preparedStatement.setInt(1, userId);
+			preparedStatement.setString(2, firstName);
+			preparedStatement.setString(3, lastName);
+			preparedStatement.setString(4, nickName);
+			preparedStatement.setString(5, email);
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
 
-			ps = getPS(addUsersHasRoles);
-			ps.setInt(1, userId);
-			ps.setInt(2, 3);
-			ps.executeUpdate();
+			preparedStatement = connection.prepareStatement(ADD_USER_ROLE_QUERY);
+			preparedStatement.setInt(1, userId);
+			preparedStatement.setInt(2, 3);
+			preparedStatement.executeUpdate();
 
-			closeConnection();
 			registrationComplete = true;
 
 		} catch (SQLException e) {
-			closeConnection();
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection, preparedStatement, resultSet);
 		}
 		return registrationComplete;
 	}
+
 }

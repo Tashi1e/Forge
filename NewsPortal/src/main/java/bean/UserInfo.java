@@ -1,19 +1,20 @@
 package bean;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Date;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.EqualsAndHashCode;
 
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper=false)
 
-public class UserInfo implements Serializable{
+
+public class UserInfo extends User implements Serializable{
 
 	private static final long serialVersionUID = -1421192482328889996L;
 	
@@ -21,9 +22,6 @@ public class UserInfo implements Serializable{
 	private String lastName;
 	private String nickName;
 	private String email;
-	private Instant regDate;
-	private String login;
-	private String password;
-	private String role;
+	private Date regDate;
 	
 }

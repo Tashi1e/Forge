@@ -1,11 +1,11 @@
 package dao;
 
+import bean.User;
 import bean.UserInfo;
 
 public interface IUserDAO {
 	
-	boolean logination(String login, String password) throws DaoException;
-	boolean registration(UserInfo user) throws DaoException;
 	String getRole(String login, String password) throws DaoException;
-	String getNickName(String login) throws DaoException;
+	UserInfo getUserInfo(String login) throws DaoException;
+	boolean registration(User user, UserInfo userInfo) throws DaoException;
 }
