@@ -1,13 +1,8 @@
 package controller.impl;
 
 import java.io.IOException;
-import java.util.List;
 
-import bean.News;
 import controller.Command;
-import service.INewsService;
-import service.ServiceException;
-import service.ServiceProvider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
