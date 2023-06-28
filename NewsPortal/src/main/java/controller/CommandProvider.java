@@ -6,6 +6,7 @@ import java.util.Map;
 import controller.impl.DoRegistration;
 import controller.impl.DoSIgnIn;
 import controller.impl.DoSignOut;
+import controller.impl.DoChangeLocale;
 import controller.impl.GoToBasePage;
 import controller.impl.GoToErrorPage;
 import controller.impl.GoToNewsList;
@@ -25,6 +26,7 @@ public final class CommandProvider {
 		commands.put(CommandName.DO_SIGN_IN, new DoSIgnIn());
 		commands.put(CommandName.DO_SIGN_OUT, new DoSignOut());
 		commands.put(CommandName.DO_REGISTRATION, new DoRegistration());
+		commands.put(CommandName.DO_CHANGE_LOCALE, new DoChangeLocale());
 	}
 	
 	public static CommandProvider getInstance () {

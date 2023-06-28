@@ -17,9 +17,9 @@ public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private final String COMMAND_PARAM_NAME = "command";
-	private final String LOCALE_PARAM_NAME = "local";
 	
 	private final CommandProvider provider = CommandProvider.getInstance();
+	
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
@@ -31,11 +31,6 @@ public class FrontController extends HttpServlet {
 	
 	private void process (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String commandName = request.getParameter(COMMAND_PARAM_NAME);
-		String getLocale = request.getParameter(LOCALE_PARAM_NAME);
-		
-		if(getLocale!=null) {
-			request.getSession(true).setAttribute("local", request.getParameter("local"));
-		}
 		
 //		new CookiesTestClass().saveCookiesToAttributes(request, response);
 //		String randomString = RandomStringUtils.randomAlphanumeric(32);

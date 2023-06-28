@@ -9,4 +9,5 @@ public enum CommandName {
 	DO_SIGN_IN,
 	DO_SIGN_OUT,
 	DO_REGISTRATION,
+	DO_CHANGE_LOCALE,
 }

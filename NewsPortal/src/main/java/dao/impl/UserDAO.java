@@ -71,7 +71,7 @@ public class UserDAO implements IUserDAO {
 	@Override
 	public UserInfo getUserInfo(String login) throws DaoException {
 
-		UserInfo userInfo = new UserInfo();
+		UserInfo userInfo = null;
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -83,6 +83,7 @@ public class UserDAO implements IUserDAO {
 			preparedStatement.setString(1, login);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
+				userInfo = new UserInfo();
 				userInfo.setFirstName(resultSet.getString("firstname"));
 				userInfo.setLastName(resultSet.getString("lastname"));
 				userInfo.setNickName(resultSet.getString("nickname"));
@@ -106,24 +107,20 @@ public class UserDAO implements IUserDAO {
 
 		boolean registrationComplete = false;
 		
-		
-		
 		String firstName = userInfo.getFirstName();
 		String lastName = userInfo.getLastName();
 		String nickName = userInfo.getNickName();
 		String email = userInfo.getEmail();
-		String login = user.getLogin();
-		String password = user.getPassword();
 		
         Timestamp sqlUserRegDate = new Timestamp(System.currentTimeMillis());
         
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		
-		if (getRole(login, password)!=null) {
+		if (getRole(user.getLogin(), user.getPassword())!=null) {
 			throw new DaoException("User with selected LOGIN already exists! Plese chose another one!");
 		}
-		else if (getUserInfo(login).getEmail().equals(email)) {
+		else if (getUserInfo(user.getLogin()).getEmail()!=null && getUserInfo(user.getLogin()).getEmail().equals(email)) {
 			throw new DaoException("User with selected E-MAIL already exists! Plese chose another one!");
 		}
 		else {
@@ -133,8 +130,8 @@ public class UserDAO implements IUserDAO {
 			connection = getConnection();			
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(ADD_USER_QUERY);
-			preparedStatement.setString(1, login);
-			preparedStatement.setString(2, password);
+			preparedStatement.setString(1, user.getLogin());
+			preparedStatement.setString(2, user.getPassword());
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
 

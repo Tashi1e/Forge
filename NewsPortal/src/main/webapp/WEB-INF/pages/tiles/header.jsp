@@ -1,7 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<fmt:setLocale value="${sessionScope.local}" />
+<fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
 
 <fmt:message bundle="${loc}" key="local.login.button.name" var="loginButton" />
@@ -29,9 +29,9 @@
 
 		<div align="right">
 <form>
-			<a href="controller?local=en&command=${sessionScope.currentPage}"> <fmt:message bundle="${loc}" key="local.en.button.name" /> </a> 
+			<a href="controller?locale=en&command=do_change_locale"> <fmt:message bundle="${loc}" key="local.en.button.name" /> </a> 
 			&nbsp;&nbsp; 
-			<a href="controller?local=ru&command=${sessionScope.currentPage}"> <fmt:message bundle="${loc}" key="local.ru.button.name" /> </a>
+			<a href="controller?locale=ru&command=do_change_locale"> <fmt:message bundle="${loc}" key="local.ru.button.name" /> </a>
 			</form>
 		</div>
 
