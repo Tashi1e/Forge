@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Random;
 
 import dao.DaoException;
+import bean.User;
 import bean.UserInfo;
 import dao.DaoException;
 import dao.IUserDAO;
@@ -57,6 +58,18 @@ public class UserDAO_temp implements IUserDAO {
 		} catch (IOException e) {
 			throw new DaoException(e);
 		}
+	}
+
+	@Override
+	public UserInfo getUserInfo(String login) throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean registration(User user, UserInfo userInfo) throws DaoException {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

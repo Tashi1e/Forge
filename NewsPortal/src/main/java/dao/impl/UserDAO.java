@@ -6,9 +6,7 @@ import bean.UserInfo;
 import dao.IUserDAO;
 
 import java.sql.SQLException;
-import java.time.Instant;
-import java.util.Map;
-import java.util.Date;
+import java.sql.Timestamp;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -28,51 +26,19 @@ public class UserDAO implements IUserDAO {
 											  + "JOIN users " + "ON users_has_roles.users_id = users.id "
 											  + "WHERE users.login = ? AND password = ?";
 	
-	String USER_INFO_QUERY = 
-							"SELECT firstname, lastname, nickname, email, register_date " 
-						  + "FROM user_details "
-						  + "JOIN users " 
-						  + "ON users.id = user_details.users_id " 
-						  + "WHERE users.login = ?";
+	private final String USER_INFO_QUERY = 
+											"SELECT firstname, lastname, nickname, email, register_date " 
+										  + "FROM user_details "
+										  + "JOIN users " 
+										  + "ON users.id = user_details.users_id " 
+										  + "WHERE users.login = ?";
+	
+	private final String ADD_USER_QUERY = "INSERT INTO users (login, password) VALUES (? , ?)";
 
-	private Connection getConnection() throws DaoException {
-		Connection con = null;
-		try {
-			Class.forName(DB_DRIVER);
+	private final String ADD_USER_INFO_QUERY = "INSERT INTO user_details (users_id, firstname, lastname, nickname, email, register_date) "
+											 + "VALUES (LAST_INSERT_ID(), ?, ?, ?, ?, ?)";
 
-			try {
-				con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-
-			} catch (SQLException e) {
-				throw new DaoException ("Data Base connection error", e);
-			}
-
-		} catch (ClassNotFoundException e) {
-			throw new DaoException ("Data Base driver error", e);
-		}
-		return con;
-
-	}
-
-
-	private void closeConnection(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet)
-			throws DaoException {
-		try {
-			resultSet.close();
-		} catch (SQLException e) {
-			throw new DaoException("Failed to close ResultSet", e);
-		}
-		try {
-			preparedStatement.close();
-		} catch (SQLException e) {
-			throw new DaoException("Failed to close PreparedStatement", e);
-		}
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			throw new DaoException("Failed to close Connection", e);
-		}
-	}
+	private final String ADD_USER_ROLE_QUERY = "INSERT INTO users_has_roles (users_id, roles_id) VALUES (LAST_INSERT_ID(), ?)";
 
 
 	@Override
@@ -105,7 +71,7 @@ public class UserDAO implements IUserDAO {
 	@Override
 	public UserInfo getUserInfo(String login) throws DaoException {
 
-		UserInfo userInfo = null;
+		UserInfo userInfo = new UserInfo();
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -121,11 +87,14 @@ public class UserDAO implements IUserDAO {
 				userInfo.setLastName(resultSet.getString("lastname"));
 				userInfo.setNickName(resultSet.getString("nickname"));
 				userInfo.setEmail(resultSet.getString("email"));
-				userInfo.setRegDate(resultSet.getDate("register_date"));
+				
+				Timestamp sqlUserRegDate = resultSet.getTimestamp("register_date");
+				userInfo.setUserRegDate(sqlUserRegDate.toInstant());
+				
 			}
 
 		} catch (SQLException e) {
-			throw new DaoException("Ooops, something went wrong!", e);
+			throw new DaoException("Can't get user info", e);
 		} finally {
 			closeConnection(connection, preparedStatement, resultSet);
 		}
@@ -136,66 +105,126 @@ public class UserDAO implements IUserDAO {
 	public boolean registration(User user, UserInfo userInfo) throws DaoException {
 
 		boolean registrationComplete = false;
-		int userId = 0;
+		
+		
+		
 		String firstName = userInfo.getFirstName();
 		String lastName = userInfo.getLastName();
 		String nickName = userInfo.getNickName();
 		String email = userInfo.getEmail();
-		Date regDate = userInfo.getRegDate();
 		String login = user.getLogin();
 		String password = user.getPassword();
 		
+        Timestamp sqlUserRegDate = new Timestamp(System.currentTimeMillis());
+        
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-
-		String ADD_USER_QUERY = "INSERT INTO news_db.users (login, password) VALUES (? , ?)";
-
-		String getUserId = "SELECT id FROM news_db.users WHERE users.login = ?";
-
-		String ADD_USER_INFO_QUERY = "INSERT INTO news_db.user_details (users_id, firstname, lastname, nickname, email) VALUES (?, ?, ?, ?, ?)";
-
-		String ADD_USER_ROLE_QUERY = "INSERT INTO news_db.users_has_roles (users_id, roles_id) VALUES (?, ?)";
+		
+		if (getRole(login, password)!=null) {
+			throw new DaoException("User with selected LOGIN already exists! Plese chose another one!");
+		}
+		else if (getUserInfo(login).getEmail().equals(email)) {
+			throw new DaoException("User with selected E-MAIL already exists! Plese chose another one!");
+		}
+		else {
 
 		try {
-			connection = getConnection();
+			
+			connection = getConnection();			
+			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(ADD_USER_QUERY);
 			preparedStatement.setString(1, login);
 			preparedStatement.setString(2, password);
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
 
-			preparedStatement = connection.prepareStatement(getUserId);
-			preparedStatement.setString(1, login);
-			resultSet = preparedStatement.executeQuery();
-			if (resultSet.next()) {
-				userId = resultSet.getInt(1);
-			}
-			preparedStatement.close();
-
 			preparedStatement = connection.prepareStatement(ADD_USER_INFO_QUERY);
-			preparedStatement.setInt(1, userId);
-			preparedStatement.setString(2, firstName);
-			preparedStatement.setString(3, lastName);
-			preparedStatement.setString(4, nickName);
-			preparedStatement.setString(5, email);
+			preparedStatement.setString(1, firstName);
+			preparedStatement.setString(2, lastName);
+			preparedStatement.setString(3, nickName);
+			preparedStatement.setString(4, email);
+			preparedStatement.setTimestamp(5, sqlUserRegDate);
 			preparedStatement.executeUpdate();
 			preparedStatement.close();
 
 			preparedStatement = connection.prepareStatement(ADD_USER_ROLE_QUERY);
-			preparedStatement.setInt(1, userId);
-			preparedStatement.setInt(2, 3);
+			preparedStatement.setInt(1, 3);
 			preparedStatement.executeUpdate();
 
+			connection.commit();
+			
 			registrationComplete = true;
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new DaoException(e1); // DB rollback error
+			}
+			throw new DaoException("Save data failed", e);
 		} finally {
-			closeConnection(connection, preparedStatement, resultSet);
+			closeConnection(connection, preparedStatement);
+		}
 		}
 		return registrationComplete;
 	}
+	
+	
+	private Connection getConnection() throws DaoException {
+		Connection con = null;
+		try {
+			Class.forName(DB_DRIVER);
 
+			try {
+				con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+
+			} catch (SQLException e) {
+				throw new DaoException (e);  //Data Base connection error 
+			}
+
+		} catch (ClassNotFoundException e) {
+			throw new DaoException (e);  //Data Base driver error
+		}
+		return con;
+
+	}
+
+
+	private void closeConnection(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet) throws DaoException {
+		try {
+			if (resultSet!=null)
+			resultSet.close();
+		} catch (SQLException e) {
+			throw new DaoException(e); // Failed to close ResultSet
+		}
+		try {
+			if (preparedStatement!=null)
+			preparedStatement.close();
+		} catch (SQLException e) {
+			throw new DaoException(e); // Failed to close PreparedStatement
+		}
+		try {
+			if (connection!=null)
+			connection.close();
+		} catch (SQLException e) {
+			throw new DaoException(e); // Failed to close Connection 
+		}
+	}
+	
+	private void closeConnection(Connection connection, PreparedStatement preparedStatement) throws DaoException {
+		try {
+			if (preparedStatement!=null)
+			preparedStatement.close();
+		} catch (SQLException e) {
+			throw new DaoException(e); // Failed to close PreparedStatement
+		}
+		try {
+			if (connection!=null)
+			connection.close();
+		} catch (SQLException e) {
+			throw new DaoException(e); // Failed to close Connection
+		}
+	}
+	
+	
 }

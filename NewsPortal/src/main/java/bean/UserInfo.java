@@ -1,7 +1,7 @@
 package bean;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -22,6 +22,6 @@ public class UserInfo extends User implements Serializable{
 	private String lastName;
 	private String nickName;
 	private String email;
-	private Date regDate;
+	private Instant userRegDate;
 	
 }

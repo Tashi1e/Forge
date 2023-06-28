@@ -1,6 +1,7 @@
 package controller.impl;
 
 import java.io.IOException;
+import bean.User;
 import bean.UserInfo;
 
 import controller.Command;
@@ -32,24 +33,25 @@ public class DoRegistration implements Command {
 		login = request.getParameter("login");
 		password = request.getParameter("password");
 
-		UserInfo user = new UserInfo();
-		user.setFirstName(firstName);
-		user.setLastName(lastName);
-		user.setNickName(nickName);
-		user.setEmail(email);
+		User user = new User();
 		user.setLogin(login);
 		user.setPassword(password);
 		
-//		System.out.println(user.toString());
+		UserInfo userInfo = new UserInfo();
+		userInfo.setFirstName(firstName);
+		userInfo.setLastName(lastName);
+		userInfo.setNickName(nickName);
+		userInfo.setEmail(email);
 		
 		try {
-			if (service.registration(user))
+			if (service.registration(user, userInfo))
 				request.getSession(true).setAttribute("message", "Thank You for registration");
 			response.sendRedirect("controller?command=go_to_base_page");
 		} catch (ServiceException e) {
-			request.getSession(true).setAttribute("message", "Internal Error");
+			request.getSession(true).setAttribute("message", "Registration failed");
 			response.sendRedirect("controller?command=go_to_base_page");
 			e.printStackTrace();
+			System.out.println(e.getMessage());
 		}
 
 	}

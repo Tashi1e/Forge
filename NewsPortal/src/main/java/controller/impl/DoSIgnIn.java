@@ -31,7 +31,7 @@ public class DoSIgnIn implements Command {
 		password = request.getParameter(JSP_PASSWORD_PARAM);
 		checkbox = request.getParameter(JSP_REMEMBER_ME_PARAM)==null?false:true;
 		
-		System.out.println(checkbox);
+//		System.out.println(checkbox);
 
 		// small validation
 
