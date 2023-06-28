@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: localhost    Database: news_db
+-- Host: 127.0.0.1    Database: news_db
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -39,7 +39,7 @@ CREATE TABLE `users_has_roles` (
 
 LOCK TABLES `users_has_roles` WRITE;
 /*!40000 ALTER TABLE `users_has_roles` DISABLE KEYS */;
-INSERT INTO `users_has_roles` VALUES (1,1),(11,3),(16,3);
+INSERT INTO `users_has_roles` VALUES (1,1),(11,3),(16,3),(17,3);
 /*!40000 ALTER TABLE `users_has_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-26 15:12:37
+-- Dump completed on 2023-06-28 22:30:52

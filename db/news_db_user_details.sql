@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: localhost    Database: news_db
+-- Host: 127.0.0.1    Database: news_db
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -41,7 +41,7 @@ CREATE TABLE `user_details` (
 
 LOCK TABLES `user_details` WRITE;
 /*!40000 ALTER TABLE `user_details` DISABLE KEYS */;
-INSERT INTO `user_details` VALUES (1,'Pavel','Chupikov','Tashile','blkkpr@narod.ru','2023-06-26 07:26:32'),(11,'Vasya','Pupkin','Vooop','vp@mail.ru',NULL),(16,'qwe','rty','qwerty','qw@er.ty',NULL);
+INSERT INTO `user_details` VALUES (1,'Pavel','Chupikov','Tashile','blkkpr@narod.ru','2023-06-26 07:26:32'),(11,'Vasya','Pupkin','Vooop','vp@mail.ru',NULL),(16,'qwe','rty','qwerty','qw@er.ty',NULL),(17,'James','Bond','007','agent007@mi6.uk','2023-06-28 18:42:30');
 /*!40000 ALTER TABLE `user_details` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-26 15:12:37
+-- Dump completed on 2023-06-28 22:30:52

@@ -139,7 +139,7 @@ public final class ConnectionPool {
 		public PooledConnection(Connection c) throws SQLException {
 			this.connection = c;
 			this.connection.setAutoCommit(true);
-		}
+		} 
 
 		public void reallyClose() throws SQLException {
 			connection.close();
