@@ -1,4 +1,6 @@
 /target/
+/bin/
+/.settings/
 
 .apt_generated
 .classpath
@@ -7,4 +9,4 @@
 .settings
 .springBeans
 .sts4-cache
-/bin/
+
