@@ -12,7 +12,7 @@ public class UserServiceImpl implements IUserService {
 
 	private final IUserDAO userDAO = DaoProvider.getInstance().getUserDao();
 // TODO
-//	private final UserDataValidation userDataValidation = ValidationProvider.getIntsance().getUserDataVelidation();
+//	private final UserDataValidation userDataValidation = ValidationProvider.getIntsance().getUserDataValidation();
 
 	@Override
 	public String signIn(String login, String password) throws ServiceException {

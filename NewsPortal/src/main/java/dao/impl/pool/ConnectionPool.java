@@ -17,7 +17,6 @@ import java.sql.SQLXML;
 import java.sql.Savepoint;
 import java.sql.Statement;
 import java.sql.Struct;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -25,6 +24,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
 
 public final class ConnectionPool {
+	
+	private static final ConnectionPool instance = new ConnectionPool();
 
 	private BlockingQueue<Connection> connectionQueue;
 	private BlockingQueue<Connection> givenAwayConQueue;
@@ -34,7 +35,7 @@ public final class ConnectionPool {
 	private String password;
 	private int poolSize;
 
-	public ConnectionPool() {
+	private ConnectionPool() {
 
 		DBResourceManager dbResourseManager = DBResourceManager.getInstance();
 		this.driverName = dbResourseManager.getValue(DBParameter.DB_DRIVER);
@@ -47,6 +48,10 @@ public final class ConnectionPool {
 		} catch (NumberFormatException e) {
 			poolSize = 5;
 		}
+	}
+	
+	public static ConnectionPool getInstance() {
+		return instance;
 	}
 
 	public void initPoolData() throws ConnectionPoolException {
@@ -67,11 +72,10 @@ public final class ConnectionPool {
 		}
 	}
 
-//	public void dispos() {          // ??? а меня за это ругали)
-//		clearConnectionQueue();
-//	}
+	public void dispose() {          // ??? а меня за это ругали)
+		clearConnectionQueue();
+	}
 
-	@SuppressWarnings("unused")
 	private void clearConnectionQueue() {
 		try {
 			closeConnectionsQueue(givenAwayConQueue);

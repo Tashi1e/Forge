@@ -78,6 +78,12 @@
 			<version>8.0.33</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.mindrot</groupId>
+			<artifactId>jbcrypt</artifactId>
+			<version>0.3m</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

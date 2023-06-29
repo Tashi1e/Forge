@@ -4,6 +4,6 @@
 
 <html>
 <body>
-	<c:redirect url="controller?command=go_to_base_page&local=en"/>
+	<c:redirect url="controller?command=go_to_base_page&locale=en"/>
 </body>
 </html>

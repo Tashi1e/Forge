@@ -10,6 +10,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import service.ConnectionService;
+import service.ServiceException;
+import service.ServiceProvider;
 import util.cookies.CookiesTestClass;
 
 
@@ -20,6 +23,24 @@ public class FrontController extends HttpServlet {
 	
 	private final CommandProvider provider = CommandProvider.getInstance();
 	
+	private final ConnectionService connectionService = ServiceProvider.getInstance().getConnectionService();
+	
+	
+	@Override
+	public void init() throws ServletException {
+		try {
+			connectionService.initPool();
+		} catch (ServiceException e) {
+			throw new ServletException(e);
+		}
+		super.init();
+	}
+	
+	@Override
+	public void destroy() {
+			connectionService.closePool();
+		super.destroy();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		process(request, response);
