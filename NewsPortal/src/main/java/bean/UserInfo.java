@@ -11,8 +11,7 @@ import lombok.EqualsAndHashCode;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode(callSuper=false)
-
+@EqualsAndHashCode (callSuper=false)
 
 public class UserInfo extends User implements Serializable{
 

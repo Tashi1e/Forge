@@ -12,7 +12,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 
-public class User implements Serializable {
+public class User implements Serializable{
 	
 	private static final long serialVersionUID = -509093266405319422L;
 	

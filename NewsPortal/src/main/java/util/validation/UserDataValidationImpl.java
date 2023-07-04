@@ -1,13 +1,15 @@
 package util.validation;
 
-import bean.UserInfo;
-
-@SuppressWarnings("unused")
 public class UserDataValidationImpl implements UserDataValidation{
 
 	@Override
 	public boolean checkAUthData(String login, String password) {
-		// TODO Auto-generated method stub
-		return false;
+		if (login == null) {
+			return false;
+		}
+		else if (password == null) {
+			return false;
+		}
+		else return true;
 	}
 }

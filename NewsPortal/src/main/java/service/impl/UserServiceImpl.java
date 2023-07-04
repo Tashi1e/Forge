@@ -11,34 +11,26 @@ import service.IUserService;
 public class UserServiceImpl implements IUserService {
 
 	private final IUserDAO userDAO = DaoProvider.getInstance().getUserDao();
-// TODO
-//	private final UserDataValidation userDataValidation = ValidationProvider.getIntsance().getUserDataValidation();
 
 	@Override
 	public String signIn(String login, String password) throws ServiceException {
-// TODO
-		/*
-		 * if(!userDataValidation.checkAUthData(login, password)) { throw new
-		 * ServiceException("login ...... "); }
-		 */
 
 		try {
-			String userRole = userDAO.getRole(login, password);
-			if (userRole != null) {
-				return userRole;
+			String role = userDAO.getRole(login, password);
+			if (role != null) {
+				return role;
 			} else {
 				return "guest";
 			}
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
-
 	}
 
-	public String userNickName(String login, String password) throws ServiceException {
+	public String userNickName(String login) throws ServiceException {
 
 		try {
-			if (userDAO.getRole(login, password)!=null) {
+			if (userDAO.getUserInfo(login) != null) {
 				return userDAO.getUserInfo(login).getNickName();
 			} else {
 				return null;
@@ -53,10 +45,16 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public boolean registration(User user, UserInfo userInfo) throws ServiceException {
 		try {
-			if (userDAO.registration(user, userInfo))
-				return true;
-			else
-				return false;
+			return userDAO.registration(user, userInfo);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+
+	@Override
+	public UserInfo userInfo(String login) throws ServiceException {
+		try {
+			return userDAO.getUserInfo(login);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}

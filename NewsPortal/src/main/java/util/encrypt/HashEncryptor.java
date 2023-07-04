@@ -4,13 +4,14 @@ import org.mindrot.jbcrypt.BCrypt;
 
 public class HashEncryptor implements Encryptor {
 
-	private final static HashEncryptor instance = new HashEncryptor();
-
-	private HashEncryptor() {};
-
 	@Override
 	public String encrypt(String to_encrypt) {
 		String salt = BCrypt.gensalt();
+		return BCrypt.hashpw(to_encrypt, salt);
+	}
+	
+	@Override
+	public String encrypt(String to_encrypt, String salt) {
 		return BCrypt.hashpw(to_encrypt, salt);
 	}
 
@@ -19,7 +20,4 @@ public class HashEncryptor implements Encryptor {
 		return BCrypt.checkpw(regular, encrypted);
 	}
 
-	public static HashEncryptor getInstance() {
-		return instance;
-	}
 }
