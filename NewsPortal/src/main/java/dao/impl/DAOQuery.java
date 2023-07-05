@@ -22,7 +22,7 @@ public final class DAOQuery {
 	
 	protected static final String ADD_USER_TOKEN_QUERY = "INSERT INTO user_token (users_id, selector, validator) VALUES (?, ?, ?);";
 
-	protected static final String GET_USER_ID_BY_LOG_PASS = "SELECT id FROM users WHERE users.login = ? AND users.password = ?";
+	protected static final String GET_USER_ID_PASSWORD_BY_LOGIN = "SELECT id, password FROM users WHERE users.login = ?";
 	
 	protected static final String GET_USER_ID_BY_TOKEN = "SELECT users_id FROM user_token WHERE selector = ? AND validator = ?";
 	

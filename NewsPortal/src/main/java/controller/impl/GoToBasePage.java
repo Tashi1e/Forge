@@ -26,7 +26,12 @@ public class GoToBasePage implements Command {
 			CookiesOps cookiesOps = new CookiesOps();
 			String selector = cookiesOps.findCookie(request, ControllerParameters.SELECTOR_PARAM);
 			String validator = cookiesOps.findCookie(request, ControllerParameters.VALIDATOR_PARAM);
-			if (request.getSession() == null && selector != null && validator != null) {
+			
+			System.out.println("Selector   "+selector);
+			System.out.println("Validator   "+validator);
+			
+			if (//request.getSession() == null && 
+					selector != null && validator != null) {
 // REMOVE GARBAGE				
 //				request.getSession(true).setAttribute(ControllerParameters.SELECTOR_PARAM, selector);
 //				request.getSession().setAttribute(ControllerParameters.VALIDATOR_PARAM, validator);

@@ -2,7 +2,7 @@ package util.encrypt;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class HashEncryptor implements Encryptor {
+public class HashB implements Encryptor {
 
 	@Override
 	public String encrypt(String to_encrypt) {

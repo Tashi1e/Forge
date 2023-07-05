@@ -8,12 +8,12 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import util.encrypt.Encryptor;
-import util.encrypt.HashEncryptor;
+import util.encrypt.HashB;
 
 public class CookiesOps {
 
 	public Cookie getUserTokenCookie(String login, String password) {
-		Encryptor encryptor = new HashEncryptor();
+		Encryptor encryptor = new HashB();
 		String encryptedLogin = encryptor.encrypt(login);
 		String ecryptedPassword = encryptor.encrypt(password);
 

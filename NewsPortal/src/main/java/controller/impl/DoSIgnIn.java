@@ -1,6 +1,7 @@
 package controller.impl;
 
 import java.io.IOException;
+import java.util.Map;
 
 import controller.Command;
 import controller.ControllerParameters;
@@ -11,8 +12,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import util.encrypt.Encryptor;
-import util.encrypt.HashEncryptor;
 import util.validation.UserDataValidation;
 import util.validation.ValidationProvider;
 import util.cookies.CookiesOps;
@@ -31,15 +30,11 @@ public class DoSIgnIn implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		CookiesOps cookiesOps = new CookiesOps();
-		selector = cookiesOps.findCookie(request, ControllerParameters.SELECTOR_PARAM);
-		validator = cookiesOps.findCookie(request, ControllerParameters.VALIDATOR_PARAM);
 		
-// REMOVE GARBAGE
-//		selector = (String) request.getSession().getAttribute(ControllerParameters.SELECTOR_PARAM);
-//		validator = (String) request.getSession().getAttribute(ControllerParameters.VALIDATOR_PARAM);
-		
-		if (selector != null & validator != null) {
+		if (selector != null && validator != null) {
 			try {
+				selector = cookiesOps.findCookie(request, ControllerParameters.SELECTOR_PARAM);
+				validator = cookiesOps.findCookie(request, ControllerParameters.VALIDATOR_PARAM);
 				role = service.signIn(selector, validator);
 				userNickName = service.userNickName(selector, validator);
 				signinSuccessful(request, response);
@@ -61,11 +56,18 @@ public class DoSIgnIn implements Command {
 					userNickName = service.userNickName(login, password);
 
 					if (checkbox) {
+						Map <String, String> token = service.addUserToken(login, password);
 
-						if (!role.equals("guest") && service.addUserToken(login, password)) {
-
+						if (!role.equals("guest") && token != null) {
+							selector = token.get(ControllerParameters.SELECTOR_PARAM);
+							validator = token.get(ControllerParameters.VALIDATOR_PARAM);
+							
+							System.out.println(selector+" "+validator);
+							
 							response.addCookie(new Cookie(ControllerParameters.SELECTOR_PARAM, selector));
 							response.addCookie(new Cookie(ControllerParameters.VALIDATOR_PARAM, validator));
+							
+							System.out.println("Cookie added");
 						}
 					}
 				} catch (ServiceException e) {

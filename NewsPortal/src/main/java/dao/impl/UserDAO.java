@@ -7,10 +7,13 @@ import dao.IUserDAO;
 import dao.impl.pool.ConnectionPool;
 import dao.impl.pool.ConnectionPoolException;
 import util.encrypt.Encryptor;
-import util.encrypt.HashEncryptor;
+import util.encrypt.HashB;
+import util.encrypt.HashS;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +21,8 @@ import java.sql.ResultSet;
 public class UserDAO implements IUserDAO {
 
 	private final ConnectionPool connectionPool = ConnectionPool.getInstance();
-	private final Encryptor encryptor = new HashEncryptor();
+	private final Encryptor encryptorB = new HashB();
+	private final Encryptor encryptorS = new HashS();
 
 //REMOVE GARBAGE
 //	private final String GET_USER_INFO_QUERY = "SELECT firstname, lastname, nickname, email, register_date FROM user_details"
@@ -45,18 +49,20 @@ public class UserDAO implements IUserDAO {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
+		Integer userId = null;
 
 		try {
 			connection = connectionPool.takeConnection();
-			preparedStatement = connection.prepareStatement(DAOQuery.GET_USER_ID_BY_LOG_PASS);
+			preparedStatement = connection.prepareStatement(DAOQuery.GET_USER_ID_PASSWORD_BY_LOGIN);
 			preparedStatement.setString(1, login);
-			preparedStatement.setString(2, password);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
-				return resultSet.getInt("id");
-			} else {
-				return null;
-			}
+				String hashedPassword = resultSet.getString("password");
+				System.out.println("hashedPassword is  "+hashedPassword); //REMOVE GARBAGE
+				if (encryptorB.compare(password, hashedPassword)) {
+					userId = resultSet.getInt("id");
+				}
+			} 
 		} catch (ConnectionPoolException e) {
 			throw new DaoException(e);
 		} catch (SQLException e) {
@@ -64,6 +70,7 @@ public class UserDAO implements IUserDAO {
 		} finally {
 			connectionPool.closeConnection(connection, preparedStatement, resultSet);
 		}
+		return userId;
 	}
 
 	
@@ -159,7 +166,7 @@ public class UserDAO implements IUserDAO {
 		boolean registrationComplete = false;
 
 		String login = user.getLogin();
-		String password = encryptor.encrypt(user.getPassword());
+		String password = encryptorB.encrypt(user.getPassword());
 		int roleIndex = 3;
 
 		String firstName = userInfo.getFirstName();
@@ -224,13 +231,15 @@ public class UserDAO implements IUserDAO {
 	}
 
 	@Override
-	public boolean addToken(int userId, String login, String password) throws DaoException {
+	public Map <String, String> addToken(int userId, String login, String password) throws DaoException {
 		
-		boolean tokenAdded = false;
+		Map <String, String> token = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String selector = encryptor.encrypt(login);
-		String validator = encryptor.encrypt(password);
+		String selector = encryptorS.encrypt(login);
+		String validator = encryptorS.encrypt(password);
+		
+		System.out.println(selector+"\n"+validator);
 
 		try {
 			connection = connectionPool.takeConnection();
@@ -243,7 +252,10 @@ public class UserDAO implements IUserDAO {
 
 			connection.commit();
 
-			tokenAdded = true;
+			token = new HashMap<>();
+			token.put("selector", selector);
+			token.put("validator", validator);
+			System.out.println("token added"); //REMOVE GARBAGE
 
 		} catch (SQLException e) {
 			try {
@@ -257,7 +269,7 @@ public class UserDAO implements IUserDAO {
 		} finally {
 			connectionPool.closeConnection(connection, preparedStatement);
 		}
-	return tokenAdded;
+	return token;
 	}
 
 	private boolean emailExists(String email) throws DaoException {

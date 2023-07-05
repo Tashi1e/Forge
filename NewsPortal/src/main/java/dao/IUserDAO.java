@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.Map;
+
 import bean.User;
 import bean.UserInfo;
 
@@ -15,5 +17,5 @@ public interface IUserDAO {
 	
 	boolean registration(User user, UserInfo userInfo) throws DaoException;
 	
-	boolean addToken (int userId, String selector, String Validator) throws DaoException;
+	Map <String, String> addToken (int userId, String selector, String Validator) throws DaoException;
 }
