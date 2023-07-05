@@ -14,8 +14,8 @@ public class CookiesOps {
 
 	public Cookie getUserTokenCookie(String login, String password) {
 		Encryptor encryptor = new HashEncryptor();
-		String encryptedLogin = encryptor.encrypt(login, "selector");
-		String ecryptedPassword = encryptor.encrypt(password, "validator");
+		String encryptedLogin = encryptor.encrypt(login);
+		String ecryptedPassword = encryptor.encrypt(password);
 
 		return new Cookie(encryptedLogin, ecryptedPassword);
 	}

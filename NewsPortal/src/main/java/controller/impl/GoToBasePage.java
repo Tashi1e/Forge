@@ -5,6 +5,7 @@ import java.util.List;
 
 import bean.News;
 import controller.Command;
+import controller.ControllerParameters;
 import service.INewsService;
 import service.ServiceException;
 import service.ServiceProvider;
@@ -16,7 +17,6 @@ import util.cookies.CookiesOps;
 public class GoToBasePage implements Command {
 
 	private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
-	
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,9 +24,12 @@ public class GoToBasePage implements Command {
 		List<News> latestNews;
 		try {
 			CookiesOps cookiesOps = new CookiesOps();
-			String selector = cookiesOps.findCookie(request, "selector");
-			String validator = cookiesOps.findCookie(request, "validator");
+			String selector = cookiesOps.findCookie(request, ControllerParameters.SELECTOR_PARAM);
+			String validator = cookiesOps.findCookie(request, ControllerParameters.VALIDATOR_PARAM);
 			if (request.getSession() == null && selector != null && validator != null) {
+// REMOVE GARBAGE				
+//				request.getSession(true).setAttribute(ControllerParameters.SELECTOR_PARAM, selector);
+//				request.getSession().setAttribute(ControllerParameters.VALIDATOR_PARAM, validator);
 				response.sendRedirect("controller?command=do_sign_in");
 			} else {
 

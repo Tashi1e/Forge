@@ -11,12 +11,14 @@ import service.IUserService;
 public class UserServiceImpl implements IUserService {
 
 	private final IUserDAO userDAO = DaoProvider.getInstance().getUserDao();
+	
 
 	@Override
-	public String signIn(String login, String password) throws ServiceException {
+	public String signIn(String login_selector, String password_validator) throws ServiceException {
 
+		String role;
 		try {
-			String role = userDAO.getRole(login, password);
+			role = userDAO.getRole(getUserId(login_selector, password_validator));
 			if (role != null) {
 				return role;
 			} else {
@@ -27,19 +29,26 @@ public class UserServiceImpl implements IUserService {
 		}
 	}
 
-	public String userNickName(String login) throws ServiceException {
+	public String userNickName(String login_selector, String password_validator) throws ServiceException {
 
+		UserInfo userInfo = userInfo(login_selector, password_validator);
+		if (userInfo != null) {
+			return userInfo.getNickName();
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public UserInfo userInfo(String login_selector, String password_validator) throws ServiceException {
+
+		UserInfo userInfo;
 		try {
-			if (userDAO.getUserInfo(login) != null) {
-				return userDAO.getUserInfo(login).getNickName();
-			} else {
-				return null;
-			}
-
+			userInfo = userDAO.getUserInfo(getUserId(login_selector, password_validator));
+			return userInfo;
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
-
 	}
 
 	@Override
@@ -52,11 +61,29 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public UserInfo userInfo(String login) throws ServiceException {
+	public boolean addUserToken(String login, String password) throws ServiceException {
 		try {
-			return userDAO.getUserInfo(login);
+			Integer userId = userDAO.getUserId(login, password);
+			if (userId != null) {
+				return userDAO.addToken(userId, login, password);
+			} else {
+				return false;
+			}
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
+	}
+
+	private Integer getUserId(String login_selector, String password_validator) throws ServiceException {
+		Integer userId;
+		try {
+			userId = userDAO.getUserIdByToken(login_selector, password_validator);
+			if (userId == null) {
+				userId = userDAO.getUserId(login_selector, password_validator);
+			}
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+		return userId;
 	}
 }

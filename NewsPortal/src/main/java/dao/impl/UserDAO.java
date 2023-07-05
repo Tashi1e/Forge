@@ -20,26 +20,27 @@ public class UserDAO implements IUserDAO {
 	private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 	private final Encryptor encryptor = new HashEncryptor();
 
-	private final String GET_USER_INFO_QUERY = "SELECT firstname, lastname, nickname, email, register_date FROM user_details"
-			+ "JOIN users ON user_details.users_id = users.id WHERE users.login = ?";
-
-	private final String GET_USER_ROLE_QUERY = "SELECT role_name FROM roles "
-			+ "JOIN users_has_roles ON roles.id = users_has_roles.roles_id "
-			+ "JOIN users ON users_has_roles.users_id = users.id " + "WHERE users.login = ? AND users.password = ?";
-
-	private final String FIND_EMAIL_QUERY = "SELECT email FROM user_details WHERE user_details.email = ?";
-	
-	private final String FIND_LOGIN_QUERY = "SELECT login FROM users WHERE users.login = ?";
-
-	private final String ADD_USER_QUERY = "INSERT INTO users (login, password) VALUES (? , ?)";
-
-	private final String ADD_USER_INFO_QUERY = "INSERT INTO user_details (users_id, firstname, lastname, nickname, email, register_date) "
-			+ "VALUES (LAST_INSERT_ID(), ?, ?, ?, ?, ?)";
-
-	private final String ADD_USER_ROLE_QUERY = "INSERT INTO users_has_roles (users_id, roles_id) VALUES (LAST_INSERT_ID(), ?)";
+//REMOVE GARBAGE
+//	private final String GET_USER_INFO_QUERY = "SELECT firstname, lastname, nickname, email, register_date FROM user_details"
+//			+ "JOIN users ON user_details.users_id = users.id WHERE users.login = ?";
+//
+//	private final String GET_USER_ROLE_QUERY = "SELECT role_name FROM roles "
+//			+ "JOIN users_has_roles ON roles.id = users_has_roles.roles_id "
+//			+ "JOIN users ON users_has_roles.users_id = users.id " + "WHERE users.login = ? AND users.password = ?";
+//
+//	private final String FIND_EMAIL_QUERY = "SELECT email FROM user_details WHERE user_details.email = ?";
+//	
+//	private final String FIND_LOGIN_QUERY = "SELECT login FROM users WHERE users.login = ?";
+//
+//	private final String ADD_USER_QUERY = "INSERT INTO users (login, password) VALUES (? , ?)";
+//
+//	private final String ADD_USER_INFO_QUERY = "INSERT INTO user_details (users_id, firstname, lastname, nickname, email, register_date) "
+//			+ "VALUES (LAST_INSERT_ID(), ?, ?, ?, ?, ?)";
+//
+//	private final String ADD_USER_ROLE_QUERY = "INSERT INTO users_has_roles (users_id, roles_id) VALUES (LAST_INSERT_ID(), ?)";
 
 	@Override
-	public String getRole(String login, String password) throws DaoException {
+	public Integer getUserId(String login, String password) throws DaoException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -47,8 +48,63 @@ public class UserDAO implements IUserDAO {
 
 		try {
 			connection = connectionPool.takeConnection();
-			preparedStatement = connection.prepareStatement(GET_USER_ROLE_QUERY);
+			preparedStatement = connection.prepareStatement(DAOQuery.GET_USER_ID_BY_LOG_PASS);
 			preparedStatement.setString(1, login);
+			preparedStatement.setString(2, password);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				return resultSet.getInt("id");
+			} else {
+				return null;
+			}
+		} catch (ConnectionPoolException e) {
+			throw new DaoException(e);
+		} catch (SQLException e) {
+			throw new DaoException("Can't find user", e);
+		} finally {
+			connectionPool.closeConnection(connection, preparedStatement, resultSet);
+		}
+	}
+
+	
+	@Override
+	public Integer getUserIdByToken(String selector, String validator) throws DaoException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			preparedStatement = connection.prepareStatement(DAOQuery.GET_USER_ID_BY_TOKEN);
+			preparedStatement.setString(1, selector);
+			preparedStatement.setString(2, validator);
+			resultSet = preparedStatement.executeQuery();
+			if (resultSet.next()) {
+				return resultSet.getInt("id");
+			} else {
+				return null;
+			}
+		} catch (ConnectionPoolException e) {
+			throw new DaoException(e);
+		} catch (SQLException e) {
+			throw new DaoException(e);
+		} finally {
+			connectionPool.closeConnection(connection, preparedStatement, resultSet);
+		}
+	}
+	
+	@Override
+	public String getRole(int userId) throws DaoException {
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			preparedStatement = connection.prepareStatement(DAOQuery.GET_USER_ROLE_QUERY);
+			preparedStatement.setInt(1, userId);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				return resultSet.getString("role_name");
@@ -65,7 +121,7 @@ public class UserDAO implements IUserDAO {
 	}
 
 	@Override
-	public UserInfo getUserInfo(String login) throws DaoException {
+	public UserInfo getUserInfo(int userId) throws DaoException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -73,8 +129,8 @@ public class UserDAO implements IUserDAO {
 
 		try {
 			connection = connectionPool.takeConnection();
-			preparedStatement = connection.prepareStatement(GET_USER_INFO_QUERY);
-			preparedStatement.setString(1, login);
+			preparedStatement = connection.prepareStatement(DAOQuery.GET_USER_INFO_QUERY);
+			preparedStatement.setInt(1, userId);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				UserInfo userInfo = new UserInfo();
@@ -105,12 +161,12 @@ public class UserDAO implements IUserDAO {
 		String login = user.getLogin();
 		String password = encryptor.encrypt(user.getPassword());
 		int roleIndex = 3;
-		
+
 		String firstName = userInfo.getFirstName();
 		String lastName = userInfo.getLastName();
 		String nickName = userInfo.getNickName();
 		String email = userInfo.getEmail();
-		
+
 		Timestamp sqlUserRegDate = new Timestamp(System.currentTimeMillis());
 
 		if (loginExists(login)) {
@@ -126,13 +182,13 @@ public class UserDAO implements IUserDAO {
 
 				connection = connectionPool.takeConnection();
 				connection.setAutoCommit(false);
-				preparedStatement = connection.prepareStatement(ADD_USER_QUERY);
+				preparedStatement = connection.prepareStatement(DAOQuery.ADD_USER_QUERY);
 				preparedStatement.setString(1, login);
 				preparedStatement.setString(2, password);
 				preparedStatement.executeUpdate();
 				preparedStatement.close();
 
-				preparedStatement = connection.prepareStatement(ADD_USER_INFO_QUERY);
+				preparedStatement = connection.prepareStatement(DAOQuery.ADD_USER_INFO_QUERY);
 				preparedStatement.setString(1, firstName);
 				preparedStatement.setString(2, lastName);
 				preparedStatement.setString(3, nickName);
@@ -141,7 +197,7 @@ public class UserDAO implements IUserDAO {
 				preparedStatement.executeUpdate();
 				preparedStatement.close();
 
-				preparedStatement = connection.prepareStatement(ADD_USER_ROLE_QUERY);
+				preparedStatement = connection.prepareStatement(DAOQuery.ADD_USER_ROLE_QUERY);
 				preparedStatement.setInt(1, roleIndex);
 				preparedStatement.executeUpdate();
 
@@ -167,6 +223,43 @@ public class UserDAO implements IUserDAO {
 		return registrationComplete;
 	}
 
+	@Override
+	public boolean addToken(int userId, String login, String password) throws DaoException {
+		
+		boolean tokenAdded = false;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		String selector = encryptor.encrypt(login);
+		String validator = encryptor.encrypt(password);
+
+		try {
+			connection = connectionPool.takeConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(DAOQuery.ADD_USER_TOKEN_QUERY);
+			preparedStatement.setInt(1, userId);
+			preparedStatement.setString(2, selector);
+			preparedStatement.setString(3, validator);
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+
+			tokenAdded = true;
+
+		} catch (SQLException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new DaoException(e1); // DB rollback error
+			}
+			throw new DaoException(e);
+		} catch (ConnectionPoolException e) {
+			throw new DaoException();
+		} finally {
+			connectionPool.closeConnection(connection, preparedStatement);
+		}
+	return tokenAdded;
+	}
+
 	private boolean emailExists(String email) throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -174,7 +267,7 @@ public class UserDAO implements IUserDAO {
 
 		try {
 			connection = connectionPool.takeConnection();
-			preparedStatement = connection.prepareStatement(FIND_EMAIL_QUERY);
+			preparedStatement = connection.prepareStatement(DAOQuery.FIND_EMAIL_QUERY);
 			preparedStatement.setString(1, email);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
@@ -191,7 +284,6 @@ public class UserDAO implements IUserDAO {
 		}
 	}
 
-	
 	private boolean loginExists(String login) throws DaoException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -199,7 +291,7 @@ public class UserDAO implements IUserDAO {
 
 		try {
 			connection = connectionPool.takeConnection();
-			preparedStatement = connection.prepareStatement(FIND_LOGIN_QUERY);
+			preparedStatement = connection.prepareStatement(DAOQuery.FIND_LOGIN_QUERY);
 			preparedStatement.setString(1, login);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {

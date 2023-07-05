@@ -3,6 +3,7 @@ package controller.impl;
 import java.io.IOException;
 
 import controller.Command;
+import controller.ControllerParameters;
 import service.ServiceException;
 import service.ServiceProvider;
 import service.IUserService;
@@ -20,68 +21,85 @@ public class DoSIgnIn implements Command {
 
 	private final IUserService service = ServiceProvider.getInstance().getUserService();
 	private final UserDataValidation userAuthValidation = ValidationProvider.getInstance().getUserDataValidation();
-	private final CookiesOps cookiesOps = new CookiesOps();
 
-	private static final String JSP_LOGIN_PARAM = "login";
-	private static final String JSP_PASSWORD_PARAM = "password";
-	private static final String SELECTOR_PARAM = "selector";
-	private static final String VALIDATOR_PARAM = "validator";
-	private static final String JSP_REMEMBER_ME_PARAM = "remember_me";
-	
-	
+	private String role;
+	private String userNickName;
+	private String selector;
+	private String validator;
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String login = request.getParameter(JSP_LOGIN_PARAM);
-		String password = request.getParameter(JSP_PASSWORD_PARAM);
-		String selector = request.getParameter(SELECTOR_PARAM);
-		String validator = request.getParameter(VALIDATOR_PARAM);
-		boolean checkbox = request.getParameter(JSP_REMEMBER_ME_PARAM) == null ? false : true;
 		
+		CookiesOps cookiesOps = new CookiesOps();
+		selector = cookiesOps.findCookie(request, ControllerParameters.SELECTOR_PARAM);
+		validator = cookiesOps.findCookie(request, ControllerParameters.VALIDATOR_PARAM);
 		
-
-		if (userAuthValidation.checkAUthData(login, password)) {
-
+// REMOVE GARBAGE
+//		selector = (String) request.getSession().getAttribute(ControllerParameters.SELECTOR_PARAM);
+//		validator = (String) request.getSession().getAttribute(ControllerParameters.VALIDATOR_PARAM);
+		
+		if (selector != null & validator != null) {
 			try {
-				
-				Encryptor encryptor = new HashEncryptor();
-				String encLogin = encryptor.encrypt(login, "login");
-				String encPassword = encryptor.encrypt(password, "password");
-				
-				String role = service.signIn(login, encPassword);
-				String userNickName = service.userNickName(login);
-
-				if (checkbox) {
-					response.addCookie(new Cookie("selector", encLogin));
-					response.addCookie(new Cookie("validator", encPassword));
-				}
-				
-				if (!role.equals("guest")) {
-					request.getSession(true).setAttribute("user", "active");
-					request.getSession().setAttribute("role", role);
-					request.getSession().setAttribute("userNickName", userNickName);
-					response.sendRedirect("controller?command=go_to_news_list");
-				} else {
-					request.getSession(true).setAttribute("user", "inactive");
-					request.setAttribute("AuthenticationError", "Wrong login or password!!!");
-					response.sendRedirect("controller?command=go_to_base_page");
-				}
-
+				role = service.signIn(selector, validator);
+				userNickName = service.userNickName(selector, validator);
+				signinSuccessful(request, response);
 			} catch (ServiceException e) {
-				if (e.getMessage() != null) {
-					request.setAttribute("AuthenticationError", e.getLocalizedMessage());
-				} else {
-					e.getLocalizedMessage();
-				}
-				// go-to error page
+				response.sendRedirect("controller?command=go_to_base_page");
+				e.printStackTrace();
 			}
 		} else {
-			request.getSession(true).setAttribute("user", "inactive");
-			request.setAttribute("AuthenticationError", "Wrong login or password!!!");
-			response.sendRedirect("controller?command=go_to_base_page");
-		}
 
+			String login = request.getParameter(ControllerParameters.JSP_LOGIN_PARAM);
+			String password = request.getParameter(ControllerParameters.JSP_PASSWORD_PARAM);
+			boolean checkbox = request.getParameter(ControllerParameters.JSP_REMEMBER_ME_PARAM) == null ? false : true;
+
+			if (userAuthValidation.checkAUthData(login, password)) {
+
+				try {
+
+					role = service.signIn(login, password);
+					userNickName = service.userNickName(login, password);
+
+					if (checkbox) {
+
+						if (!role.equals("guest") && service.addUserToken(login, password)) {
+
+							response.addCookie(new Cookie(ControllerParameters.SELECTOR_PARAM, selector));
+							response.addCookie(new Cookie(ControllerParameters.VALIDATOR_PARAM, validator));
+						}
+					}
+				} catch (ServiceException e) {
+					if (e.getMessage() != null) {
+						request.setAttribute("AuthenticationError", e.getMessage());
+					} else {
+						e.getMessage();
+					}
+				}
+
+			} else {
+				signinFailed(request, response, "Wrong login or password!!!");
+			}
+
+			if (role != null && !role.equals("guest")) {
+				signinSuccessful(request, response);
+			} else {
+				signinFailed(request, response, "Wrong login or password!!!");
+			}
+		}
 	}
 
+	private void signinSuccessful(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.getSession(true).setAttribute("user", "active");
+		request.getSession().setAttribute("role", role);
+		request.getSession().setAttribute("userNickName", userNickName);
+		response.sendRedirect("controller?command=go_to_news_list");
+	}
+
+	private void signinFailed(HttpServletRequest request, HttpServletResponse response, String message)
+			throws ServletException, IOException {
+		request.getSession(true).setAttribute("user", "inactive");
+		request.setAttribute("AuthenticationError", message);
+		response.sendRedirect("controller?command=go_to_base_page");
+	}
 }

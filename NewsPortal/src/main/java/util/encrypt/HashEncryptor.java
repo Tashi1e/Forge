@@ -6,14 +6,9 @@ public class HashEncryptor implements Encryptor {
 
 	@Override
 	public String encrypt(String to_encrypt) {
-		String salt = BCrypt.gensalt();
-		return BCrypt.hashpw(to_encrypt, salt);
+		return BCrypt.hashpw(to_encrypt, BCrypt.gensalt());
 	}
 	
-	@Override
-	public String encrypt(String to_encrypt, String salt) {
-		return BCrypt.hashpw(to_encrypt, salt);
-	}
 
 	@Override
 	public boolean compare (String regular, String encrypted) {
