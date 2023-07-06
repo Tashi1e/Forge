@@ -1,12 +1,9 @@
 package util.cookies;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import util.encrypt.Encryptor;
 import util.encrypt.HashB;
 

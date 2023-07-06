@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Registration</title>
-<link rel="stylesheet" type="text/css" href="styles/registrationFormStyle.css">
+<link rel="stylesheet" type="text/css" href="styles/registrationFormStyle1.css">
 
 </head>
 
-<body>
+<body style = "background-image: url(images/newspaper_background.jpg)">
 <div align="center">
 <h1 align = "center">Please fill the registration form</h1>
 <form method="post" action="controller" class = "grid-container" >
@@ -63,7 +63,7 @@
 <button type="submit">Register</button>
 </p>
 <p>
-<button type="button" onclick = "document.location = 'index.jsp'">Back</button>
+<button type="button" onclick = "document.location = 'controller?command=go_to_base_page'">Back</button>
 </p>
 </form>
 </div>

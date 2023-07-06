@@ -27,12 +27,12 @@ public class GoToBasePage implements Command {
 			String selector = cookiesOps.findCookie(request, ControllerParameters.SELECTOR_PARAM);
 			String validator = cookiesOps.findCookie(request, ControllerParameters.VALIDATOR_PARAM);
 			
-			System.out.println("Selector   "+selector);
-			System.out.println("Validator   "+validator);
+			System.out.println("GoToBasePage -> Selector   " + selector); //TEST
+			System.out.println("GoToBasePage -> Validator   "+ validator);  //TEST
+			System.out.println("GoToBasePage -> first Enter   " + request.getSession().getAttribute("firstEnter")); //TEST
 			
-			if (//request.getSession() == null && 
-					selector != null && validator != null) {
-// REMOVE GARBAGE				
+			if (request.getSession().getAttribute("firstEnter") != null) {
+// GARBAGE				
 //				request.getSession(true).setAttribute(ControllerParameters.SELECTOR_PARAM, selector);
 //				request.getSession().setAttribute(ControllerParameters.VALIDATOR_PARAM, validator);
 				response.sendRedirect("controller?command=do_sign_in");

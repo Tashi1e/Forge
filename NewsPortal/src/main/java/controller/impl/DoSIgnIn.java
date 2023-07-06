@@ -21,20 +21,24 @@ public class DoSIgnIn implements Command {
 	private final IUserService service = ServiceProvider.getInstance().getUserService();
 	private final UserDataValidation userAuthValidation = ValidationProvider.getInstance().getUserDataValidation();
 
-	private String role;
-	private String userNickName;
-	private String selector;
-	private String validator;
+	private String role = null;
+	private String userNickName = null;
+	
+// GARBAGE
+//	private String selector;
+//	private String validator;
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		CookiesOps cookiesOps = new CookiesOps();
+		String selector = cookiesOps.findCookie(request, ControllerParameters.SELECTOR_PARAM);
+		String validator = cookiesOps.findCookie(request, ControllerParameters.VALIDATOR_PARAM);
+		request.getSession().removeAttribute("firstEnter");
 		
 		if (selector != null && validator != null) {
 			try {
-				selector = cookiesOps.findCookie(request, ControllerParameters.SELECTOR_PARAM);
-				validator = cookiesOps.findCookie(request, ControllerParameters.VALIDATOR_PARAM);
+				
 				role = service.signIn(selector, validator);
 				userNickName = service.userNickName(selector, validator);
 				signinSuccessful(request, response);
@@ -54,18 +58,22 @@ public class DoSIgnIn implements Command {
 
 					role = service.signIn(login, password);
 					userNickName = service.userNickName(login, password);
+					
+					System.out.println("DoSignIn -> role  " + role); //TEST
+					System.out.println("DoSignIn -> Nickname  " + userNickName); //TEST
 
 					if (checkbox) {
 						Map <String, String> token = service.addUserToken(login, password);
 
 						if (!role.equals("guest") && token != null) {
-							selector = token.get(ControllerParameters.SELECTOR_PARAM);
-							validator = token.get(ControllerParameters.VALIDATOR_PARAM);
+							String tokenKey = token.get(ControllerParameters.SELECTOR_PARAM);
+							String tokenValue = token.get(ControllerParameters.VALIDATOR_PARAM);
 							
-							System.out.println(selector+" "+validator);
+							System.out.println("DoSignIn -> tokenKey  " + tokenKey); //TEST
+							System.out.println("DoSignIn -> tokenValue  " + tokenValue); //TEST
 							
-							response.addCookie(new Cookie(ControllerParameters.SELECTOR_PARAM, selector));
-							response.addCookie(new Cookie(ControllerParameters.VALIDATOR_PARAM, validator));
+							response.addCookie(new Cookie(ControllerParameters.SELECTOR_PARAM, tokenKey));
+							response.addCookie(new Cookie(ControllerParameters.VALIDATOR_PARAM, tokenValue));
 							
 							System.out.println("Cookie added");
 						}
