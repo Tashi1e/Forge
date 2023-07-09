@@ -5,6 +5,7 @@ import dao.impl.pool.ConnectionPoolException;
 import service.ConnectionService;
 import service.ServiceException;
 
+@Deprecated
 public class ConnectionServiceImpl implements ConnectionService {
 	
 	ConnectionPool connectionPool = ConnectionPool.getInstance();

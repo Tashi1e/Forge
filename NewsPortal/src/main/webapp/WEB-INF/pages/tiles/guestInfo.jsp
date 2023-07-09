@@ -1,9 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-guest info
+<!-- guest info -->
 
 <div class="body-title">
-	<a href="">News >> </a> Latest News
+	 Latest News
 </div>
 
 <form>

@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value="${sessionScope.locale}" />
+<fmt:setBundle basename="localization.local" var="loc" />
+
+<fmt:message bundle="${loc}" key="local.menu.welcome" var="welcome_guest" />
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
@@ -13,7 +19,7 @@
  -->
 </title>
 
-<link rel="stylesheet" type="text/css" href="./styles/newsStyle13.css">
+<link rel="stylesheet" type="text/css" href="./styles/newsStyle16.css">
 
 </head>
 <body style="background-image: url(images/newspaper_background.jpg)">
@@ -26,7 +32,10 @@
 			<div class="menu">
 
 				<c:if test="${not (sessionScope.user eq 'active')}">
-				    Welcome!!!!!
+				<br/>
+				<h4 style = "padding-left: 15px">
+				    ${welcome_guest}
+				    </h4> 
 					<%-- <c:import url=""></c:import> --%>
 				</c:if>
 				<c:if test="${sessionScope.user eq 'active'}">

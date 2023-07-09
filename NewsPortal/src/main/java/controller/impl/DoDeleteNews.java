@@ -7,19 +7,12 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class GoToErrorPage implements Command{
+public class DoDeleteNews implements Command {
 
-	private String errorCode = new String();
-	
-	public GoToErrorPage (String errorCode) {
-		this.errorCode=errorCode;
-	}
-	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		
-			request.setAttribute("errorCode", errorCode);
-			request.getRequestDispatcher("error.jsp").forward(request, response);
 	}
 
 }

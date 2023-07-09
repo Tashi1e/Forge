@@ -13,6 +13,9 @@ public class DoSignOut implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 			request.getSession(true).setAttribute("user", "not active");
+			request.getSession().removeAttribute("role");
+			request.getSession().removeAttribute("userNickName");
+			
 //			response.sendRedirect("index.jsp"); GARBAGE
 			response.sendRedirect("controller?command=go_to_base_page");
 		

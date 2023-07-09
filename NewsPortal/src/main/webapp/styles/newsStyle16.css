@@ -78,7 +78,7 @@ html,body {
 	bottom: 0;
 	left: 0;
 	width: 1000px;
-	height: 20px;
+	height: 25px;
 	border-top: solid 2px grey;
 	
 	margin-left: -1px;
@@ -136,7 +136,8 @@ html,body {
 }
 
 .newstitle {
-	width: 550px;
+	font-size: 32px;
+	width: 450px;
 	height: 110px;
 	display: table-cell;
 	vertical-align: middle;

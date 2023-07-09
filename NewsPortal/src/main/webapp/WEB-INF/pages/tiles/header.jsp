@@ -13,7 +13,9 @@
 <link rel="stylesheet" type="text/css" href="./styles/loginFormStyles123.css">
 
 <div class="wrapper">
-	<div class="newstitle"><fmt:message bundle="${loc}" key="local.header" />
+	<div class="newstitle">
+<%-- 	<fmt:message bundle="${loc}" key="local.header" /> --%>
+<img alt="News Portal" src="images/news_portal_logo_transparent.png" height = "100px">
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <span>
 
@@ -29,9 +31,9 @@
 
 		<div align="right">
 <form>
-			<a href="controller?locale=en&command=do_change_locale"> <fmt:message bundle="${loc}" key="local.en.button.name" /> </a> 
+			<a href="controller?locale=en&command=do_change_locale" style = "text-decoration:none"><img alt="" src="images/us.svg" style="height: 15px" /></a> 
 			&nbsp;&nbsp; 
-			<a href="controller?locale=ru&command=do_change_locale"> <fmt:message bundle="${loc}" key="local.ru.button.name" /> </a>
+			<a href="controller?locale=ru&command=do_change_locale" style = "text-decoration:none"><img alt="" src="images/ru.svg" style="height: 15px" /></a>
 			</form>
 		</div>
 
@@ -64,7 +66,7 @@
 			<form action="controller" method="post" id="box">
 			<input type="hidden" name="command" value="do_sign_out" />
 			<br>
-			<h4 align="right" style="text-shadow: 3px 3px 2px rgba(0,0,0,0.6)">${sessionScope.userNickName}</h4>
+			<h4 align="right" style="text-shadow: 3px 3px 2px rgba(0,0,0,0.4)">${sessionScope.userNickName}</h4>
 			<br>
 			<input type="submit" value="${signoutButton}" id="signOut" /> 
 				</form>

@@ -48,8 +48,6 @@ transform: translate(-50%, -50%)
 Unknown Error!
 </c:if>
 </font></h1>
-<form method="post" action="controller" >
-</form>
 </div>
 </body>
 </html>
