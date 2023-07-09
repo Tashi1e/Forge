@@ -13,7 +13,7 @@
  -->
 </title>
 
-<link rel="stylesheet" type="text/css" href="./styles/newsStyle13.css">
+<link rel="stylesheet" type="text/css" href="./styles/newsStyle15.css">
 
 </head>
 <body style="background-image: url(images/newspaper_background.jpg)">

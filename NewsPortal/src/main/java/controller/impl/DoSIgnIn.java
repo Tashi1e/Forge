@@ -23,22 +23,22 @@ public class DoSIgnIn implements Command {
 
 	private String role = null;
 	private String userNickName = null;
-	
+
 // GARBAGE
 //	private String selector;
 //	private String validator;
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		CookiesOps cookiesOps = new CookiesOps();
 		String selector = cookiesOps.findCookie(request, ControllerParameters.SELECTOR_PARAM);
 		String validator = cookiesOps.findCookie(request, ControllerParameters.VALIDATOR_PARAM);
 		request.getSession().removeAttribute("firstEnter");
-		
+
 		if (selector != null && validator != null) {
 			try {
-				
+
 				role = service.signIn(selector, validator);
 				userNickName = service.userNickName(selector, validator);
 				signinSuccessful(request, response);
@@ -58,40 +58,41 @@ public class DoSIgnIn implements Command {
 
 					role = service.signIn(login, password);
 					userNickName = service.userNickName(login, password);
-					
-					System.out.println("DoSignIn -> role  " + role); //TEST
-					System.out.println("DoSignIn -> Nickname  " + userNickName); //TEST
+
+//					System.out.println("DoSignIn -> role  " + role); // TEST
+//					System.out.println("DoSignIn -> Nickname  " + userNickName); // TEST
 
 					if (checkbox) {
-						Map <String, String> token = service.addUserToken(login, password);
+						Map<String, String> token = service.addUserToken(login, password);
 
 						if (!role.equals("guest") && token != null) {
 							String tokenKey = token.get(ControllerParameters.SELECTOR_PARAM);
 							String tokenValue = token.get(ControllerParameters.VALIDATOR_PARAM);
-							
-							System.out.println("DoSignIn -> tokenKey  " + tokenKey); //TEST
-							System.out.println("DoSignIn -> tokenValue  " + tokenValue); //TEST
-							
+
+//							System.out.println("DoSignIn -> tokenKey  " + tokenKey); // TEST
+//							System.out.println("DoSignIn -> tokenValue  " + tokenValue); // TEST
+
 							response.addCookie(new Cookie(ControllerParameters.SELECTOR_PARAM, tokenKey));
 							response.addCookie(new Cookie(ControllerParameters.VALIDATOR_PARAM, tokenValue));
-							
+
 							System.out.println("Cookie added");
 						}
 					}
+
+					if (role != null && !role.equals("guest")) {
+						signinSuccessful(request, response);
+					} else {
+						signinFailed(request, response, "Wrong login or password!!!");
+					}
+
 				} catch (ServiceException e) {
 					if (e.getMessage() != null) {
-						request.setAttribute("AuthenticationError", e.getMessage());
+						signinFailed(request, response, e.getMessage());
 					} else {
-						e.getMessage();
+						signinFailed(request, response, "Wrong login or password!!!");
 					}
 				}
 
-			} else {
-				signinFailed(request, response, "Wrong login or password!!!");
-			}
-
-			if (role != null && !role.equals("guest")) {
-				signinSuccessful(request, response);
 			} else {
 				signinFailed(request, response, "Wrong login or password!!!");
 			}

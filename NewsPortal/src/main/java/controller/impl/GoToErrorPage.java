@@ -19,7 +19,7 @@ public class GoToErrorPage implements Command{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 			request.setAttribute("errorCode", errorCode);
-			request.getRequestDispatcher("WEB-INF/pages/tiles/error.jsp").forward(request, response);
+			request.getRequestDispatcher("error.jsp").forward(request, response);
 	}
 
 }

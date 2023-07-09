@@ -3,7 +3,8 @@
 
 
 <div class="body-title">
-	<a href="">News >> </a> News List
+<!-- 	<a href="">News >> </a>  -->
+	News List
 </div>
 
 <form action="" method="post">
@@ -33,13 +34,34 @@
   								1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
 								</svg>
 						      </a> 
-   					         <input type="checkbox" name="idNews" value="${news.idNews }" id="chbx${news.idNews }" style = "display: none" />
-   					         <label for="chbx${news.idNews }">
+   					         <input type="checkbox" name="idNews" value="${news.idNews }" id="chbx${news.idNews}" style="display: none"/>
+   					         <label for="chbx${news.idNews }" style="position: relative; display: inline-block;">
+   					         <span>
    					                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="grey" class="bi bi-app" viewBox="0 0 16 16">
   									<path d="M11 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h6zM5 1a4 4 0 0 0-4 4v6a4 
   									4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z"/>
 									</svg>
+									</span>
+									<span style="position: absolute; left: 0 ; font-size: 18px; visibility: hidden" id="news_check_icon_label_${news.idNews }">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="grey" class="bi bi-check-lg" viewBox="0 0 16 16">
+  									<path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 
+  									8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+									</svg>
+									</span>
 							</label>
+							
+							<script type="text/javascript">
+									let checkBox${news.idNews} = document.getElementById('chbx' + ${news.idNews});
+									let checkIcon${news.idNews} = document.getElementById('news_check_icon_label_' + ${news.idNews});
+										checkBox${news.idNews}.onclick = function(){
+										if (checkBox${news.idNews}.checked) {
+											checkIcon${news.idNews}.style.visibility = 'visible';
+										} else {
+											checkIcon${news.idNews}.style.visibility = 'hidden';
+										}
+									}
+							</script>
+							
    					    </c:if>
 					</div>
 				</div>
@@ -63,3 +85,5 @@
 	</c:if>
 	</div>
 </form>
+
+
