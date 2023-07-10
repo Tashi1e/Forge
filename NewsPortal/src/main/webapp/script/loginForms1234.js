@@ -31,7 +31,7 @@ btn1.onclick = function() {
 	}
 }
 
-btn4.onclick = function() {
+btn4.onclick = function() { 
 	if (!check.checked) {
 		check.checked = true;
 		btn4.value = '\u{2713} '+check.value;

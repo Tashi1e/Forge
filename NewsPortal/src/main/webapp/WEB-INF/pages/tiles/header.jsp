@@ -15,7 +15,7 @@
 <div class="wrapper">
 	<div class="newstitle">
 <%-- 	<fmt:message bundle="${loc}" key="local.header" /> --%>
-<img alt="News Portal" src="images/news_portal_logo_transparent.png" height = "100px">
+<img alt="News Portal" src="images/news_portal_logo.png" height = "100px">
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <span>
 

@@ -95,9 +95,24 @@ public final class ConnectionPool {
 		}
 		return connection;
 	}
+	
+	public void closeConnection(Statement st1, Statement st2) {
+		try {
+			st1.close();
+		} catch (SQLException e) {
+			// logger.log(Level.ERROR, "Statement isn't closed.");
+		}
+		try {
+			st2.close();
+		} catch (SQLException e) {
+			// logger.log(Level.ERROR, "Statement isn't closed.");
+		}
+	}
+
 
 	public void closeConnection(Connection con, Statement st, ResultSet rs) {
 		try {
+			con.setAutoCommit(true);
 			con.close();
 		} catch (SQLException e) {
 			// logger.log(Level.ERROR, "Connection isn't return to the pool.");
@@ -116,6 +131,7 @@ public final class ConnectionPool {
 
 	public void closeConnection(Connection con, Statement st) {
 		try {
+			con.setAutoCommit(true);
 			con.close();
 		} catch (SQLException e) {
 			// logger.log(Level.ERROR, "Connection isn't return to the pool.");

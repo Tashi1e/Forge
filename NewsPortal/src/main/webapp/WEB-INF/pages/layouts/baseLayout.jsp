@@ -19,11 +19,7 @@
  -->
 </title>
 
-<<<<<<< HEAD
 <link rel="stylesheet" type="text/css" href="./styles/newsStyle16.css">
-=======
-<link rel="stylesheet" type="text/css" href="./styles/newsStyle15.css">
->>>>>>> refs/remotes/origin/main
 
 </head>
 <body style="background-image: url(images/newspaper_background.jpg)">

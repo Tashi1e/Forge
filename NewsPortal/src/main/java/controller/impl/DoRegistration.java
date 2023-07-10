@@ -5,6 +5,7 @@ import bean.User;
 import bean.UserInfo;
 
 import controller.Command;
+import controller.ControllerParameters;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,12 +27,12 @@ public class DoRegistration implements Command {
 		String login;
 		String password;
 
-		firstName = request.getParameter("firstname");
-		lastName = request.getParameter("lastname");
-		nickName = request.getParameter("nickname");
-		email = request.getParameter("email");
-		login = request.getParameter("login");
-		password = request.getParameter("password");
+		firstName = request.getParameter(ControllerParameters.JSP_FIRST_NAME_PARAM);
+		lastName = request.getParameter(ControllerParameters.JSP_LAST_NAME_PARAM);
+		nickName = request.getParameter(ControllerParameters.JSP_NICK_NAME_PARAM);
+		email = request.getParameter(ControllerParameters.JSP_EMAIL_PARAM);
+		login = request.getParameter(ControllerParameters.JSP_LOGIN_PARAM);
+		password = request.getParameter(ControllerParameters.JSP_PASSWORD_PARAM);
 
 		User user = new User();
 		user.setLogin(login);

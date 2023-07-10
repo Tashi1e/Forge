@@ -34,7 +34,6 @@ public class DoSIgnIn implements Command {
 		CookiesOps cookiesOps = new CookiesOps();
 		String selector = cookiesOps.findCookie(request, ControllerParameters.SELECTOR_PARAM);
 		String validator = cookiesOps.findCookie(request, ControllerParameters.VALIDATOR_PARAM);
-		request.getSession().removeAttribute("firstEnter");
 
 		if (selector != null && validator != null && request.getSession().getAttribute("firstEnter") != null) {
 			try {
@@ -42,7 +41,6 @@ public class DoSIgnIn implements Command {
 				role = service.signIn(selector, validator);
 				userNickName = service.userNickName(selector, validator);
 				signinSuccessful(request, response);
-				request.getSession().removeAttribute("firstEnter");
 			} catch (ServiceException e) {
 				response.sendRedirect("controller?command=go_to_base_page");
 				e.printStackTrace();
@@ -105,6 +103,8 @@ public class DoSIgnIn implements Command {
 		request.getSession(true).setAttribute("user", "active");
 		request.getSession().setAttribute("role", role);
 		request.getSession().setAttribute("userNickName", userNickName);
+		request.getSession().removeAttribute("firstEnter");
+		
 		response.sendRedirect("controller?command=go_to_news_list");
 	}
 
@@ -112,6 +112,7 @@ public class DoSIgnIn implements Command {
 			throws ServletException, IOException {
 		request.getSession(true).setAttribute("user", "inactive");
 		request.setAttribute("AuthenticationError", message);
+		request.getSession().removeAttribute("firstEnter");
 		response.sendRedirect("controller?command=go_to_base_page");
 	}
 }
