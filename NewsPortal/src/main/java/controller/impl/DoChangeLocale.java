@@ -9,11 +9,12 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class DoChangeLocale implements Command {
 	
-	private final String LOCALE_PARAM_NAME = "locale";
+	private static final String LOCALE_PARAM_NAME = "locale";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+//FIXME change redirect way to URL
 		String getLocale = request.getParameter(LOCALE_PARAM_NAME);
 		request.getSession(true).setAttribute("locale", getLocale);
 		String currentPageCommand = (String) request.getSession().getAttribute("currentPage");

@@ -1,4 +1,4 @@
-package util.tempArticles;
+package util.temp;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -27,22 +27,22 @@ public class TempArticleSource {
 			while (lineText != null) {
 				switch (lineText) {
 				case "<head>" -> news.setTitle(fileRead.readLine());
-				case "<img>" -> news.setImagePath(fileRead.readLine());
+				case "<img>" -> news.setImage(fileRead.readLine());
 				case "<body>" -> news.setContent(fileRead.readLine());
 				}
 				lineText = fileRead.readLine();
 			}
 
-			news.setIdNews(id);
+			news.setId(id);
 
 			Pattern pattern = Pattern.compile("^(.*?[?!.])(?=\\s*[A-ZA-ЯЁ]|$)");
 			Matcher matcher = pattern.matcher(news.getContent());
 			if (matcher.find())
-				news.setBriefNews(matcher.group());
+				news.setBrief(matcher.group());
 
 			Date currenDate = new Date();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-			news.setNewsDate(dateFormat.format(currenDate));
+			news.setDate(dateFormat.format(currenDate));
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

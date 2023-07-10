@@ -5,7 +5,6 @@ import java.util.List;
 
 import bean.News;
 import controller.Command;
-import controller.ControllerParameters;
 import service.INewsService;
 import service.ServiceException;
 import service.ServiceProvider;
@@ -24,17 +23,14 @@ public class GoToBasePage implements Command {
 		List<News> latestNews;
 		try {
 			CookiesOps cookiesOps = new CookiesOps();
-			String selector = cookiesOps.findCookie(request, ControllerParameters.SELECTOR_PARAM);
-			String validator = cookiesOps.findCookie(request, ControllerParameters.VALIDATOR_PARAM);
+			String selector = cookiesOps.findCookie(request, AttributeParamName.SELECTOR_PARAM);
+			String validator = cookiesOps.findCookie(request, AttributeParamName.VALIDATOR_PARAM);
 			
-			System.out.println("GoToBasePage -> Selector   " + selector); //TEST
-			System.out.println("GoToBasePage -> Validator   "+ validator);  //TEST
-			System.out.println("GoToBasePage -> first Enter   " + request.getSession().getAttribute("firstEnter")); //TEST
+//			System.out.println("GoToBasePage -> Selector   " + selector); //TEST
+//			System.out.println("GoToBasePage -> Validator   "+ validator);  //TEST
+//			System.out.println("GoToBasePage -> first Enter   " + request.getSession().getAttribute("firstEnter")); //TEST
 			
 			if (request.getSession().getAttribute("firstEnter") != null) {
-// GARBAGE				
-//				request.getSession(true).setAttribute(ControllerParameters.SELECTOR_PARAM, selector);
-//				request.getSession().setAttribute(ControllerParameters.VALIDATOR_PARAM, validator);
 				response.sendRedirect("controller?command=do_sign_in");
 			} else {
 

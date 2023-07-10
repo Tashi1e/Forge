@@ -15,15 +15,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript" src="script/validation.js"></script>
-<title>locale.linkname.headertitle <!-- <bean:message key="locale.linkname.headertitle" />
- -->
+<title>
+<fmt:message bundle="${loc}" key="local.headline.title" />
 </title>
 
-<<<<<<< HEAD
 <link rel="stylesheet" type="text/css" href="./styles/newsStyle16.css">
-=======
-<link rel="stylesheet" type="text/css" href="./styles/newsStyle15.css">
->>>>>>> refs/remotes/origin/main
 
 </head>
 <body style="background-image: url(images/newspaper_background.jpg)">
@@ -35,14 +31,14 @@
 		<div class="base-layout-wrapper">
 			<div class="menu">
 
-				<c:if test="${not (sessionScope.user eq 'active')}">
+				<c:if test="${sessionScope.user_active == false}">
 				<br/>
 				<h4 style = "padding-left: 15px">
 				    ${welcome_guest}
 				    </h4> 
 					<%-- <c:import url=""></c:import> --%>
 				</c:if>
-				<c:if test="${sessionScope.user eq 'active'}">
+				<c:if test="${sessionScope.user_active == true}">
 					<c:import url="/WEB-INF/pages/tiles/menu.jsp" />
 				</c:if>
 		</div>
@@ -50,10 +46,10 @@
 		<div class="content" style="
 		background-image: url(images/newspaper_design_cut1.jpg)">
 
-				<c:if test="${not (sessionScope.user eq 'active')}">
+				<c:if test="${sessionScope.user_active == false}">
 					<c:import url="/WEB-INF/pages/tiles/guestInfo.jsp" />
 				</c:if>
-				<c:if test="${sessionScope.user eq 'active'}">
+				<c:if test="${sessionScope.user_active == true}">
 					<c:import url="/WEB-INF/pages/tiles/body.jsp" />
 				</c:if>
 

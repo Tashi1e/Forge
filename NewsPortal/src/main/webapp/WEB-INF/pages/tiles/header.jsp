@@ -15,11 +15,11 @@
 <div class="wrapper">
 	<div class="newstitle">
 <%-- 	<fmt:message bundle="${loc}" key="local.header" /> --%>
-<img alt="News Portal" src="images/news_portal_logo_transparent.png" height = "100px">
+<img alt="News Portal" src="images/news_portal_logo.png" height = "100px">
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <span>
 
-	<c:if test="${not (requestScope.AuthenticationError eq null)}">
+	<c:if test="${not (requestScope.AuthenticationError == null)}">
 						<font color="red"> 
 						   <c:out value="${requestScope.AuthenticationError}" />
 						</font> 
@@ -37,7 +37,7 @@
 			</form>
 		</div>
 
-		<c:if test="${not (sessionScope.user eq 'active')}">
+		<c:if test="${sessionScope.user_active == false}">
 
 			<div align="right">
 				<form action="controller" method="post" id="box">
@@ -60,13 +60,13 @@
 
 		</c:if>
 		
-		<c:if test="${sessionScope.user eq 'active'}">
+		<c:if test="${sessionScope.user_active == true}">
 
 			<div align="right">
 			<form action="controller" method="post" id="box">
 			<input type="hidden" name="command" value="do_sign_out" />
 			<br>
-			<h4 align="right" style="text-shadow: 3px 3px 2px rgba(0,0,0,0.4)">${sessionScope.userNickName}</h4>
+			<h4 align="right" style="text-shadow: 3px 3px 2px rgba(0,0,0,0.4)">${sessionScope.user_info.nickName}</h4>
 			<br>
 			<input type="submit" value="${signoutButton}" id="signOut" /> 
 				</form>

@@ -16,12 +16,12 @@ public class UserServiceImpl implements IUserService {
 	private final IUserDAO userDAO = DaoProvider.getInstance().getUserDao();
 
 	@Override
-	public String signIn(String login_selector, String password_validator) throws ServiceException {
-
+	public String signIn(String loginSelector, String passwordValidator) throws ServiceException {
+//FIXME
 		String role = null;
 		try {
-			Integer userId = getUserId(login_selector, password_validator);
-			System.out.println("userService, signIn, userId = "+ userId); // GARBAGE
+			Integer userId = getUserId(loginSelector, passwordValidator);
+//			System.out.println("userService, signIn, userId = "+ userId); // GARBAGE
 			if (userId != null) {
 				role = userDAO.getRole(userId);
 				if (role == null) {
@@ -34,21 +34,11 @@ public class UserServiceImpl implements IUserService {
 		return role;
 	}
 
-	public String userNickName(String login_selector, String password_validator) throws ServiceException {
-
-		UserInfo userInfo = userInfo(login_selector, password_validator);
-		if (userInfo != null) {
-			return userInfo.getNickName();
-		} else {
-			return null;
-		}
-	}
-
 	@Override
-	public UserInfo userInfo(String login_selector, String password_validator) throws ServiceException {
+	public UserInfo getUserInfo(String loginSelector, String passwordValidator) throws ServiceException {
 
 		try {
-			Integer userId = getUserId(login_selector, password_validator);
+			Integer userId = getUserId(loginSelector, passwordValidator);
 			if (userId != null) {
 				UserInfo userInfo = userDAO.getUserInfo(userId);
 				return userInfo;
@@ -83,15 +73,15 @@ public class UserServiceImpl implements IUserService {
 		}
 	}
 
-	private Integer getUserId(String login_selector, String password_validator) throws ServiceException {
+	private Integer getUserId(String loginSelector, String passwordValidator) throws ServiceException {
 		Integer userId;
 		try {
-			System.out.println("userService -> getUserId -> login_selector = " + login_selector); // GARBAGE
-			userId = userDAO.getUserIdByToken(login_selector, password_validator);
-			System.out.println("userService -> getUserId -> byToken -> userId = "+ userId); // GARBAGE
+//			System.out.println("userService -> getUserId -> login_selector = " + loginSelector); // TEST
+			userId = userDAO.getUserIdByToken(loginSelector, passwordValidator);
+//			System.out.println("userService -> getUserId -> byToken -> userId = "+ userId); // TEST
 			if (userId == null) {
-				userId = userDAO.getUserId(login_selector, password_validator);
-				System.out.println("userService -> getUserId -> byLogPass -> userId = "+ userId); // GARBAGE
+				userId = userDAO.getUserId(loginSelector, passwordValidator);
+//				System.out.println("userService -> getUserId -> byLogPass -> userId = "+ userId); // TEST
 			}
 		} catch (DaoException e) {
 			throw new ServiceException(e);

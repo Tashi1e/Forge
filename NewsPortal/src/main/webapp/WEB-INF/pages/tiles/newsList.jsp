@@ -12,16 +12,16 @@
 		<div class="single-news-wrapper">
 			<div class="single-news-header-wrapper">
 				<div class="news-title">
-				<a href="controller?command=go_to_view_news&id=${news.idNews}" style="color:black; text-decoration:none">
+				<a href="controller?command=go_to_view_news&id=${news.id}" style="color:black; text-decoration:none">
 					<h3><c:out value="${news.title}" /></h3>
 					</a>
 				</div>
 				<div class="news-date">
-					<c:out value="${news.newsDate}" />
+					<c:out value="${news.date}" />
 				</div>
 
 				<div class="news-content">
-					<c:out value="${news.briefNews}" />
+					<c:out value="${news.brief}" />
 				</div>
 				<div class="news-link-to-wrapper">
 					<div class="link-position">
@@ -34,19 +34,15 @@
   								1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
 								</svg>
 						      </a> 
-<<<<<<< HEAD
-   					         <input type="checkbox" name="idNews" value="${news.idNews }" id="chbx${news.idNews}" form="delete_news_form" style="display: none"/>
-=======
-   					         <input type="checkbox" name="idNews" value="${news.idNews }" id="chbx${news.idNews}" style="display: none"/>
->>>>>>> refs/remotes/origin/main
-   					         <label for="chbx${news.idNews }" style="position: relative; display: inline-block;">
+   					         <input type="checkbox" name="idNews" value="${news.id}" id="chbx${news.id}" form="delete_news_form" style="display: none"/>
+   					         <label for="chbx${news.id}" style="position: relative; display: inline-block;">
    					         <span>
    					                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="grey" class="bi bi-app" viewBox="0 0 16 16">
   									<path d="M11 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h6zM5 1a4 4 0 0 0-4 4v6a4 
   									4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z"/>
 									</svg>
 									</span>
-									<span style="position: absolute; left: 0 ; font-size: 18px; visibility: hidden" id="news_check_icon_label_${news.idNews }">
+									<span style="position: absolute; left: 0 ; font-size: 18px; visibility: hidden" id="news_check_icon_label_${news.id}">
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="grey" class="bi bi-check-lg" viewBox="0 0 16 16">
   									<path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 
   									8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
@@ -55,13 +51,13 @@
 							</label>
 							
 							<script type="text/javascript">
-									let checkBox${news.idNews} = document.getElementById('chbx' + ${news.idNews});
-									let checkIcon${news.idNews} = document.getElementById('news_check_icon_label_' + ${news.idNews});
-										checkBox${news.idNews}.onclick = function(){
-										if (checkBox${news.idNews}.checked) {
-											checkIcon${news.idNews}.style.visibility = 'visible';
+									let checkBox${news.id} = document.getElementById('chbx' + ${news.id});
+									let checkIcon${news.id} = document.getElementById('news_check_icon_label_' + ${news.id});
+										checkBox${news.id}.onclick = function(){
+										if (checkBox${news.id}.checked) {
+											checkIcon${news.id}.style.visibility = 'visible';
 										} else {
-											checkIcon${news.idNews}.style.visibility = 'hidden';
+											checkIcon${news.id}.style.visibility = 'hidden';
 										}
 									}
 							</script>
@@ -84,7 +80,7 @@
 	</logic:notEmpty> -->
 
 	<div class="no-news">
-		<c:if test="${requestScope.news eq null}">
+		<c:if test="${requestScope.news == null}">
         No news.
 	</c:if>
 	</div>

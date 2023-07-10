@@ -26,12 +26,12 @@ public class DoRegistration implements Command {
 		String login;
 		String password;
 
-		firstName = request.getParameter("firstname");
-		lastName = request.getParameter("lastname");
-		nickName = request.getParameter("nickname");
-		email = request.getParameter("email");
-		login = request.getParameter("login");
-		password = request.getParameter("password");
+		firstName = request.getParameter(AttributeParamName.JSP_FIRST_NAME_PARAM);
+		lastName = request.getParameter(AttributeParamName.JSP_LAST_NAME_PARAM);
+		nickName = request.getParameter(AttributeParamName.JSP_NICK_NAME_ATTRIBUTE);
+		email = request.getParameter(AttributeParamName.JSP_EMAIL_PARAM);
+		login = request.getParameter(AttributeParamName.JSP_LOGIN_PARAM);
+		password = request.getParameter(AttributeParamName.JSP_PASSWORD_PARAM);
 
 		User user = new User();
 		user.setLogin(login);

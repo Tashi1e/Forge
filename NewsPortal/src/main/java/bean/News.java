@@ -14,10 +14,11 @@ public class News implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private Integer idNews=0;
+	private Integer id=0;
 	private String title="";
-	private String imagePath="";
-	private String briefNews="";
+	private String image="";
+	private String brief="";
 	private String content="";
-	private String newsDate="";
+	private String date="";
+	private String author="";
 }

@@ -18,7 +18,7 @@ public class GoToErrorPage implements Command{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-			request.setAttribute("errorCode", errorCode);
+			request.setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, errorCode);
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 	}
 

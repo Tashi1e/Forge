@@ -1,7 +1,6 @@
 package controller.impl;
 
 import java.io.IOException;
-import java.util.List;
 
 import bean.News;
 import controller.Command;
@@ -12,7 +11,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@SuppressWarnings("unused")
 public class GoToViewNews implements Command {
 	
 	private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
@@ -25,18 +23,19 @@ public class GoToViewNews implements Command {
 		id = request.getParameter("id");
 		
 		if(id ==null) {
-			id = (String) request.getSession(true).getAttribute("newsID");
+			response.sendRedirect("controller?command=go_to_news_list");
 		}
-		else {
-			request.getSession(true).setAttribute("newsID", id);	
-		}
+//GARBAGE		
+//		else {
+//			request.getSession(true).setAttribute(AttributeParamName.JSP_NEWS_ID_ATTRIBUTE, id);	
+//		}
 		
 		try {
 			news  = newsService.findById(Integer.parseInt(id));
-			request.setAttribute("news", news);
-			request.setAttribute("presentation", "viewNews");
-			request.getSession(true).setAttribute("newsID", id);
-			request.getSession().setAttribute("currentPage", request.getParameter("command"));
+			request.setAttribute(AttributeParamName.JSP_NEWS_ATTRIBUTE, news);
+			request.setAttribute(AttributeParamName.JSP_PRESENTATION_ATTRIBUTE, "viewNews");
+//			request.getSession(true).setAttribute(AttributeParamName.JSP_NEWS_ID_ATTRIBUTE, id); //GARBAGE
+			request.getSession().setAttribute("currentPage", request.getParameter("command")); //FIXME!!!
 
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		} catch (ServiceException e) {

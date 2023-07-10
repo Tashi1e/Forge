@@ -41,7 +41,7 @@ transform: translate(-50%, -50%)
 <body>
 <div align="center">
 <h1 align = "center"><font color="red">
-<c:if test="${not (requestScope.errorCode eq null)}">
+<c:if test="${not (requestScope.errorcode eq null)}">
 <fmt:message bundle="${loc}" key="local.error.code.${requestScope.errorCode}" />
 </c:if>
 <c:if test="${requestScope.errorCode eq null}">

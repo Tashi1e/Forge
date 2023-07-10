@@ -6,7 +6,7 @@ import java.util.List;
 import bean.News;
 import dao.INewsDAO;
 import dao.NewsDAOException;
-import util.tempArticles.TempArticleSource;
+import util.temp.TempArticleSource;
 
 public class NewsDAO implements INewsDAO {
 
@@ -58,7 +58,7 @@ public class NewsDAO implements INewsDAO {
 	}
 
 	@Override
-	public void deleteNewses(String[] idNewses) throws NewsDAOException {
+	public void deleteNews(int [] idNewses) throws NewsDAOException {
 		// TODO Auto-generated method stub
 
 	}
