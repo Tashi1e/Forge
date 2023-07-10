@@ -1,19 +1,60 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
+<<<<<<< HEAD
 <fmt:setLocale value="${sessionScope.locale}" />
 <fmt:setBundle basename="localization.local" var="loc" />
+=======
+<style>
+.menu_list li{
+	padding-top: 7px;
+}
+>>>>>>> refs/remotes/origin/main
 
+<<<<<<< HEAD
 <fmt:message bundle="${loc}" key="local.menu.news.management.title" var="news_management_title" />
 <fmt:message bundle="${loc}" key="local.menu.newslist.name" var="news_list_link" />
 <fmt:message bundle="${loc}" key="local.menu.addnews.name" var="add_news_link" />
 <fmt:message bundle="${loc}" key="local.menu.deletenews.name" var="delete_news_link" />
+=======
+.menu_list li a {
+	color: dimgrey;
+	text-shadow: 3px 3px 2px rgba(255,255,0,0.3);
+	text-decoration: none;
+	font-family: "Times New Roman";
+	font-size: 22px;
+	font-weight: bold;
+	transition: all 200ms;
+/* 	font-style: italic; */
+}
+>>>>>>> refs/remotes/origin/main
 
+<<<<<<< HEAD
 <style>
 .menu_list li {
 	padding-top: 5px;
 }
+=======
+.menu_list li a:hover {	
+	padding-left: 15px;
+}
+</style>
+<!-- <div > -->
+<!-- 	<div class="menu-title-wrapper"> -->
+<!-- 		<div class="menu-title"> -->
+<!-- 		       News -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+<br/><br/>
+<!-- 	<div > -->
+<!-- 		<div class="list-menu-wrapper" style="float: right;"> -->
+			<ul class="menu_list" style="list-style: none; text-align: left">
+				<li >
+				<a href="controller?command=go_to_news_list">news list</a><br />
+				</li>
+>>>>>>> refs/remotes/origin/main
 
+<<<<<<< HEAD
 .menu_list li a {
 	color: black;
 	text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.4);
@@ -87,6 +128,23 @@ border-color: gold;
 </button>
 </form>
 </div>
+=======
+				<c:if test="${sessionScope.role eq 'admin'}">
+				   <li class="menu_list_elem">
+				
+				    <a href="">add news </a>
+                
+                   <br />
+					
+				</li></c:if>
+			</ul>
+<!-- 		</div> -->
+		<div class="clear"></div>
+<!-- 	</div> -->
+	<!--  grey free space at the bottom of menu -->
+	<div style="height: 25px;"></div>
+<!-- </div> -->
+>>>>>>> refs/remotes/origin/main
 
 	<ul class="menu_list" style="list-style: none; text-align: left">
 	

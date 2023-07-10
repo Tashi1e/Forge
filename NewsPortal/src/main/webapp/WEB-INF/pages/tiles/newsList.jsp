@@ -34,7 +34,11 @@
   								1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
 								</svg>
 						      </a> 
+<<<<<<< HEAD
    					         <input type="checkbox" name="idNews" value="${news.idNews }" id="chbx${news.idNews}" form="delete_news_form" style="display: none"/>
+=======
+   					         <input type="checkbox" name="idNews" value="${news.idNews }" id="chbx${news.idNews}" style="display: none"/>
+>>>>>>> refs/remotes/origin/main
    					         <label for="chbx${news.idNews }" style="position: relative; display: inline-block;">
    					         <span>
    					                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="grey" class="bi bi-app" viewBox="0 0 16 16">

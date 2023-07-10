@@ -34,6 +34,7 @@ public class DoSIgnIn implements Command {
 		CookiesOps cookiesOps = new CookiesOps();
 		String selector = cookiesOps.findCookie(request, ControllerParameters.SELECTOR_PARAM);
 		String validator = cookiesOps.findCookie(request, ControllerParameters.VALIDATOR_PARAM);
+		request.getSession().removeAttribute("firstEnter");
 
 		if (selector != null && validator != null && request.getSession().getAttribute("firstEnter") != null) {
 			try {
