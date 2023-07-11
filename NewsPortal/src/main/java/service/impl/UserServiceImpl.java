@@ -78,10 +78,10 @@ public class UserServiceImpl implements IUserService {
 		try {
 //			System.out.println("userService -> getUserId -> login_selector = " + loginSelector); // TEST
 			userId = userDAO.getUserIdByToken(loginSelector, passwordValidator);
-//			System.out.println("userService -> getUserId -> byToken -> userId = "+ userId); // TEST
+			System.out.println("userService -> getUserId -> byToken -> userId = "+ userId); // TEST
 			if (userId == null) {
 				userId = userDAO.getUserId(loginSelector, passwordValidator);
-//				System.out.println("userService -> getUserId -> byLogPass -> userId = "+ userId); // TEST
+				System.out.println("userService -> getUserId -> byLogPass -> userId = "+ userId); // TEST
 			}
 		} catch (DaoException e) {
 			throw new ServiceException(e);
