@@ -86,7 +86,7 @@ background-color: gold;
 }
 </style>
 
-<span style="padding-left: 15px; font-size: 22px"><b><u>${news_management_title}</u></b></span>
+<span style="padding-left: 15px; font-size: 22px"><b><u>${news_management_title}</u></b></span> 
 <div style="padding-left: 15px; padding-top: 7px">
 <form>
 <input type="search" id="search_field" placeholder="  search news" />
@@ -99,14 +99,11 @@ background-color: gold;
 </div>
 	<ul class="menu_list" style="list-style: none; text-align: left">
 	
-		<li><a href="controller?command=go_to_news_list">${news_list_link}</a>
-		</li>
+		<li><a href="controller?command=go_to_news_list">${news_list_link}</a></li>
 
 		<c:if test="${sessionScope.role eq 'admin'}">
 			<li><a href="controller?command = go_to_edit_news_page">${add_news_link}</a></li>
-			<li><form id="delete_news_form">
-			<a href="">${delete_news_link}</a>
-			</form></li>
+			<li><form id="delete_news_form"><a href="">${delete_news_link}</a></form></li>
 		</c:if>
 	</ul>
 

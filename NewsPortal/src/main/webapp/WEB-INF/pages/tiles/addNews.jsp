@@ -10,15 +10,15 @@
 <p>
 <input type="text" />
 </p>
-
+<br>
 <p>
 <textarea style="width: 100%; height: 50px">Brief</textarea>
 </p>
-
+<br>
 <p>
 <textarea style="width: 100%; height: 50px">Content</textarea>
 </p>
-
+<br>
 <p>
 <input />
 </p>
