@@ -8,13 +8,13 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
   </welcome-file-list>
   <servlet>
     <servlet-name>Controller</servlet-name>
-    <servlet-class>controller.FrontController</servlet-class>
+    <servlet-class>tcejorptset.servl.controller.FrontController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Controller</servlet-name>
     <url-pattern>/controller</url-pattern>
   </servlet-mapping>
   <listener>
-  <listener-class>listeners.ContextListener</listener-class>
+  <listener-class>tcejorptset.servl.listeners.ContextListener</listener-class>
   </listener>
 </web-app>
