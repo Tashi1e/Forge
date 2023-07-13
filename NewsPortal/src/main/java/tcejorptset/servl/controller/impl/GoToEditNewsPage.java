@@ -15,7 +15,7 @@ public class GoToEditNewsPage implements Command {
 		request.setAttribute(AttributeParamName.JSP_PRESENTATION_ATTRIBUTE, "editNews");
 //		request.getSession(true).setAttribute(AttributeParamName.JSP_NEWS_ID_ATTRIBUTE, id); //GARBAGE
 		request.getSession().setAttribute("currentPage", request.getParameter("command")); //FIXME!!!
-		System.out.println("GoToEditNewsPage"); //TEST 
+		System.out.println("GoToEditNewsPage"); //TEST  
 
 		request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		

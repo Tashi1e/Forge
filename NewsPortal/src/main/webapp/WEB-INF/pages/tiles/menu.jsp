@@ -100,9 +100,8 @@ background-color: gold;
 	<ul class="menu_list" style="list-style: none; text-align: left">
 	
 		<li><a href="controller?command=go_to_news_list">${news_list_link}</a></li>
-
 		<c:if test="${sessionScope.role eq 'admin'}">
-			<li><a href="controller?command = go_to_edit_news_page">${add_news_link}</a></li>
+			<li><a href="controller?command=go_to_edit_news_page">${add_news_link}</a></li>
 			<li><form id="delete_news_form"><a href="">${delete_news_link}</a></form></li>
 		</c:if>
 	</ul>

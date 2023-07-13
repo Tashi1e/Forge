@@ -11,7 +11,7 @@ public class DoDeleteNews implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method
+		// TODO Auto-generated
 		
 	}
 
