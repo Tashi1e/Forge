@@ -103,7 +103,7 @@ background-color: gold;
 		</li>
 
 		<c:if test="${sessionScope.role eq 'admin'}">
-			<li><a href="">${add_news_link}</a></li>
+			<li><a href="controller?command = go_to_edit_news_page">${add_news_link}</a></li>
 			<li><form id="delete_news_form">
 			<a href="">${delete_news_link}</a>
 			</form></li>

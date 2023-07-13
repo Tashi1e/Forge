@@ -2,7 +2,7 @@ package tcejorptset.servl.bean;
 
 import java.io.Serializable;
 
-import lombok.Data;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,13 +16,14 @@ import lombok.ToString;
 @NoArgsConstructor
 public class News implements Serializable {
 
+	
 	private static final long serialVersionUID = 1L;
 	
-	private Integer id;
-	private String title;
-	private String image;
-	private String brief;
-	private String content;
-	private String date;
-	private String author;
+	private Integer id=0;
+	private String title="";
+	private String image="";
+	private String brief="";
+	private String content="";
+	private String date="";
+	private String author="";
 }
