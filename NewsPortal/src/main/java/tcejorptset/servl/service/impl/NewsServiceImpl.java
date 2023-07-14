@@ -13,20 +13,21 @@ public class NewsServiceImpl implements INewsService{
 
 	private final INewsDAO newsDAO = DaoProvider.getInstance().getNewsDAO();
 	
+	
 	@Override
-	public void save() {
+	public void save(News news) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void find() {
+	public List<News> find(String keyWord) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
-	public void update() {
+	public void update(News news) {
 		// TODO Auto-generated method stub
 		
 	}

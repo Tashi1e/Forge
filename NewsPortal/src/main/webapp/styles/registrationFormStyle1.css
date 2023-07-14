@@ -9,7 +9,7 @@ body {
 }
 
 div {
-height: 90%;
+	height: 90%;
 	align-self: center;
 	margin-left: auto;
 	margin-right: auto;
@@ -28,18 +28,19 @@ height: 90%;
 }
 
 .special-item {
-	grid-column-start: 1; 
-	grid-column-end: 3;	
+	grid-column-start: 1;
+	grid-column-end: 3;
 }
 
-input, button {
+input,
+button {
 	border-radius: 7px;
 	padding: 10px;
 	align-self: center;
 	border-style: solid;
-	width: 250px; 
+	width: 250px;
 	font-family: "Times New Roman";
-	font-size: 18px;	
+	font-size: 18px;
 }
 
 input {
@@ -51,8 +52,8 @@ input {
 }
 
 input:focus {
-      outline: 0;
-	  box-shadow: 0 0 0 0.2rem rgba(95, 95, 105, 0.25);
+	outline: 0;
+	box-shadow: 0 0 0 0.2rem rgba(95, 95, 105, 0.25);
 }
 
 button {
@@ -76,28 +77,28 @@ button:hover {
 h1 {
 	font-family: "Times New Roman";
 	color: grey;
-    opacity: 0.8	
+	opacity: 0.8
 }
 
 .ph-container {
-    position: relative;
+	position: relative;
 }
 
 .ph-container label {
-    pointer-events: none;
-    color: rgba(110, 110, 120, 0.6);
-    font-size: 18px;
-    font-weight: bold;
-    font-style: italic;
-    top: 25%;
-    left: 5%;
-    position: absolute;
-    transition: all 200ms;
+	pointer-events: none;
+	color: rgba(110, 110, 120, 0.6);
+	font-size: 18px;
+	font-weight: bold;
+	font-style: italic;
+	top: 25%;
+	left: 5%;
+	position: absolute;
+	transition: all 200ms;
 }
 
-.ph-container input:focus + label,
-.ph-container input:not(:placeholder-shown) + label{
-    top: -15px;
-    left: 10px;
-    font-size: 14px; 
+.ph-container input:focus+label,
+.ph-container input:not(:placeholder-shown)+label {
+	top: -15px;
+	left: 10px;
+	font-size: 14px;
 }

@@ -22,9 +22,9 @@ public class GoToBasePage implements Command {
 
 		List<News> latestNews;
 		try {
-			CookiesOps cookiesOps = new CookiesOps();
-			String selector = cookiesOps.findCookie(request, AttributeParamName.SELECTOR_PARAM);
-			String validator = cookiesOps.findCookie(request, AttributeParamName.VALIDATOR_PARAM);
+//			CookiesOps cookiesOps = new CookiesOps(); //TEST
+//			String selector = cookiesOps.findCookie(request, AttributeParamName.SELECTOR_PARAM); //TEST
+//			String validator = cookiesOps.findCookie(request, AttributeParamName.VALIDATOR_PARAM); //TEST
 			
 //			System.out.println("GoToBasePage -> Selector   " + selector); //TEST
 //			System.out.println("GoToBasePage -> Validator   "+ validator);  //TEST

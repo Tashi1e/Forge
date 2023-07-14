@@ -35,5 +35,11 @@ final class SQLQuery {
 														+ "JOIN users_has_roles ON roles.id = users_has_roles.roles_id  "
 														+ "WHERE users_has_roles.users_id = ?";
 	
+	static final String SAVE_NEWS_QUERY = "INSERT INTO news (users_id, title, brief, news_date, status) VALUES (?, ?, ?, ?, ?);";
+	
+	static final String EDIT_NEWS_QUERY = "UPDATE news (title, brief, news_date, status) VALUES (?, ?, ?, ?) WHERE id = ?;";
+	
+	static final String DELETE_NEWS_QUERY = "DELETE FROM news WHERE id = ?;";
+	
 	private SQLQuery () {};
 }
