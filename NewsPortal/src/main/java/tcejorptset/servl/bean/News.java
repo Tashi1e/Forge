@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+
 @Getter
 @Setter
 @ToString
@@ -25,5 +26,5 @@ public class News implements Serializable {
 	private String brief="";
 	private String content="";
 	private String date="";
-	private String author="";
+	private Integer userId;
 }

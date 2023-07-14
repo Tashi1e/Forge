@@ -19,6 +19,7 @@ public class UserInfo implements Serializable{
 
 	private static final long serialVersionUID = -1421192482328889996L;
 	
+	private int users_id;
 	private String firstName;
 	private String lastName;
 	private String nickName;

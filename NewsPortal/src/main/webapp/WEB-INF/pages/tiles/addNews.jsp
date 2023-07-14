@@ -5,58 +5,53 @@
 <fmt:setBundle basename="localization.local" var="loc" />
 
 <style>
-
-textarea {
-	width: 98%; 
-	height: 50px;
-	resize: none; 
-	margin-right: 10px;
-	background-color: transparent;
+#edit_field{
+	width: 95%;
+	height: 70vh;
+	padding-top: 20px;
 }
 
-textarea#content{
-	height: 500px;
+label {
+ 	margin_top: 10px; 
+ 	font-weight: bold; 
+ 	font-style: italic; 
 }
 
-#publish{
-	border: 2px;
-	border-radius: 5px;
-	border-style: solid;
-	border-color: grey;
-	font-family: "Times New Roman";
-	background-color: transparent;
-	font-size: 16px;
-	font-weight: bold;
-	height: 30px;
-	transition: all 200ms;
-	color: rgb(90, 90, 100);
-	width: 120px;
+textarea#title {
+	height: 1.2em;
 }
-#publish:hover{
-	scale: 1.02 1.1;
-	border-color: rgb(105, 105, 115);
-	background-color: rgb(105, 105, 115);
-	color: white;
+	
+textarea#brief {
+	height: 3.6em;
+}
+
+textarea#content {
+	height: 57vh;
+}
+
+input#publish {
+	width: 100px;
 }
 </style>
 
-<div>
-<form>
 
-<p>
-<input type="text" />
+<div id="edit_field">
+<form action="controller" method="post" >
+<input type="hidden" name="command" value="go_to_edit_news_page" />
+<p> 
+<label for="title">Title</label>
+<textarea name="title" class="text_edit" id="title" placeholder="Enteer Your title here"></textarea>
 </p>
-<br>
 <p>
-<textarea class="single-news-header-wrapper">Brief</textarea>
+<label for="brief">Brief</label>
+<textarea name="brief" class="text_edit" id="brief" placeholder="Enteer Your title here"></textarea>
 </p>
-<br>
 <p>
-<textarea id="content" class="single-news-header-wrapper">Content</textarea>
+<label for="content">Content</label>
+<textarea name="content" class="text_edit" id="content" placeholder="Enteer Your content here"></textarea>
 </p>
-<br>
 <p>
-<input type="submit" id="publish" value="Publish" />
+<input type="submit" id="publish" class="button_transperent" value="Publish" />
 </p>
 
 </form>

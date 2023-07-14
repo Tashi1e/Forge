@@ -36,14 +36,13 @@ public final class CommandProvider {
 	}
 	
 	public final Command getCommand(String name) {
-		System.out.println(name); //TEST
 		try {
 		CommandName  commandName = CommandName.valueOf(name.toUpperCase());
 		Command command = commands.get(commandName);
 		return command;
 		}
 		catch (Exception e) {
-			System.out.println("toErrorPage"); // TEST
+//			System.out.println("toErrorPage"); // TEST
 			return new GoToErrorPage("404");
 		}
 	}

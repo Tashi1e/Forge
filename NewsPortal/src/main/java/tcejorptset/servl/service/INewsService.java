@@ -5,9 +5,9 @@ import java.util.List;
 import tcejorptset.servl.bean.News;
 
 public interface INewsService {
-  void save();
-  void find();
-  void update();
+  void save(News news);
+  List<News> find(String keyWord);
+  void update(News news);
   
   List<News> latestList(int count)  throws ServiceException;
   List<News> list()  throws ServiceException;

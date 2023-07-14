@@ -1,8 +1,9 @@
 /* for base layout */
-html,body {
+html,
+body {
 	height: 100%;
 	width: 1000px;
-	
+
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-attachment: fixed;
@@ -16,6 +17,30 @@ html,body {
 	margin: 0 auto;
 }
 
+input {
+	border-radius: 5px;
+	border-style: solid;
+	font-family: "Times New Roman";
+}
+
+input.button_transperent {
+	font-size: 16px;
+	white-space: normal;
+	font-weight: bold;
+	height: 2em;
+	border-color: rgb(110, 110, 120);
+	background-color: transparent;
+	color: rgb(90, 90, 100);
+	transition: all 200ms;
+}
+
+input.button_transperent:hover {
+	scale: 1.02 1.1;
+	border-color: rgb(105, 105, 115);
+	background-color: rgb(105, 105, 115);
+	color: white;
+}
+
 .page {
 	border: solid 2px grey;
 	border-radius: 3px;
@@ -25,23 +50,24 @@ html,body {
 	min-height: 500px;
 	position: relative;
 	width: 1000px;
-	
+
 }
 
 .header {
 	border-bottom: solid 2px grey;
 	height: 110px;
-	font-size : 24px;
-	margin-left: -1px; 
-	margin-right: -1px; 
-	margin-top: -1px; 
+	font-size: 24px;
+	margin-left: -1px;
+	margin-right: -1px;
+	margin-top: -1px;
 }
 
-.menu,.content {
+.menu,
+.content {
 	bottom: 20px;
 	position: absolute;
 	top: 110px;
- 	overflow: auto; 
+	overflow: auto;
 }
 
 .menu {
@@ -51,26 +77,26 @@ html,body {
 }
 
 .content {
-	left: 20%; 
+	left: 20%;
 	right: 0;
-	
+
 	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-right: 5px;
- 	padding-left: 10px; 
-	
+	padding-left: 10px;
+
 	border: solid 2px grey;
 	border-radius: 3px;
 	border-style: solid;
-	
+
 	margin-top: 5px;
 	margin-bottom: 10px;
 	margin-left: 10px;
 	margin-right: 5px;
-	
+
 	background-repeat: no-repeat;
 	background-size: cover;
-	
+
 }
 
 .footer {
@@ -80,7 +106,7 @@ html,body {
 	width: 1000px;
 	height: 25px;
 	border-top: solid 2px grey;
-	
+
 	margin-left: -1px;
 	margin-right: -1px;
 	margin-bottom: -1px;
@@ -91,13 +117,13 @@ html,body {
 }
 
 /* for menu */
- .menu-wrapper {
- 	margin-top : 5px;
- 	margin-left : 10px;
- 
+.menu-wrapper {
+	margin-top: 5px;
+	margin-left: 10px;
+
 	background: LightGray;
 	padding-left: 10px;
-	
+
 }
 
 .menu-title {
@@ -127,10 +153,10 @@ html,body {
 	padding-bottom: 5px;
 	padding-left: 5px;
 	padding-top: 5px;
-} 
+}
 
 /* for header */
- .wrapper {
+.wrapper {
 	margin-left: 20px;
 	position: relative;
 }
@@ -152,12 +178,12 @@ html,body {
 	right: 20px;
 	color: black;
 	font-size: 14px;
-} 
+}
 
 /* for news list */
- .single-news-wrapper {
+.single-news-wrapper {
 	margin-top: 15px;
-/* 	margin-bottom: 15px; */
+	/* 	margin-bottom: 15px; */
 }
 
 .single-news-header-wrapper {
@@ -175,29 +201,29 @@ html,body {
 	padding-right: 5px;
 	padding-left: 20px;
 	hyphens: auto;
-/* 	word-break: break-all; */
+	/* 	word-break: break-all; */
 }
 
 .news-date {
- 	width: 10% ;
- 	float: right;
+	width: 10%;
+	float: right;
 	text-align: right;
 	padding-bottom: 5px;
 	padding-top: 20px;
 	padding-right: 30px;
 	padding-left: 5px;
-/* 	text-decoration: underline; */
+	/* 	text-decoration: underline; */
 }
 
 .news-content {
-/* 	word-break: break-all; */
+	/* 	word-break: break-all; */
 	hyphens: auto;
 	text-align: left;
 	padding-bottom: 5px;
 	padding-top: 5px;
 	padding-right: 25%;
 	padding-left: 20px;
-	text-align:justify;
+	text-align: justify;
 }
 
 
@@ -220,24 +246,24 @@ html,body {
 	padding-right: 15px;
 }
 
-.no-news{
+.no-news {
 	margin-top: 10px;
 	text-align: center;
 }
- 
+
 /* for view news */
- .news_text_format {
- 	margin: 0;
+.news_text_format {
+	margin: 0;
 	width: 90%;
 	text-align: left;
 	hyphens: auto;
-/* 	word-break: break-all; */
+	/* 	word-break: break-all; */
 }
 
 .word-breaker {
-/* 	word-break: break-all; */
+	/* 	word-break: break-all; */
 	hyphens: auto;
-	text-align:justify;
+	text-align: justify;
 }
 
 .space_around_view_text {
@@ -273,7 +299,7 @@ a:visited {
 }
 
 /* for add news  */
- .cancel-button {
+.cancel-button {
 	width: 40px;
 	position: relative;
 	bottom: 23px;
@@ -302,17 +328,17 @@ a:visited {
 }
 
 .align_container {
-	display:table; 
+	display: table;
 	width: 100%;
 }
 
 .align_left {
-	display: table-cell; 
+	display: table-cell;
 	text-align: left;
 }
 
 .align_right {
-	display: table-cell; 
+	display: table-cell;
 	text-align: right;
 }
 
@@ -321,12 +347,27 @@ a:visited {
 }
 
 .all_buttons_size {
-    width: 80px;
+	width: 80px;
 }
 
 /* more than one  */
-.error-box{
+.error-box {
 	margin-top: 10px;
-	text-align: center;	
+	text-align: center;
 }
 
+.text_edit {
+	width: 100%;
+	resize: none; 
+	margin-bottom: 10px;
+	background-color: transparent;
+	font-family: "Times New Roman";
+	font-style: italic;
+	border: solid 1px rgba(110, 110, 120, 0.3);
+	border-radius: 3px;
+}
+
+.text_edit:focus{
+	outline: 0;
+/*	box-shadow: 0 0 0 0.1rem rgba(95, 95, 105, 0.15);*/
+}

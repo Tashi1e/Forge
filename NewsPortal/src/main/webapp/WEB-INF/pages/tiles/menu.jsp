@@ -17,7 +17,7 @@
 
 .menu_list li a {
 	color: dimgrey;
-	text-shadow: 3px 3px 2px rgba(255,255,0,0.3);
+	text-shadow: 1px 1px 0.5px rgba(255,255,0,0.3);
 	text-decoration: none;
 	font-family: "Times New Roman";
 	font-size: 22px;
@@ -42,9 +42,7 @@
 	font-family: "Times New Roman";
 	font-size: 18px;
  	font-weight: bold;
-	font-style: italic;
 	transition: all 200ms;
-	/* 	font-style: italic; */
 }
 
 .menu_list li a:hover {
@@ -67,7 +65,7 @@ form #search_field {
 }
 
 form #search_field:focus {
-	border-width: 1px 0px 1px 1px;
+	outline: 0;
 }
 
 form #search_button {
@@ -85,20 +83,19 @@ form #search_button:hover {
 background-color: gold;
 }
 </style>
-
+<br>
 <span style="padding-left: 15px; font-size: 22px"><b><u>${news_management_title}</u></b></span> 
 <div style="padding-left: 15px; padding-top: 7px">
 <form>
 <input type="search" id="search_field" placeholder="  search news" />
 <button id="search_button">
 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="black" class="bi bi-search" viewBox="0 0 16 16">
-  <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+  	<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
 </svg>
 </button>
 </form>
 </div>
 	<ul class="menu_list" style="list-style: none; text-align: left">
-	
 		<li><a href="controller?command=go_to_news_list">${news_list_link}</a></li>
 		<c:if test="${sessionScope.role eq 'admin'}">
 			<li><a href="controller?command=go_to_edit_news_page">${add_news_link}</a></li>
