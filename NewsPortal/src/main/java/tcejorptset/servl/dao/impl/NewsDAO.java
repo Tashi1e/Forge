@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +25,48 @@ public class NewsDAO implements INewsDAO {
 
 	@Override
 	public List<News> getLatestsList(int count) throws NewsDAOException {
-		List<News> result = new ArrayList<News>();
+		List<News> latestNews = new ArrayList<News>();
+		count = count > 0 ? count : 5;
+//		count = count > 20? 20 : count; // may be limit
 
-		for (Integer i = 1; i <= 5; i++) {
-			News news = tempArticleSource.article(i);
-			if (news == null)
-				continue;
-			else
-				result.add(tempArticleSource.article(i));
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			preparedStatement = connection.prepareStatement(SQLQuery.LATEST_NEWS_QUERY);
+			preparedStatement.setInt(1, count);
+			resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()) {
+				var news = new News();
+				int newsId = resultSet.getInt("id");
+				news.setId(newsId);
+				news.setUserId(resultSet.getInt("users_id"));
+				news.setTitle(resultSet.getString("title"));
+				news.setBrief(resultSet.getString("brief"));
+				news.setContent(contentTextIO.getContent(newsId));
+				news.setDate(resultSet.getTimestamp("news_date").toInstant());
+				news.setStatus(resultSet.getShort("status"));
+
+				latestNews.add(news);
+			}
+
+		} catch (ConnectionPoolException | SQLException | IOException e) {
+			throw new NewsDAOException(e);
+		} finally {
+			connectionPool.closeConnection(connection, preparedStatement, resultSet);
 		}
-		return result;
+		return latestNews;
+
+//		for (int i = 1; i <= count; i++) {
+//			News news = tempArticleSource.article(i);
+//			if (news == null)
+//				continue;
+//			else
+//				result.add(tempArticleSource.article(i));
+//		}
+//		return latestNews;
 	}
 
 	@Override
@@ -66,18 +99,27 @@ public class NewsDAO implements INewsDAO {
 		try {
 			connection = connectionPool.takeConnection();
 			connection.setAutoCommit(false);
-			preparedStatement = connection.prepareStatement(SQLQuery.SAVE_NEWS_QUERY);
+			preparedStatement = connection.prepareStatement(SQLQuery.SAVE_NEWS_QUERY, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setInt(1, news.getUserId());
 			preparedStatement.setString(2, news.getTitle());
 			preparedStatement.setString(3, news.getBrief());
 			preparedStatement.setTimestamp(4, newsRegDate);
 			preparedStatement.setInt(5, 123); // status
+			preparedStatement.executeUpdate();
+			
 			resultSet = preparedStatement.getGeneratedKeys();
-			int newsId = resultSet.getInt("id");
-
-			contentTextIO.setContent(newsId, news.getContent());
+			if(resultSet.next()) {
+			int newsId = resultSet.getInt(1);
+			System.out.println(contentTextIO.setContent(newsId, news.getContent()));
+			System.out.println(contentTextIO.getContent(newsId));
+			}
 
 		} catch (ConnectionPoolException | SQLException | IOException e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				throw new NewsDAOException (e1);
+			}
 			throw new NewsDAOException("Adding News Fails!!!", e);
 		} finally {
 			connectionPool.closeConnection(connection, preparedStatement, resultSet);
@@ -100,11 +142,11 @@ public class NewsDAO implements INewsDAO {
 			preparedStatement.setTimestamp(3, newsRegDate);
 			preparedStatement.setInt(4, 123); // status
 			preparedStatement.setInt(5, news.getId());
-			
+
 			contentTextIO.setContent(news.getId(), news.getContent());
-			
+
 		} catch (ConnectionPoolException | SQLException | IOException e) {
-			throw new NewsDAOException("News update Fails!!!", e);
+			throw new NewsDAOException("News update fails!!!", e);
 		}
 
 	}
@@ -123,14 +165,8 @@ public class NewsDAO implements INewsDAO {
 				preparedStatement.setInt(1, newsId);
 			}
 
-		} catch (ConnectionPoolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (ConnectionPoolException | SQLException e) {
+			throw new NewsDAOException("Fail to delete some news!", e);
 		}
-
 	}
-
 }

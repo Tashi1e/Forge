@@ -6,6 +6,7 @@ import tcejorptset.servl.bean.News;
 import tcejorptset.servl.bean.UserInfo;
 import tcejorptset.servl.controller.Command;
 import tcejorptset.servl.service.INewsService;
+import tcejorptset.servl.service.ServiceException;
 import tcejorptset.servl.service.ServiceProvider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +18,7 @@ public class DoEditNews implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		UserInfo userInfo = (UserInfo) request.getSession().getAttribute(AttributeParamName.JSP_USER_INFO_ATTRIBUTE);
 		String newsTitle = request.getParameter(AttributeParamName.JSP_NEWS_TITLE_PARAM);
 		String newsBrief = request.getParameter(AttributeParamName.JSP_NEWS_BRIEF_PARAM);
@@ -28,11 +29,16 @@ public class DoEditNews implements Command {
 		news.setTitle(newsTitle);
 		news.setBrief(newsBrief);
 		news.setContent(newsContent);
+		news.setUserId(userInfo.getUserId());
 		
-//		try {
-//			newsService.save();
-//		}
-		
+			try {
+				newsService.save(news);
+				response.sendRedirect("controller?command=go_to_base_page");
+			} catch (ServiceException e) {
+				System.out.println(e.getMessage()); //TEST
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	}
 
 }

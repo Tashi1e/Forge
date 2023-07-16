@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import tcejorptset.servl.controller.impl.DoChangeLocale;
+import tcejorptset.servl.controller.impl.DoEditNews;
 import tcejorptset.servl.controller.impl.DoRegistration;
 import tcejorptset.servl.controller.impl.DoSIgnIn;
 import tcejorptset.servl.controller.impl.DoSignOut;
@@ -29,6 +30,7 @@ public final class CommandProvider {
 		commands.put(CommandName.DO_SIGN_OUT, new DoSignOut());
 		commands.put(CommandName.DO_REGISTRATION, new DoRegistration());
 		commands.put(CommandName.DO_CHANGE_LOCALE, new DoChangeLocale());
+		commands.put(CommandName.DO_EDIT_NEWS, new DoEditNews());
 	}
 	
 	public static CommandProvider getInstance () {

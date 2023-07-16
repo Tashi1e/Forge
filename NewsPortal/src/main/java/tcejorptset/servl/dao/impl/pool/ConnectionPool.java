@@ -98,12 +98,16 @@ public final class ConnectionPool {
 	
 	public void closeConnection(Statement st1, Statement st2) {
 		try {
+			if(st1!=null) {
 			st1.close();
+			}
 		} catch (SQLException e) {
 			// logger.log(Level.ERROR, "Statement isn't closed.");
 		}
 		try {
+			if(st2!=null) {
 			st2.close();
+			}
 		} catch (SQLException e) {
 			// logger.log(Level.ERROR, "Statement isn't closed.");
 		}
@@ -112,18 +116,24 @@ public final class ConnectionPool {
 
 	public void closeConnection(Connection con, Statement st, ResultSet rs) {
 		try {
+			if(con!=null) {
 			con.setAutoCommit(true);
 			con.close();
+			}
 		} catch (SQLException e) {
 			// logger.log(Level.ERROR, "Connection isn't return to the pool.");
 		}
 		try {
+			if(rs!=null) {
 			rs.close();
+			}
 		} catch (SQLException e) {
 			// logger.log(Level.ERROR, "ResultSet isn't closed.");
 		}
 		try {
+			if(st!=null) {
 			st.close();
+			}
 		} catch (SQLException e) {
 			// logger.log(Level.ERROR, "Statement isn't closed.");
 		}
@@ -131,13 +141,17 @@ public final class ConnectionPool {
 
 	public void closeConnection(Connection con, Statement st) {
 		try {
-			con.setAutoCommit(true);
-			con.close();
+			if(con!=null) {
+				con.setAutoCommit(true);
+				con.close();
+				}
 		} catch (SQLException e) {
 			// logger.log(Level.ERROR, "Connection isn't return to the pool.");
 		}
 		try {
-			st.close();
+			if(st!=null) {
+				st.close();
+				}
 		} catch (SQLException e) {
 			// logger.log(Level.ERROR, "Statement isn't closed.");
 		}

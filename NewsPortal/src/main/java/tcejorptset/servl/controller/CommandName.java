@@ -11,4 +11,5 @@ public enum CommandName {
 	DO_SIGN_OUT,
 	DO_REGISTRATION,
 	DO_CHANGE_LOCALE,
+	DO_EDIT_NEWS,
 }

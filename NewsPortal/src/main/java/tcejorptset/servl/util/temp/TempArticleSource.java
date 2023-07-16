@@ -42,7 +42,7 @@ public class TempArticleSource {
 
 			Date currenDate = new Date();
 			SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-			news.setDate(dateFormat.format(currenDate));
+//			news.setDate(dateFormat.format(currenDate));
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
