@@ -26,7 +26,7 @@ textarea#brief {
 }
 
 textarea#content {
-	height: 57vh;
+	height: 38vh;
 }
 
 input#publish {
@@ -37,7 +37,7 @@ input#publish {
 
 <div id="edit_field">
 <form action="controller" method="post" >
-<input type="hidden" name="command" value="go_to_edit_news_page" />
+<input type="hidden" name="command" value="do_edit_news" />
 <p> 
 <label for="title">Title</label>
 <textarea name="title" class="text_edit" id="title" placeholder="Enteer Your title here"></textarea>

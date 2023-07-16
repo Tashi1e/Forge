@@ -9,6 +9,10 @@ public class NewsDAOException extends Exception{
 		super(message);
 	}
 	
+	public NewsDAOException(Exception exception) {
+		super(exception);
+	}
+	
 	public NewsDAOException(String message, Exception exception) {
 		super(message, exception);
 	}

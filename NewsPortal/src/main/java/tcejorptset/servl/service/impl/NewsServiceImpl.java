@@ -15,19 +15,23 @@ public class NewsServiceImpl implements INewsService{
 	
 	
 	@Override
-	public void save(News news) {
-		// TODO Auto-generated method stub
+	public void save(News news) throws ServiceException {
+		try {
+			newsDAO.addNews(news);
+		} catch (NewsDAOException e) {
+			throw new ServiceException(e);
+		}
 		
 	}
 
 	@Override
-	public List<News> find(String keyWord) {
+	public List<News> find(String keyWord) throws ServiceException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void update(News news) {
+	public void update(News news) throws ServiceException {
 		// TODO Auto-generated method stub
 		
 	}

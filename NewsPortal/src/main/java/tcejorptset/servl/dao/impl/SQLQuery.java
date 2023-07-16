@@ -41,5 +41,7 @@ final class SQLQuery {
 	
 	static final String DELETE_NEWS_QUERY = "DELETE FROM news WHERE id = ?;";
 	
+	static final String LATEST_NEWS_QUERY = "SELECT * FROM news ORDER BY news_date DESC LIMIT ?;";
+	
 	private SQLQuery () {};
 }

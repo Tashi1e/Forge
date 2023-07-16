@@ -126,6 +126,7 @@ public class UserDAO implements IUserDAO {
 				userInfo.setNickName(resultSet.getString("nickname"));
 				userInfo.setEmail(resultSet.getString("email"));
 				userInfo.setUserRegDate(resultSet.getTimestamp("register_date").toInstant());
+				userInfo.setUserId(userId);
 
 				return userInfo;
 			} else {
