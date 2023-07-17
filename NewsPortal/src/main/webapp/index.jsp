@@ -4,7 +4,6 @@
 
 <html>
 <body>
-${sessionScope.firstEnter = true}
 	<c:redirect url="controller?command=go_to_base_page"/>
 </body>
 </html>

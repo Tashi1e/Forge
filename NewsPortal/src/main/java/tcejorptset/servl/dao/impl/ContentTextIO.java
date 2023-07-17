@@ -9,19 +9,20 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class ContentTextIO {
-
+	
+	private static final ContentTextIO instance = new ContentTextIO();
 	private File file;
-	String path = "d:/_Java/_Workspace/Forge/NewsPortal/src/main/webapp/articles";
+	private final String path = "d:/_Java/_Workspace/Forge/NewsPortal/src/main/webapp/articles";
+	
+	private ContentTextIO() {};
 	
 	public boolean createFile(int newsId) throws IOException {
 		
-//		File folder = new File(String.format("src/main/webapp/articles/art%d", newsId)); 
 		File folder = new File(String.format(path + "/art%d", newsId));
 		folder.mkdirs();
 		
-//		file = new File(String.format("src/main/webapp/articles/art%d/content.txt", newsId));
 		file = new File(String.format(path + "/art%d/content%d.txt", newsId, newsId));
-		return file.createNewFile();
+		return file.createNewFile(); 
 	}
 
 	public boolean fileExists(int newsId) {
@@ -61,4 +62,8 @@ public class ContentTextIO {
 		}
 		return recorded;
 	}
+	
+	public static ContentTextIO getInstance () {
+		return instance;
+	};
 }

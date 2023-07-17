@@ -3,8 +3,10 @@ package tcejorptset.servl.controller.impl;
 import java.io.IOException;
 
 import tcejorptset.servl.bean.News;
+import tcejorptset.servl.bean.UserInfo;
 import tcejorptset.servl.controller.Command;
 import tcejorptset.servl.service.INewsService;
+import tcejorptset.servl.service.IUserService;
 import tcejorptset.servl.service.ServiceException;
 import tcejorptset.servl.service.ServiceProvider;
 import jakarta.servlet.ServletException;
@@ -14,28 +16,28 @@ import jakarta.servlet.http.HttpServletResponse;
 public class GoToViewNews implements Command {
 	
 	private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
+	private final IUserService userService = ServiceProvider.getInstance().getUserService();
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		News news;
+		UserInfo userInfo;
+		String author;
 		
-		String id;
-		id = request.getParameter("id");
+		String id = request.getParameter("id"); 
 		
-		if(id ==null) {
+		if(id == null) {
 			response.sendRedirect("controller?command=go_to_news_list");
+			//TODO some error
 		}
-//GARBAGE		
-//		else {
-//			request.getSession(true).setAttribute(AttributeParamName.JSP_NEWS_ID_ATTRIBUTE, id);	
-//		}
 		
 		try {
+			userInfo = userService.getUserInfo(Integer.parseInt(id));
+			author = userInfo.getFirstName() + " " + userInfo.getLastName();
 			news  = newsService.findById(Integer.parseInt(id));
 			request.setAttribute(AttributeParamName.JSP_NEWS_ATTRIBUTE, news);
 			request.setAttribute(AttributeParamName.JSP_PRESENTATION_ATTRIBUTE, "viewNews");
-//			request.getSession(true).setAttribute(AttributeParamName.JSP_NEWS_ID_ATTRIBUTE, id); //GARBAGE
-			request.getSession().setAttribute("currentPage", request.getParameter("command")); //FIXME!!!
+			request.setAttribute(AttributeParamName.JSP_NEWS_AUTHOR_ATTRIBUTE, author);
 
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		} catch (ServiceException e) {

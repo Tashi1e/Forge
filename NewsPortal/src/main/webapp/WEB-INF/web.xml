@@ -14,7 +14,33 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
     <servlet-name>Controller</servlet-name>
     <url-pattern>/controller</url-pattern>
   </servlet-mapping>
+  
+  <filter>
+		<filter-name>localefilter</filter-name>
+		<filter-class>tcejorptset.servl.filter.LocaleFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>localefilter</filter-name>
+		<url-pattern>/controller</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>tokenfilter</filter-name>
+		<filter-class>tcejorptset.servl.filter.SignInByTokenFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>tokenfilter</filter-name>
+		<url-pattern>/controller</url-pattern>
+	</filter-mapping>
+  
   <listener>
-  <listener-class>tcejorptset.servl.listeners.ContextListener</listener-class>
+  <listener-class>tcejorptset.servl.listener.ContextListener</listener-class>
   </listener>
+  
+  <listener>
+  <listener-class>tcejorptset.servl.listener.SessionListener</listener-class>
+  </listener>
+  
 </web-app>
