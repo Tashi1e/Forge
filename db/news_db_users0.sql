@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: news_db
+-- Host: localhost    Database: news_db
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -16,33 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `user_details`
+-- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `user_details`;
+DROP TABLE IF EXISTS `users`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user_details` (
-  `users_id` int unsigned NOT NULL,
-  `firstname` varchar(45) DEFAULT NULL,
-  `lastname` varchar(45) DEFAULT NULL,
-  `nickname` varchar(45) NOT NULL,
-  `email` varchar(64) NOT NULL,
-  `register_date` datetime DEFAULT NULL,
-  PRIMARY KEY (`users_id`),
-  UNIQUE KEY `email_UNIQUE` (`email`),
-  CONSTRAINT `fk_user_details_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `users` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `login` varchar(64) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  UNIQUE KEY `login_UNIQUE` (`login`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user_details`
+-- Dumping data for table `users`
 --
 
-LOCK TABLES `user_details` WRITE;
-/*!40000 ALTER TABLE `user_details` DISABLE KEYS */;
-INSERT INTO `user_details` VALUES (1,'Pavel','Chupikov','Tashile','blkkpr@narod.ru','2023-06-26 07:26:32'),(11,'Vasya','Pupkin','Vooop','vp@mail.ru',NULL),(16,'qwe','rty','qwerty','qw@er.ty',NULL),(17,'James','Bond','007','agent007@mi6.uk','2023-06-28 18:42:30');
-/*!40000 ALTER TABLE `user_details` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (26,'admin','$2a$10$nlRgPnv/U1eYfpoWTI0Pbex.c4xahiMpzuZtzWDWdZjEuPxzQE5dm'),(27,'Vooop1976','$2a$10$nQJRho6ar4zW0jAw3Z70quzWeUvVeBVGPzmRtaUB7RJ9HKlsxtrae');
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-28 22:30:52
+-- Dump completed on 2023-07-17 15:06:19

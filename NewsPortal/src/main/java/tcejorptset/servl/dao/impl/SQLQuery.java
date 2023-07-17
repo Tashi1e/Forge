@@ -43,5 +43,7 @@ final class SQLQuery {
 	
 	static final String LATEST_NEWS_QUERY = "SELECT * FROM news ORDER BY news_date DESC LIMIT ?;";
 	
+	static final String FETCH_NEWS_BY_ID = "SELECT * FROM news WHERE id = ?";
+	
 	private SQLQuery () {};
 }

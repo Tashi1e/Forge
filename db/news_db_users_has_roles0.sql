@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: news_db
+-- Host: localhost    Database: news_db
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -16,27 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `roles`
+-- Table structure for table `users_has_roles`
 --
 
-DROP TABLE IF EXISTS `roles`;
+DROP TABLE IF EXISTS `users_has_roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `roles` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `users_has_roles` (
+  `users_id` int unsigned NOT NULL,
+  `roles_id` int NOT NULL,
+  PRIMARY KEY (`users_id`,`roles_id`),
+  KEY `fk_users_has_roles_roles1_idx` (`roles_id`),
+  KEY `fk_users_has_roles_users1_idx` (`users_id`),
+  CONSTRAINT `fk_users_has_roles_roles1` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`),
+  CONSTRAINT `fk_users_has_roles_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `roles`
+-- Dumping data for table `users_has_roles`
 --
 
-LOCK TABLES `roles` WRITE;
-/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'admin'),(2,'editor'),(3,'user');
-/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+LOCK TABLES `users_has_roles` WRITE;
+/*!40000 ALTER TABLE `users_has_roles` DISABLE KEYS */;
+INSERT INTO `users_has_roles` VALUES (26,1),(27,3);
+/*!40000 ALTER TABLE `users_has_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -48,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-28 22:30:52
+-- Dump completed on 2023-07-17 15:06:18

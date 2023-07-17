@@ -18,10 +18,10 @@
 					
 				</div>
 				<div class="word-breaker align_right"><br>
-				<c:if test="${requestScope.news.author != null}">
+				<c:if test="${requestScope.author != null}">
 				By ${requestScope.author}
 				</c:if>
-				<c:if test="${requestScope.news.author == null}">
+				<c:if test="${requestScope.author == null}">
 				By unknown Author
 				</c:if>
 				</div>
@@ -42,17 +42,17 @@
 <c:if test="${sessionScope.role eq 'admin' || sessionScope.role eq 'editor'}">
 	<div class="first-view-button">
 		<form action="controller" method="post">
-			<input type="hidden" name="command" value="edit" /> <input
-				type="hidden" name="id" value="${news.id}" /> <input
-				type="submit" value="Edit" />
+			<input type="hidden" name="command" value="edit" /> 
+			<input type="hidden" name="id" value="${news.id}" /> 
+			<input type="submit" value="Edit" />
 		</form>
 	</div>
 
 	<div class="second-view-button">
 		<form action="controller" method="post">
-			<input type="hidden" name="command" value="delete" /> <input
-				type="hidden" name="id" value="${news.id}" /> <input
-				type="submit" value="Delete" />
+			<input type="hidden" name="command" value="delete" /> 
+			<input type="hidden" name="id" value="${news.id}" /> 
+			<input type="submit" value="Delete" />
 		</form>
 	</div>
 </c:if>
