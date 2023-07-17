@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: news_db
+-- Host: localhost    Database: news_db
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -16,32 +16,33 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `news`
+-- Table structure for table `user_details`
 --
 
-DROP TABLE IF EXISTS `news`;
+DROP TABLE IF EXISTS `user_details`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `news` (
-  `id` int NOT NULL,
+CREATE TABLE `user_details` (
   `users_id` int unsigned NOT NULL,
-  `title` varchar(100) NOT NULL,
-  `content` varchar(300) NOT NULL,
-  `news_data` date DEFAULT NULL,
-  `status` tinyint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_news_users1_idx` (`users_id`),
-  CONSTRAINT `fk_news_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
+  `firstname` varchar(45) DEFAULT NULL,
+  `lastname` varchar(45) DEFAULT NULL,
+  `nickname` varchar(45) NOT NULL,
+  `email` varchar(64) NOT NULL,
+  `register_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`users_id`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  CONSTRAINT `fk_user_details_users` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `news`
+-- Dumping data for table `user_details`
 --
 
-LOCK TABLES `news` WRITE;
-/*!40000 ALTER TABLE `news` DISABLE KEYS */;
-/*!40000 ALTER TABLE `news` ENABLE KEYS */;
+LOCK TABLES `user_details` WRITE;
+/*!40000 ALTER TABLE `user_details` DISABLE KEYS */;
+INSERT INTO `user_details` VALUES (26,'Pavel','Chupikov','Tashile','blkkpr@narod.ru','2023-07-06 08:14:01'),(27,'Василий','Пупкин','Vooop','vpup@mail.ru','2023-07-10 14:42:56');
+/*!40000 ALTER TABLE `user_details` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-28 22:30:53
+-- Dump completed on 2023-07-17 15:06:18

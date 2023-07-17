@@ -20,7 +20,7 @@ public class UserServiceImpl implements IUserService {
 		String role = null;
 		try {
 			Integer userId = getUserId(loginSelector, passwordValidator);
-//			System.out.println("userService, signIn, userId = "+ userId); // GARBAGE
+//			System.out.println("userService, signIn, userId = "+ userId); //TEST
 			if (userId != null) {
 				role = userDAO.getRole(userId);
 				if (role == null) {
@@ -36,14 +36,19 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public UserInfo getUserInfo(String loginSelector, String passwordValidator) throws ServiceException {
 
+		Integer userId = getUserId(loginSelector, passwordValidator);
+		if (userId != null) {
+			return getUserInfo(userId);
+		} else {
+			return null;
+		}
+	}
+
+	@Override
+	public UserInfo getUserInfo(int userId) throws ServiceException {
+
 		try {
-			Integer userId = getUserId(loginSelector, passwordValidator);
-			if (userId != null) {
-				UserInfo userInfo = userDAO.getUserInfo(userId);
-				return userInfo;
-			} else {
-				return null;
-			}
+			return userDAO.getUserInfo(userId);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -77,10 +82,10 @@ public class UserServiceImpl implements IUserService {
 		try {
 //			System.out.println("userService -> getUserId -> login_selector = " + loginSelector); // TEST
 			userId = userDAO.getUserIdByToken(loginSelector, passwordValidator);
-			System.out.println("userService -> getUserId -> byToken -> userId = "+ userId); // TEST
+//			System.out.println("userService -> getUserId -> byToken -> userId = "+ userId); // TEST
 			if (userId == null) {
 				userId = userDAO.getUserId(loginSelector, passwordValidator);
-				System.out.println("userService -> getUserId -> byLogPass -> userId = "+ userId); // TEST
+//				System.out.println("userService -> getUserId -> byLogPass -> userId = "+ userId); // TEST
 			}
 		} catch (DaoException e) {
 			throw new ServiceException(e);

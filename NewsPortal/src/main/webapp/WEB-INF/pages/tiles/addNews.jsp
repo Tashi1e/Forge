@@ -51,7 +51,7 @@ input#publish {
 <textarea name="content" class="text_edit" id="content" placeholder="Enteer Your content here"></textarea>
 </p>
 <p>
-<input type="submit" id="publish" class="button_transperent" value="Publish" />
+<input type="submit" id="save_button" class="button grey all_buttons_size" value="Save" />
 </p>
 
 </form>

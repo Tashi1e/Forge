@@ -21,13 +21,12 @@ public class NewsDAO implements INewsDAO {
 
 	private final TempArticleSource tempArticleSource = new TempArticleSource();
 	private final ConnectionPool connectionPool = ConnectionPool.getInstance();
-	private final ContentTextIO contentTextIO = new ContentTextIO();
+	private final ContentTextIO contentTextIO = ContentTextIO.getInstance();
 
+	
 	@Override
 	public List<News> getLatestsList(int count) throws NewsDAOException {
 		List<News> latestNews = new ArrayList<News>();
-		count = count > 0 ? count : 5;
-//		count = count > 20? 20 : count; // may be limit
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
@@ -38,6 +37,7 @@ public class NewsDAO implements INewsDAO {
 			preparedStatement = connection.prepareStatement(SQLQuery.LATEST_NEWS_QUERY);
 			preparedStatement.setInt(1, count);
 			resultSet = preparedStatement.executeQuery();
+			
 			while (resultSet.next()) {
 				var news = new News();
 				int newsId = resultSet.getInt("id");
@@ -58,19 +58,11 @@ public class NewsDAO implements INewsDAO {
 			connectionPool.closeConnection(connection, preparedStatement, resultSet);
 		}
 		return latestNews;
-
-//		for (int i = 1; i <= count; i++) {
-//			News news = tempArticleSource.article(i);
-//			if (news == null)
-//				continue;
-//			else
-//				result.add(tempArticleSource.article(i));
-//		}
-//		return latestNews;
 	}
 
+	
 	@Override
-	public List<News> getList() throws NewsDAOException {
+	public List<News> getListByKeyword(String keyword) throws NewsDAOException {
 		List<News> result = new ArrayList<News>();
 
 		for (Integer i = 1; i <= 5; i++) {
@@ -85,7 +77,33 @@ public class NewsDAO implements INewsDAO {
 
 	@Override
 	public News fetchById(int id) throws NewsDAOException {
-		return tempArticleSource.article(id);
+		News news = new News();
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+		
+		try {
+			connection = connectionPool.takeConnection();
+			preparedStatement = connection.prepareStatement(SQLQuery.FETCH_NEWS_BY_ID);
+			preparedStatement.setInt(1, id);
+			resultSet = preparedStatement.executeQuery();
+			
+			if (resultSet.next()) {
+				news.setId(id);
+				news.setUserId(resultSet.getInt("users_id"));
+				news.setTitle(resultSet.getString("title"));
+				news.setBrief(resultSet.getString("brief"));
+				news.setContent(contentTextIO.getContent(id));
+				news.setDate(resultSet.getTimestamp("news_date").toInstant());
+				news.setStatus(resultSet.getShort("status"));
+			}
+			
+		} catch (ConnectionPoolException | SQLException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return news;
 	}
 
 	@Override
@@ -110,8 +128,8 @@ public class NewsDAO implements INewsDAO {
 			resultSet = preparedStatement.getGeneratedKeys();
 			if(resultSet.next()) {
 			int newsId = resultSet.getInt(1);
-			System.out.println(contentTextIO.setContent(newsId, news.getContent()));
-			System.out.println(contentTextIO.getContent(newsId));
+			contentTextIO.setContent(newsId, news.getContent());
+//			System.out.println(contentTextIO.getContent(newsId)); //TEST
 			}
 
 		} catch (ConnectionPoolException | SQLException | IOException e) {

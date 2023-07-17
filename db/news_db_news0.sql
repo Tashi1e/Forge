@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: news_db
+-- Host: localhost    Database: news_db
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -16,28 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `user_token`
+-- Table structure for table `news`
 --
 
-DROP TABLE IF EXISTS `user_token`;
+DROP TABLE IF EXISTS `news`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `user_token` (
-  `users_id` int unsigned NOT NULL,
-  `selector` varchar(45) NOT NULL,
-  `validator` varchar(45) NOT NULL,
-  PRIMARY KEY (`users_id`),
-  CONSTRAINT `fk_table1_users1` FOREIGN KEY (`users_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+CREATE TABLE `news` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `users_id` int DEFAULT NULL,
+  `title` varchar(100) NOT NULL,
+  `brief` varchar(400) NOT NULL,
+  `news_date` date NOT NULL,
+  `status` tinyint DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_news_users1_idx` (`users_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user_token`
+-- Dumping data for table `news`
 --
 
-LOCK TABLES `user_token` WRITE;
-/*!40000 ALTER TABLE `user_token` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_token` ENABLE KEYS */;
+LOCK TABLES `news` WRITE;
+/*!40000 ALTER TABLE `news` DISABLE KEYS */;
+INSERT INTO `news` VALUES (1,26,'Air-gen превращает воздух, которым мы дышим, в электричество','Группа американских инженеров разработала инновационную технологию Air-gen, способную вырабатывать электричество из влаги, содержащейся в воздухе. Этот прорыв может произвести революцию в производстве и потреблении энергии, обеспечив чистый, возобновляемый и повсеместный источник энергии.','2023-07-17',123);
+/*!40000 ALTER TABLE `news` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-28 22:30:52
+-- Dump completed on 2023-07-17 15:06:18

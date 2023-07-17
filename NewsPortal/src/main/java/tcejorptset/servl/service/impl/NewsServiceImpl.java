@@ -35,25 +35,22 @@ public class NewsServiceImpl implements INewsService{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public List<News> latestList() throws ServiceException {
+			return latestList(5);
+	}
 
 	@Override
 	public List<News> latestList(int count) throws ServiceException {
 		
 		try {
-			return newsDAO.getLatestsList(5);
+			return newsDAO.getLatestsList(count);
 		} catch (NewsDAOException e) {
 			throw new ServiceException(e);
 		}
 	}
 
-	@Override
-	public List<News> list() throws ServiceException {
-		try {
-			return newsDAO.getList();
-		} catch (NewsDAOException e) {
-			throw new ServiceException(e);
-		}
-	}
 
 	@Override
 	public News findById(int id) throws ServiceException {

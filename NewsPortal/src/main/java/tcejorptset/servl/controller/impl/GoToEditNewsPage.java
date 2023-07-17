@@ -13,9 +13,6 @@ public class GoToEditNewsPage implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setAttribute(AttributeParamName.JSP_PRESENTATION_ATTRIBUTE, "editNews");
-//		request.getSession(true).setAttribute(AttributeParamName.JSP_NEWS_ID_ATTRIBUTE, id); //GARBAGE
-		request.getSession().setAttribute("currentPage", request.getParameter("command")); //FIXME!!!
-
 		request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		
 	}

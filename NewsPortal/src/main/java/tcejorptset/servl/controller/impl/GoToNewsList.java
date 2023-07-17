@@ -20,10 +20,9 @@ public class GoToNewsList implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<News> newsList;
 		try {
-			newsList = newsService.list();
+			newsList = newsService.latestList();
 			request.setAttribute(AttributeParamName.JSP_NEWS_ATTRIBUTE, newsList);
 			request.setAttribute(AttributeParamName.JSP_PRESENTATION_ATTRIBUTE, "newsList");
-			request.getSession(true).setAttribute("currentPage", request.getParameter("command")); //FIXME
 
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		} catch (ServiceException e) {
