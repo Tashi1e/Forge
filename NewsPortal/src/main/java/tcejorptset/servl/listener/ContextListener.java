@@ -1,4 +1,4 @@
-package tcejorptset.servl.listeners;
+package tcejorptset.servl.listener;
 
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;

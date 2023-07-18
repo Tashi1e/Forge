@@ -40,19 +40,19 @@
 
 
 <c:if test="${sessionScope.role eq 'admin' || sessionScope.role eq 'editor'}">
-	<div class="first-view-button">
+	<div class="grid-container">
 		<form action="controller" method="post">
 			<input type="hidden" name="command" value="edit" /> 
 			<input type="hidden" name="id" value="${news.id}" /> 
-			<input type="submit" value="Edit" />
+			<input type="submit" class="button grey all_buttons_size" value="Edit" />
 		</form>
-	</div>
+<!-- 	</span> -->
 
-	<div class="second-view-button">
+<!-- 	<span class="second-view-button"> -->
 		<form action="controller" method="post">
 			<input type="hidden" name="command" value="delete" /> 
 			<input type="hidden" name="id" value="${news.id}" /> 
-			<input type="submit" value="Delete" />
+			<input type="submit" class="button transperent all_buttons_size" value="Delete" />
 		</form>
 	</div>
 </c:if>

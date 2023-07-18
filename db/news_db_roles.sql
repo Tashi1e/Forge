@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: localhost    Database: news_db
+-- Host: 127.0.0.1    Database: news_db
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -16,32 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `news`
+-- Table structure for table `roles`
 --
 
-DROP TABLE IF EXISTS `news`;
+DROP TABLE IF EXISTS `roles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `news` (
+CREATE TABLE `roles` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `users_id` int DEFAULT NULL,
-  `title` varchar(100) NOT NULL,
-  `brief` varchar(400) NOT NULL,
-  `news_date` date NOT NULL,
-  `status` tinyint DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_news_users1_idx` (`users_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+  `role_name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `news`
+-- Dumping data for table `roles`
 --
 
-LOCK TABLES `news` WRITE;
-/*!40000 ALTER TABLE `news` DISABLE KEYS */;
-INSERT INTO `news` VALUES (1,26,'Air-gen превращает воздух, которым мы дышим, в электричество','Группа американских инженеров разработала инновационную технологию Air-gen, способную вырабатывать электричество из влаги, содержащейся в воздухе. Этот прорыв может произвести революцию в производстве и потреблении энергии, обеспечив чистый, возобновляемый и повсеместный источник энергии.','2023-07-17',123);
-/*!40000 ALTER TABLE `news` ENABLE KEYS */;
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (1,'admin'),(2,'editor'),(3,'user');
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-17 15:06:18
+-- Dump completed on 2023-07-18 22:58:49

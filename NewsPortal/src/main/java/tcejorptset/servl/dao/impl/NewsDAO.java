@@ -129,7 +129,6 @@ public class NewsDAO implements INewsDAO {
 			if(resultSet.next()) {
 			int newsId = resultSet.getInt(1);
 			contentTextIO.setContent(newsId, news.getContent());
-//			System.out.println(contentTextIO.getContent(newsId)); //TEST
 			}
 
 		} catch (ConnectionPoolException | SQLException | IOException e) {

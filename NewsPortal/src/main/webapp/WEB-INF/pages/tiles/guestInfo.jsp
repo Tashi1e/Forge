@@ -24,7 +24,7 @@
 		</div>
 
 	</c:forEach>
-
+ 
 	<div class="no-news">
 		<c:if test="${requestScope.news == null}">
         No news.

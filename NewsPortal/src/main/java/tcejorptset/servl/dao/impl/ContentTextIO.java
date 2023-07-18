@@ -54,8 +54,6 @@ public class ContentTextIO {
 			createFile(newsId);
 		}
 		
-		System.out.println(newsId + " " + content); //TEST
-		
 		try (var fileWrite = new BufferedWriter(new FileWriter(file))) {
 			fileWrite.write(content);
 			recorded = true;

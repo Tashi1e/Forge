@@ -33,9 +33,8 @@ public class DoEditNews implements Command {
 		
 			try {
 				newsService.save(news);
-				response.sendRedirect("controller?command=go_to_base_page");
+				response.sendRedirect("controller?command=go_to_news_list");
 			} catch (ServiceException e) {
-				System.out.println(e.getMessage()); //TEST
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
