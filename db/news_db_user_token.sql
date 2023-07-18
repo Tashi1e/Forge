@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.33, for Win64 (x86_64)
 --
--- Host: localhost    Database: news_db
+-- Host: 127.0.0.1    Database: news_db
 -- ------------------------------------------------------
 -- Server version	8.0.33
 
@@ -37,7 +37,7 @@ CREATE TABLE `user_token` (
 
 LOCK TABLES `user_token` WRITE;
 /*!40000 ALTER TABLE `user_token` DISABLE KEYS */;
-INSERT INTO `user_token` VALUES (26,'$s0$41010$Ilrp4hPCVibQMCzKxb1IXg==$jLir0nCK0wNwHIKp7Z/xR7ztD4wPytfnTB2w3Hb/8L8=','$s0$41010$YTZUyGu3o6zuMRRFYv5kAg==$uoJtfx37eKLm99Ln5tR9Y8HD299ssJu33ofdrYWXh5Q=');
+INSERT INTO `user_token` VALUES (26,'$s0$41010$WccBQ18by+8NbP20S6DDVg==$B0JnmBQmc6bSBMmyS+V++u3F3D7NYyPvbkhkqWcKlK8=','$s0$41010$+nLOBVVvjyRhFfEUYEV88A==$VqT7XWwagLYJagvxCqrSacrwUaALBWbSiapWZeHK9Xo=');
 /*!40000 ALTER TABLE `user_token` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-17 15:06:18
+-- Dump completed on 2023-07-18 22:58:49

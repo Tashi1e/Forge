@@ -44,7 +44,6 @@ public final class CommandProvider {
 		return command;
 		}
 		catch (Exception e) {
-//			System.out.println("toErrorPage"); // TEST
 			return new GoToErrorPage("404");
 		}
 	}

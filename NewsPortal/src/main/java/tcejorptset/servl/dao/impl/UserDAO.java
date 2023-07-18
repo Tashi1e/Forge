@@ -43,7 +43,6 @@ public class UserDAO implements IUserDAO {
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				String hashedPassword = resultSet.getString("password");
-				System.out.println("UserDAO -> getUserId -> Hashed Password  " + hashedPassword); // TEST
 				if (encryptorB.compare(password, hashedPassword)) {
 					userId = resultSet.getInt("id");
 				}
@@ -225,10 +224,6 @@ public class UserDAO implements IUserDAO {
 		String selector = encryptorS.encrypt(login);
 		String validator = encryptorS.encrypt(password);
 
-//		System.out.println("UserDAO -> addToken -> Selector  " + selector); // TEST
-//		System.out.println("UserDAO -> addToken -> Validator  " + validator); // TEST
-//		System.out.println("UserDAO -> addToken -> userID  " + userId); // TEST
-
 		try {
 			connection = connectionPool.takeConnection();
 			connection.setAutoCommit(false);
@@ -243,9 +238,6 @@ public class UserDAO implements IUserDAO {
 			token = new HashMap<>();
 			token.put("selector", selector);
 			token.put("validator", validator);
-//			System.out.println("UserDAO -> token added to DB"); // TEST
-//			System.out.println("UserDAO -> token Map Selector  " + token.get("selector")); // TEST
-//			System.out.println("UserDAO -> token Map Validator  " + token.get("validator")); // TEST
 
 		} catch (SQLException e) {
 			try {

@@ -9,6 +9,6 @@
 	<c:import url="/WEB-INF/pages/tiles/viewNews.jsp" />
 </c:if>
 
-<c:if test="${requestScope.presentation eq 'editNews' }">
+<c:if test="${requestScope.presentation eq 'addNews' || requestScope.presentation eq 'editNews' }">
 	<c:import url="/WEB-INF/pages/tiles/addNews.jsp" />
 </c:if>

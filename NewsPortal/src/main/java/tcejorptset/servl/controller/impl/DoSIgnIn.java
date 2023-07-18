@@ -27,69 +27,46 @@ public class DoSIgnIn implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		CookiesOps cookiesOps = new CookiesOps();
-		String selector = cookiesOps.findCookie(request, AttributeParamName.SELECTOR_PARAM);
-		String validator = cookiesOps.findCookie(request, AttributeParamName.VALIDATOR_PARAM);
-		request.getSession().removeAttribute("firstEnter");
+		String selector = null;
+		String validator = null;
 
-		if (selector != null && validator != null && request.getSession().getAttribute("firstEnter") != null) {
-			try {
+		if (request.getSession().getAttribute("firstEnter") != null) {
+			CookiesOps cookiesOps = new CookiesOps();
+			selector = cookiesOps.findCookie(request, AttributeParamName.SELECTOR_PARAM);
+			validator = cookiesOps.findCookie(request, AttributeParamName.VALIDATOR_PARAM);
+		}
 
+		try {
+			if (selector != null && validator != null) {
 				role = service.signIn(selector, validator);
 				userInfo = service.getUserInfo(selector, validator);
-				signinSuccessful(request, response);
-				request.getSession().removeAttribute("firstEnter");
-			} catch (ServiceException e) {
-				response.sendRedirect("controller?command=go_to_base_page");
-				e.printStackTrace();
-			}
-		} else {
+			} 
 
 			String login = request.getParameter(AttributeParamName.JSP_LOGIN_PARAM);
 			String password = request.getParameter(AttributeParamName.JSP_PASSWORD_PARAM);
 			boolean checkbox = request.getParameter(AttributeParamName.JSP_REMEMBER_ME_PARAM) == null ? false : true;
 
 			if (userAuthValidation.checkAUthData(login, password)) {
-
-				try {
-
-					role = service.signIn(login, password);
-					userInfo = service.getUserInfo(login, password);
-
-//					System.out.println("DoSignIn -> role  " + role); // TEST
-//					System.out.println("DoSignIn -> Nickname  " + userNickName); // TEST
-
+				role = service.signIn(login, password);
+				userInfo = service.getUserInfo(login, password);
+			}
+			if (role != null && !role.equals("guest")) {
 					if (checkbox) {
 						Map<String, String> token = service.addUserToken(login, password);
 
-						if (!role.equals("guest") && token != null) {
-							String tokenKey = token.get(AttributeParamName.SELECTOR_PARAM);
-							String tokenValue = token.get(AttributeParamName.VALIDATOR_PARAM);
-
-//							System.out.println("DoSignIn -> tokenKey  " + tokenKey); // TEST
-//							System.out.println("DoSignIn -> tokenValue  " + tokenValue); // TEST
-
-							response.addCookie(new Cookie(AttributeParamName.SELECTOR_PARAM, tokenKey));
-							response.addCookie(new Cookie(AttributeParamName.VALIDATOR_PARAM, tokenValue));
-
-//							System.out.println("Cookie added"); //TEST
-						}
+						String tokenKey = token.get(AttributeParamName.SELECTOR_PARAM);
+						String tokenValue = token.get(AttributeParamName.VALIDATOR_PARAM);
+						response.addCookie(new Cookie(AttributeParamName.SELECTOR_PARAM, tokenKey));
+						response.addCookie(new Cookie(AttributeParamName.VALIDATOR_PARAM, tokenValue));
 					}
+					signinSuccessful(request, response);
+			} else {
+				signinFailed(request, response, "Wrong login or password!!!");
+			}
 
-					if (role != null && !role.equals("guest")) {
-						signinSuccessful(request, response);
-					} else {
-						signinFailed(request, response, "Wrong login or password!!!");
-					}
-
-				} catch (ServiceException e) {
-					if (e.getMessage() != null) {
-						signinFailed(request, response, e.getMessage());
-					} else {
-						signinFailed(request, response, "Wrong login or password!!!");
-					}
-				}
-
+		} catch (ServiceException e) {
+			if (e.getMessage() != null) {
+				signinFailed(request, response, e.getMessage());
 			} else {
 				signinFailed(request, response, "Wrong login or password!!!");
 			}
@@ -98,6 +75,7 @@ public class DoSIgnIn implements Command {
 
 	private void signinSuccessful(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.getSession().removeAttribute("firstEnter");
 		request.getSession(true).setAttribute(AttributeParamName.JSP_USER_ACTIVE_ATTRIBUTE, true);
 		request.getSession().setAttribute(AttributeParamName.JSP_ROLE_ATTRIBUTE, role);
 		request.getSession().setAttribute(AttributeParamName.JSP_USER_INFO_ATTRIBUTE, userInfo);
@@ -106,6 +84,7 @@ public class DoSIgnIn implements Command {
 
 	private void signinFailed(HttpServletRequest request, HttpServletResponse response, String message)
 			throws ServletException, IOException {
+		request.getSession().removeAttribute("firstEnter");
 		request.getSession(true).setAttribute(AttributeParamName.JSP_USER_ACTIVE_ATTRIBUTE, false);
 		request.setAttribute("AuthenticationError", message);
 		response.sendRedirect("controller?command=go_to_base_page");

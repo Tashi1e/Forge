@@ -4,7 +4,11 @@
 
 <html>
 <body>
-${sessionScope.firstEnter = true}
+	<c:if test="${sessionScope.firstEnter != null}">
+	<c:redirect url="controller?command=do_sign_in"/>
+	</c:if>
+	<c:if test="${sessionScope.firstEnter == null}">
 	<c:redirect url="controller?command=go_to_base_page"/>
+	</c:if>
 </body>
 </html>

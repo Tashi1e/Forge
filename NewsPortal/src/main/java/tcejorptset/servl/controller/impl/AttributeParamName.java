@@ -24,4 +24,6 @@ final class AttributeParamName {
 	static final String SELECTOR_PARAM = "selector";
 	static final String VALIDATOR_PARAM = "validator";
 	
+	private AttributeParamName() {};
+	
 }
