@@ -17,7 +17,7 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
   
   <filter>
 		<filter-name>localefilter</filter-name>
-		<filter-class>tcejorptset.servl.filter.LocaleFilter</filter-class>
+		<filter-class>tcejorptset.servl.controller.filter.LocaleFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
@@ -26,11 +26,11 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
 	</filter-mapping>
 	
   <listener>
-  <listener-class>tcejorptset.servl.listener.ConnectionPoolOpsListener</listener-class>
+  <listener-class>tcejorptset.servl.controller.listener.ConnectionPoolOpsListener</listener-class>
   </listener> 
   
   <listener>
-  <listener-class>tcejorptset.servl.listener.LoginByTokenListener</listener-class>
+  <listener-class>tcejorptset.servl.controller.listener.LoginByTokenListener</listener-class>
   </listener>
   
 </web-app>
