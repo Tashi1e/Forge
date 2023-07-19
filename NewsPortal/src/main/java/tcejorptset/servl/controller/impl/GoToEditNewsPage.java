@@ -22,9 +22,8 @@ public class GoToEditNewsPage implements Command {
 		System.out.println(presentation);
 		if (presentation.equals("editNews")) {
 			try {
-				int id = Integer.parseInt(request.getParameter("id"));
-				News news;
-				news = newsService.findById(id);
+				int id  = Integer.parseInt(request.getParameter("id")) ;
+				News news = newsService.findById(id);
 				request.setAttribute(AttributeParamName.JSP_NEWS_ATTRIBUTE, news);
 			} catch (ServiceException e) {
 				// TODO Write error

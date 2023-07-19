@@ -149,7 +149,7 @@ public class NewsDAO implements INewsDAO {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		Timestamp newsRegDate = new Timestamp(System.currentTimeMillis());
-
+		
 		try {
 			connection = connectionPool.takeConnection();
 			connection.setAutoCommit(false);
@@ -159,11 +159,14 @@ public class NewsDAO implements INewsDAO {
 			preparedStatement.setTimestamp(3, newsRegDate);
 			preparedStatement.setInt(4, 123); // status
 			preparedStatement.setInt(5, news.getId());
+			preparedStatement.executeUpdate();
 
 			contentTextIO.setContent(news.getId(), news.getContent());
 
 		} catch (ConnectionPoolException | SQLException | IOException e) {
 			throw new NewsDAOException("News update fails!!!", e);
+		}finally {
+			connectionPool.closeConnection(connection, preparedStatement);
 		}
 
 	}
