@@ -28,7 +28,11 @@ public class DoEditNews implements Command {
 		news.setContent(newsContent);
 		
 			try {
+<<<<<<< HEAD
 				newsService.update(news);
+=======
+				newsService.save(news);
+>>>>>>> refs/remotes/origin/main
 				response.sendRedirect("controller?command=go_to_news_list");
 			} catch (ServiceException e) {
 				// TODO Auto-generated catch block
