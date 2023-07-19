@@ -22,7 +22,7 @@ public class DoEditNews implements Command {
 		
 		String newsTitle = request.getParameter(AttributeParamName.JSP_NEWS_TITLE_PARAM);
 		String newsBrief = request.getParameter(AttributeParamName.JSP_NEWS_BRIEF_PARAM);
-		String newsContent = request.getParameter(AttributeParamName.JSP_NEWS_CONTENT_PARAM);
+		String newsContent = request.getParameter(AttributeParamName.JSP_NEWS_CONTENT_PARAM); 
 		
 		var news = new News();
 		news.setId(newsId);

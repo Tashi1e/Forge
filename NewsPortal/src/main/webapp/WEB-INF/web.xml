@@ -26,11 +26,11 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
 	</filter-mapping>
 	
   <listener>
-  <listener-class>tcejorptset.servl.listener.ContextListener</listener-class>
+  <listener-class>tcejorptset.servl.listener.ConnectionPoolOpsListener</listener-class>
   </listener> 
   
   <listener>
-  <listener-class>tcejorptset.servl.listener.SessionListener</listener-class>
+  <listener-class>tcejorptset.servl.listener.LoginByTokenListener</listener-class>
   </listener>
   
 </web-app>

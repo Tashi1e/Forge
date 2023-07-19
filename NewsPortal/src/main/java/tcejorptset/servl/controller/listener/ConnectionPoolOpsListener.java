@@ -1,4 +1,4 @@
-package tcejorptset.servl.listener;
+package tcejorptset.servl.controller.listener;
 
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
@@ -6,7 +6,7 @@ import tcejorptset.servl.controller.impl.GoToErrorPage;
 import tcejorptset.servl.dao.impl.pool.ConnectionPool;
 import tcejorptset.servl.dao.impl.pool.ConnectionPoolException;
 
-public class ContextListener implements ServletContextListener{
+public class ConnectionPoolOpsListener implements ServletContextListener{
 	
 	private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
