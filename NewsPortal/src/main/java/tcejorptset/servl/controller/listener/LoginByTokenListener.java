@@ -1,10 +1,10 @@
-package tcejorptset.servl.listener;
+package tcejorptset.servl.controller.listener;
 
 
 import jakarta.servlet.http.HttpSessionEvent;
 import jakarta.servlet.http.HttpSessionListener;
 
-public class SessionListener implements HttpSessionListener{
+public class LoginByTokenListener implements HttpSessionListener{
 
 	@Override
 	public void sessionCreated(HttpSessionEvent se) {
