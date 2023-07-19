@@ -27,7 +27,7 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
 	
   <listener>
   <listener-class>tcejorptset.servl.listener.ContextListener</listener-class>
-  </listener>
+  </listener> 
   
   <listener>
   <listener-class>tcejorptset.servl.listener.SessionListener</listener-class>

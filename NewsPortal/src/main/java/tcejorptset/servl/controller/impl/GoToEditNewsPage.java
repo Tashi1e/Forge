@@ -19,7 +19,8 @@ public class GoToEditNewsPage implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String presentation = request.getParameter(AttributeParamName.JSP_PRESENTATION_ATTRIBUTE);
-		if (presentation == "editNews") {
+		System.out.println(presentation);
+		if (presentation.equals("editNews")) {
 			try {
 				int id = Integer.parseInt(request.getParameter("id"));
 				News news;

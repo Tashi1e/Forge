@@ -32,7 +32,11 @@ public class NewsServiceImpl implements INewsService{
 
 	@Override
 	public void update(News news) throws ServiceException {
-		// TODO Auto-generated method stub
+		try {
+			newsDAO.updateNews(news);
+		} catch (NewsDAOException e) {
+			throw new ServiceException(e);
+		}
 		
 	}
 	

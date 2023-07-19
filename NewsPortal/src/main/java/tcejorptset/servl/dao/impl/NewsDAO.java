@@ -153,7 +153,7 @@ public class NewsDAO implements INewsDAO {
 		try {
 			connection = connectionPool.takeConnection();
 			connection.setAutoCommit(false);
-			preparedStatement = connection.prepareStatement(SQLQuery.SAVE_NEWS_QUERY);
+			preparedStatement = connection.prepareStatement(SQLQuery.EDIT_NEWS_QUERY);
 			preparedStatement.setString(1, news.getTitle());
 			preparedStatement.setString(2, news.getBrief());
 			preparedStatement.setTimestamp(3, newsRegDate);

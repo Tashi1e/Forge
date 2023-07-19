@@ -38,11 +38,12 @@ input#publish {
 
 <div id="edit_field">
 <form action="controller" method="post" >
-<c:if test="${reqestScope.presentation == 'editNews'}">
+<c:if test="${requestScope.presentation eq 'editNews'}">
 <input type="hidden" name="command" value="do_edit_news" />
 </c:if>
-<c:if test="${reqestScope.presentation == 'addNews'}">
+<c:if test="${requestScope.presentation eq 'addNews'}">
 <input type="hidden" name="command" value="do_add_news" />
+<input type="hidden" name="id" value="${requestScope.news.id}" />
 </c:if>
 <p> 
 <label for="title">Title</label>
