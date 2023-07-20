@@ -40,7 +40,7 @@
 
 
 <c:if test="${sessionScope.role eq 'admin' || sessionScope.role eq 'editor'}">
-	<div class="grid-container">
+	<div class="vew-news-grid-container">
 		<form action="controller" method="post">
 			<input type="hidden" name="command" value="edit" /> 
 			<input type="hidden" name="id" value="${news.id}" /> 

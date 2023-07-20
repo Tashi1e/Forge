@@ -22,6 +22,9 @@ public class GoToBasePage implements Command {
 		List<News> latestNews;
 		System.out.println(request.getAttribute("firstEnter"));
 		try {
+				
+				System.out.println("GoToBasePage - > errorMessage attribute = " + request.getSession().getAttribute("errorMessage")); //TEST
+			
 				latestNews = newsService.latestList();
 				request.setAttribute(AttributeParamName.JSP_NEWS_ATTRIBUTE, latestNews);
 				request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);

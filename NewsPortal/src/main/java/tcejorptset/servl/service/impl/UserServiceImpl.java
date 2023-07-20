@@ -11,43 +11,62 @@ import tcejorptset.servl.service.IUserService;
 import tcejorptset.servl.service.ServiceException;
 
 public class UserServiceImpl implements IUserService {
-
+	
+	private static final String NO_ROLE_FOUNDED = "guest";
 	private final IUserDAO userDAO = DaoProvider.getInstance().getUserDao();
 
 	@Override
-	public String signIn(String loginSelector, String passwordValidator) throws ServiceException {
-//FIXME
-		String role = null;
+	public String signIn(String login, String password) throws ServiceException {
 		try {
-			Integer userId = getUserId(loginSelector, passwordValidator);
-			if (userId != null) {
-				role = userDAO.getRole(userId);
-				if (role == null) {
-					role = "guest";
-				}
-			}
+			Integer userId = userDAO.getUserId(login, password);
+			return getRole(userId);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
-		return role;
 	}
-
+	
+	
 	@Override
-	public UserInfo getUserInfo(String loginSelector, String passwordValidator) throws ServiceException {
-
-		Integer userId = getUserId(loginSelector, passwordValidator);
-		if (userId != null) {
-			return getUserInfo(userId);
-		} else {
-			return null;
+	public String signInByToken(String selector, String validator) throws ServiceException {
+		try {
+			Integer userId = userDAO.getUserIdByToken(selector, validator);
+			return getRole(userId);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
 		}
 	}
 
 	@Override
-	public UserInfo getUserInfo(int userId) throws ServiceException {
+	public UserInfo getUserInfo(String login, String password) throws ServiceException {
+			Integer userId;
+			try {
+				userId = userDAO.getUserId(login, password);
+			} catch (DaoException e) {
+				throw new ServiceException(e);
+			}
+			return getUserInfo(userId);
+	}
+	
+	@Override
+	public UserInfo getUserInfoByToken(String selector, String validator) throws ServiceException {
+		Integer userId;
+		try {
+			userId = userDAO.getUserIdByToken(selector, validator);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+		return getUserInfo(userId);
+	}
+
+	@Override
+	public UserInfo getUserInfo (Integer userId) throws ServiceException {
 
 		try {
+			if (userId != null) {
 			return userDAO.getUserInfo(userId);
+			} else {
+			return null;
+			}
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
@@ -63,29 +82,52 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public Map<String, String> addUserToken(String login, String password) throws ServiceException {
+	public Map <String, String> addUserToken(String login, String password) throws ServiceException {
 		try {
 			Integer userId = userDAO.getUserId(login, password);
-			if (userId != null) {
-				return userDAO.addToken(userId, login, password);
-			} else {
-				return null;
-			}
+			return tokenOps(userId);
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
+	}
+	
+	@Override
+	public Map <String, String> updateUserToken(String selector, String validator) throws ServiceException {
+		try {
+			Integer userId = userDAO.getUserIdByToken(selector, validator);
+			System.out.println("userId = " + userId); // TEST
+			return tokenOps(userId);
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+	}
+	
+	private Map <String, String> tokenOps (Integer userId) throws ServiceException{
+		try {
+		if (userId != null) {
+			return userDAO.addUpdateToken(userId);
+		} else {
+			return null;
+		}
+	} catch (DaoException e) {
+		throw new ServiceException(e);
+	}
 	}
 
-	private Integer getUserId(String loginSelector, String passwordValidator) throws ServiceException {
-		Integer userId;
+	private String getRole(Integer userId) throws ServiceException {
+		String role;
 		try {
-			userId = userDAO.getUserIdByToken(loginSelector, passwordValidator);
-			if (userId == null) {
-				userId = userDAO.getUserId(loginSelector, passwordValidator);
-			}
+		if (userId == null) {
+			return NO_ROLE_FOUNDED;
+		}
+		role = userDAO.getRole(userId);
+		if (role == null) {
+			return NO_ROLE_FOUNDED;
+		}
+		return role;
 		} catch (DaoException e) {
 			throw new ServiceException(e);
-		}
-		return userId;
+		} 
 	}
+	
 }

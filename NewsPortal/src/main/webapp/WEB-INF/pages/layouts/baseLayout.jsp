@@ -19,7 +19,7 @@
 <fmt:message bundle="${loc}" key="local.headline.title" />
 </title>
 
-<link rel="stylesheet" type="text/css" href="./styles/newsStyle22.css">
+<link rel="stylesheet" type="text/css" href="./styles/newsStyle23.css">
 
 </head>
 <body style="background-image: url(images/newspaper_background.jpg)">

@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
-xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" version="4.0">
-  <display-name>NewsPortal</display-name>
-  <welcome-file-list>
-    <welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
-  <servlet>
-    <servlet-name>Controller</servlet-name>
-    <servlet-class>tcejorptset.servl.controller.FrontController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Controller</servlet-name>
-    <url-pattern>/controller</url-pattern>
-  </servlet-mapping>
-  
-  <filter>
-		<filter-name>localefilter</filter-name>
-		<filter-class>tcejorptset.servl.controller.filter.LocaleFilter</filter-class>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+	version="4.0">
+	<display-name>NewsPortal</display-name>
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>Controller</servlet-name>
+		<servlet-class>tcejorptset.servl.controller.FrontController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Controller</servlet-name>
+		<url-pattern>/controller</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Controller</servlet-name>
+		<url-pattern>/error</url-pattern>
+	</servlet-mapping>
+
+
+	<filter>
+		<filter-name>localeChangeFilter</filter-name>
+		<filter-class>tcejorptset.servl.controller.filter.ChangeLocaleRemoveErrorFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
-		<filter-name>localefilter</filter-name>
+		<filter-name>localeChangeFilter</filter-name>
 		<url-pattern>/controller</url-pattern>
 	</filter-mapping>
-	
-  <listener>
-  <listener-class>tcejorptset.servl.controller.listener.ConnectionPoolOpsListener</listener-class>
-  </listener> 
-  
-  <listener>
-  <listener-class>tcejorptset.servl.controller.listener.LoginByTokenListener</listener-class>
-  </listener>
-  
+
+	<listener>
+		<listener-class>tcejorptset.servl.controller.listener.ConnectionPoolOpsListener</listener-class>
+	</listener>
+
+	<listener>
+		<listener-class>tcejorptset.servl.controller.listener.LoginByTokenListener</listener-class>
+	</listener>
+
 </web-app>

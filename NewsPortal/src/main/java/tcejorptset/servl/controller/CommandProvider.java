@@ -8,7 +8,7 @@ import tcejorptset.servl.controller.impl.DoChangeLocale;
 import tcejorptset.servl.controller.impl.DoDeleteNews;
 import tcejorptset.servl.controller.impl.DoEditNews;
 import tcejorptset.servl.controller.impl.DoRegistration;
-import tcejorptset.servl.controller.impl.DoSIgnIn;
+import tcejorptset.servl.controller.impl.DoSignIn;
 import tcejorptset.servl.controller.impl.DoSignOut;
 import tcejorptset.servl.controller.impl.GoToBasePage;
 import tcejorptset.servl.controller.impl.GoToEditNewsPage;
@@ -29,7 +29,7 @@ public final class CommandProvider {
 		commands.put(CommandName.GO_TO_VIEW_NEWS, new GoToViewNews());
 //		commands.put(CommandName.GO_TO_ADD_NEWS_PAGE, new GoToAddNewsPage());
 		commands.put(CommandName.GO_TO_EDIT_NEWS_PAGE, new GoToEditNewsPage());
-		commands.put(CommandName.DO_SIGN_IN, new DoSIgnIn());
+		commands.put(CommandName.DO_SIGN_IN, new DoSignIn());
 		commands.put(CommandName.DO_SIGN_OUT, new DoSignOut());
 		commands.put(CommandName.DO_REGISTRATION, new DoRegistration());
 		commands.put(CommandName.DO_CHANGE_LOCALE, new DoChangeLocale());

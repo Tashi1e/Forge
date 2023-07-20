@@ -17,5 +17,7 @@ public interface IUserDAO {
 	
 	boolean registration(User user, UserInfo userInfo) throws DaoException;
 	
-	Map <String, String> addToken (int userId, String selector, String Validator) throws DaoException;
+	Map <String, String> addUpdateToken (int userId) throws DaoException;
+	
+	
 }
