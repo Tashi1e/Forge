@@ -16,7 +16,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class DoSIgnIn implements Command {
+public class DoSignIn implements Command {
 
 	private final IUserService service = ServiceProvider.getInstance().getUserService();
 	private final UserDataValidation userAuthValidation = ValidationProvider.getInstance().getUserDataValidation();
@@ -38,33 +38,36 @@ public class DoSIgnIn implements Command {
 
 		try {
 			if (selector != null && validator != null) {
-				role = service.signIn(selector, validator);
-				userInfo = service.getUserInfo(selector, validator);
+				role = service.signInByToken(selector, validator);
+				userInfo = service.getUserInfoByToken(selector, validator);
+				System.out.println(role); // TEST
 			} 
+			if (role != null && !role.equals("guest")) {
+				System.out.println("right way"); //TEST
+				response = addCookie(response, service.updateUserToken(selector, validator));
+			}
 
 			String login = request.getParameter(AttributeParamName.JSP_LOGIN_PARAM);
 			String password = request.getParameter(AttributeParamName.JSP_PASSWORD_PARAM);
 			boolean checkbox = request.getParameter(AttributeParamName.JSP_REMEMBER_ME_PARAM) == null ? false : true;
 
 			if (userAuthValidation.checkAUthData(login, password)) {
+				System.out.println("NOT right way"); //TEST
 				role = service.signIn(login, password);
 				userInfo = service.getUserInfo(login, password);
 			}
 			if (role != null && !role.equals("guest")) {
 					if (checkbox) {
-						Map<String, String> token = service.addUserToken(login, password);
-
-						String tokenKey = token.get(AttributeParamName.SELECTOR_PARAM);
-						String tokenValue = token.get(AttributeParamName.VALIDATOR_PARAM);
-						response.addCookie(new Cookie(AttributeParamName.SELECTOR_PARAM, tokenKey));
-						response.addCookie(new Cookie(AttributeParamName.VALIDATOR_PARAM, tokenValue));
+						response = addCookie(response, service.addUserToken(login, password));
 					}
 					signinSuccessful(request, response);
 			} else {
+				System.out.println("NOT exception"); // TEST
 				signinFailed(request, response, "Wrong login or password!!!");
 			}
 
 		} catch (ServiceException e) {
+			System.out.println("exception"); // TEST
 			if (e.getMessage() != null) {
 				signinFailed(request, response, e.getMessage());
 			} else {
@@ -75,6 +78,7 @@ public class DoSIgnIn implements Command {
 
 	private void signinSuccessful(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		System.out.println(role + " " + userInfo); //
 		request.getSession().removeAttribute("firstEnter");
 		request.getSession(true).setAttribute(AttributeParamName.JSP_USER_ACTIVE_ATTRIBUTE, true);
 		request.getSession().setAttribute(AttributeParamName.JSP_ROLE_ATTRIBUTE, role);
@@ -84,9 +88,19 @@ public class DoSIgnIn implements Command {
 
 	private void signinFailed(HttpServletRequest request, HttpServletResponse response, String message)
 			throws ServletException, IOException {
+		System.out.println("SignIn Failed!!!"); // TEST
 		request.getSession().removeAttribute("firstEnter");
 		request.getSession(true).setAttribute(AttributeParamName.JSP_USER_ACTIVE_ATTRIBUTE, false);
 		request.setAttribute("AuthenticationError", message);
 		response.sendRedirect("controller?command=go_to_base_page");
+	}
+	
+	private HttpServletResponse addCookie (HttpServletResponse response, Map <String, String> token) {
+		System.out.println("add Cookie"); //TEST
+		String tokenKey = token.get(AttributeParamName.SELECTOR_PARAM);
+		String tokenValue = token.get(AttributeParamName.VALIDATOR_PARAM);
+		response.addCookie(new Cookie(AttributeParamName.SELECTOR_PARAM, tokenKey));
+		response.addCookie(new Cookie(AttributeParamName.VALIDATOR_PARAM, tokenValue));
+		return response;
 	}
 }

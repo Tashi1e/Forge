@@ -13,9 +13,9 @@ final class SQLQuery {
 
 	static final String ADD_USER_ROLE_QUERY = "INSERT INTO users_has_roles (users_id, roles_id) VALUES (LAST_INSERT_ID(), ?);";
 	
-	static final String ADD_USER_TOKEN_QUERY = "INSERT INTO user_token (users_id, selector, validator) VALUES (?, ?, ?);";
+	static final String ADD_USER_TOKEN_QUERY = "INSERT INTO user_token (selector, validator, users_id) VALUES (?, ?, ?);";
 	
-	static final String UPDATE_USER_TOKEN_QUERY = "UPDATE user_token SET selector = ?, validator = ?, WHERE users_id = ?";
+	static final String UPDATE_USER_TOKEN_QUERY = "UPDATE user_token SET selector = ?, validator = ? WHERE users_id = ?;";
 
 	static final String GET_USER_ID_PASSWORD_BY_LOGIN = "SELECT id, password FROM users WHERE users.login = ?";
 	
@@ -37,6 +37,8 @@ final class SQLQuery {
 	static final String LATEST_NEWS_QUERY = "SELECT * FROM news ORDER BY news_date DESC LIMIT ?;";
 	
 	static final String FETCH_NEWS_BY_ID = "SELECT * FROM news WHERE id = ?";
+	
+	static final String FETHC_NEWS_BY_KEYWORD = "SELECT * FROM news WHERE title LIKE %?% OR brief LIKE %?%";
 	
 	private SQLQuery () {};
 }

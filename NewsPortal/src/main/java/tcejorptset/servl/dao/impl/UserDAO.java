@@ -18,6 +18,9 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.commons.lang.RandomStringUtils;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -64,6 +67,7 @@ public class UserDAO implements IUserDAO {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 
+		System.out.println(selector + "\n" + validator ); // TEST
 		try {
 			connection = connectionPool.takeConnection();
 			preparedStatement = connection.prepareStatement(SQLQuery.GET_USER_ID_BY_TOKEN);
@@ -216,21 +220,32 @@ public class UserDAO implements IUserDAO {
 	}
 
 	@Override
-	public Map<String, String> addToken(int userId, String login, String password) throws DaoException {
+	public Map<String, String> addToken(int userId) throws DaoException {
+		return tokenOps (userId, SQLQuery.ADD_USER_TOKEN_QUERY);
+	}
+	
+	@Override
+	public Map<String, String> updateToken(int userId) throws DaoException {
+		return tokenOps (userId, SQLQuery.UPDATE_USER_TOKEN_QUERY);
+	}
+	
+	private Map<String, String> tokenOps(int userId, String sqlQuery) throws DaoException {
 
-		Map<String, String> token = null;
+		Map <String, String> token = null;
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		String selector = encryptorS.encrypt(login);
-		String validator = encryptorS.encrypt(password);
+		String selector = encryptorS.encrypt(RandomStringUtils.randomAlphabetic(8));
+		String validator = encryptorS.encrypt(RandomStringUtils.randomAlphabetic(8));
 
+		System.out.println("tokenOPS"); // TEST
+		
 		try {
 			connection = connectionPool.takeConnection();
 			connection.setAutoCommit(false);
-			preparedStatement = connection.prepareStatement(SQLQuery.ADD_USER_TOKEN_QUERY);
-			preparedStatement.setInt(1, userId);
-			preparedStatement.setString(2, selector);
-			preparedStatement.setString(3, validator);
+			preparedStatement = connection.prepareStatement(sqlQuery);
+			preparedStatement.setString(1, selector);
+			preparedStatement.setString(2, validator);
+			preparedStatement.setInt(3, userId);
 			preparedStatement.executeUpdate();
 
 			connection.commit();
@@ -239,15 +254,16 @@ public class UserDAO implements IUserDAO {
 			token.put("selector", selector);
 			token.put("validator", validator);
 
-		} catch (SQLException e) {
+			System.out.println(token.toString()); //TEST
+		} catch (SQLException | ConnectionPoolException e) {
 			try {
 				connection.rollback();
 			} catch (SQLException e1) {
 				throw new DaoException(e1); // DB rollback error
 			}
-			throw new DaoException(e);
-		} catch (ConnectionPoolException e) {
-			throw new DaoException();
+			System.out.println("DAO exception"); // TEST
+//			throw new DaoException(e);
+			e.printStackTrace();
 		} finally {
 			connectionPool.closeConnection(connection, preparedStatement);
 		}
