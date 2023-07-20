@@ -8,6 +8,7 @@ public interface INewsService {
 	
   void save(News news) throws ServiceException;
   void update(News news) throws ServiceException;
+  void delete(int [] newsId) throws ServiceException;
   
   List<News> latestList(int count)  throws ServiceException;
   List<News> latestList()  throws ServiceException;

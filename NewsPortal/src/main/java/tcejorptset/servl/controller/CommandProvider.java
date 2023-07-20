@@ -5,6 +5,7 @@ import java.util.Map;
 
 import tcejorptset.servl.controller.impl.DoAddNews;
 import tcejorptset.servl.controller.impl.DoChangeLocale;
+import tcejorptset.servl.controller.impl.DoDeleteNews;
 import tcejorptset.servl.controller.impl.DoEditNews;
 import tcejorptset.servl.controller.impl.DoRegistration;
 import tcejorptset.servl.controller.impl.DoSIgnIn;
@@ -34,6 +35,7 @@ public final class CommandProvider {
 		commands.put(CommandName.DO_CHANGE_LOCALE, new DoChangeLocale());
 		commands.put(CommandName.DO_ADD_NEWS, new DoAddNews());
 		commands.put(CommandName.DO_EDIT_NEWS, new DoEditNews());
+		commands.put(CommandName.DO_DELETE_NEWS, new DoDeleteNews());
 	}
 	
 	public static CommandProvider getInstance () {

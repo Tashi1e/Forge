@@ -14,4 +14,5 @@ public enum CommandName {
 	DO_CHANGE_LOCALE,
 	DO_ADD_NEWS,
 	DO_EDIT_NEWS,
+	DO_DELETE_NEWS
 }

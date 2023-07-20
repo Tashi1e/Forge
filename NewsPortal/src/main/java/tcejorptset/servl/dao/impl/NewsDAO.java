@@ -173,7 +173,6 @@ public class NewsDAO implements INewsDAO {
 
 	@Override
 	public void deleteNews(int[] idNewses) throws NewsDAOException {
-		// TODO Auto-generated method stub
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
@@ -183,10 +182,13 @@ public class NewsDAO implements INewsDAO {
 
 			for (int newsId : idNewses) {
 				preparedStatement.setInt(1, newsId);
+				preparedStatement.execute();
 			}
 
 		} catch (ConnectionPoolException | SQLException e) {
 			throw new NewsDAOException("Fail to delete some news!", e);
+		} finally {
+			connectionPool.closeConnection(connection, preparedStatement);
 		}
 	}
 }

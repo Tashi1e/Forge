@@ -389,3 +389,22 @@ a:visited {
 	grid-template-columns: repeat(2, auto);
 	grid-column-gap: 20px; 
 	}
+	
+.link_button {
+	text-align: left;
+	background: none;
+	padding-left: 0px;
+    border: none;
+    cursor: pointer; 
+    color: black;
+	text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.4);
+	text-decoration: none;
+	font-family: "Times New Roman";
+	font-size: 18px;
+ 	font-weight: bold;
+	transition: all 200ms;
+}
+
+.link_button:hover {
+	padding-left: 15px;
+}

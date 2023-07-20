@@ -9,11 +9,12 @@ final class AttributeParamName {
 	static final String JSP_NEWS_TITLE_PARAM = "title";
 	static final String JSP_NEWS_BRIEF_PARAM = "brief";
 	static final String JSP_NEWS_CONTENT_PARAM = "content";
+	static final String JSP_REMEMBER_ME_PARAM = "remember_me";
+	static final String JSP_NEWS_ID_PARAM = "newsId";
 	static final String LOCALE_NAME_PARAM_ATTRIBUTE = "locale";
 	
 	static final String JSP_NICK_NAME_ATTRIBUTE = "nickname";
 	static final String JSP_EMAIL_PARAM = "email";
-	static final String JSP_REMEMBER_ME_PARAM = "remember_me";
 	static final String JSP_ROLE_ATTRIBUTE = "role";
 	static final String JSP_USER_ACTIVE_ATTRIBUTE = "user_active";
 	static final String JSP_NEWS_ATTRIBUTE = "news";

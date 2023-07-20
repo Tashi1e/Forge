@@ -41,6 +41,16 @@ public class NewsServiceImpl implements INewsService{
 	}
 	
 	@Override
+	public void delete(int [] newsId) throws ServiceException {
+		try {
+			newsDAO.deleteNews(newsId);
+		} catch (NewsDAOException e) {
+			throw new ServiceException(e);
+		}
+		
+	}
+	
+	@Override
 	public List<News> latestList() throws ServiceException {
 			return latestList(5);
 	}
@@ -64,5 +74,6 @@ public class NewsServiceImpl implements INewsService{
 			throw new ServiceException(e);
 		}
 	}
+
 
 }

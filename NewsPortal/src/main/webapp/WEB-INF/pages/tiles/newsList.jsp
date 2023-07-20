@@ -34,7 +34,7 @@
   								1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
 								</svg>
 						      </a> 
-   					         <input type="checkbox" name="idNews" value="${news.id}" id="chbx${news.id}" form="delete_news_form" style="display: none"/>
+   					         <input type="checkbox" name="newsId" value="${news.id}" id="chbx${news.id}" form="delete_news_form" style="display: none"/>
    					         <label for="chbx${news.id}" style="position: relative; display: inline-block;">
 
    					         <span>
