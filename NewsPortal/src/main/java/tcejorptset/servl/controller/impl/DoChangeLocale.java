@@ -13,7 +13,12 @@ public class DoChangeLocale implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String locale = request.getParameter(AttributeParamName.LOCALE_NAME_PARAM_ATTRIBUTE);
+		String previousPageURL = (String) request.getSession().getAttribute("pageURL");
 		request.getSession(true).setAttribute(AttributeParamName.LOCALE_NAME_PARAM_ATTRIBUTE, locale);
-		response.sendRedirect((String) request.getSession().getAttribute("pageURL"));
+		if (previousPageURL == null) {
+			response.sendRedirect("controller?command=go_to_base_page");
+		} else {
+			response.sendRedirect(previousPageURL);
+		}
 	}
 }

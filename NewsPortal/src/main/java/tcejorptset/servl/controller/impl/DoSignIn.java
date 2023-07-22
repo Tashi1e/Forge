@@ -23,18 +23,18 @@ public class DoSignIn implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String role = null;
 		UserInfo userInfo = null;
 		String selector = null;
 		String validator = null;
-		System.out.println("DoSignIn start -> role = " + role); //TEST
+		System.out.println("DoSignIn start -> role = " + role); // TEST
 
 		if (request.getSession().getAttribute("firstEnter") != null) {
 			CookiesOps cookiesOps = new CookiesOps();
 			selector = cookiesOps.findCookie(request, AttributeParamName.SELECTOR_PARAM);
 			validator = cookiesOps.findCookie(request, AttributeParamName.VALIDATOR_PARAM);
-			System.out.println(selector+" "+validator); //TEST
+			System.out.println(selector + " " + validator); // TEST
 		}
 
 		try {
@@ -42,10 +42,10 @@ public class DoSignIn implements Command {
 				role = service.signInByToken(selector, validator);
 				userInfo = service.getUserInfoByToken(selector, validator);
 				System.out.println(role); // TEST
-			} 
+			}
 			if (role != null && !role.equals("guest")) {
 				System.out.println(role);
-				System.out.println("DoSignIn -> update user token"); //TEST
+				System.out.println("DoSignIn -> update user token"); // TEST
 				response = addCookie(response, service.updateUserToken(selector, validator));
 			}
 
@@ -54,15 +54,15 @@ public class DoSignIn implements Command {
 			boolean checkbox = request.getParameter(AttributeParamName.JSP_REMEMBER_ME_PARAM) == null ? false : true;
 
 			if (userAuthValidation.checkAUthData(login, password)) {
-				System.out.println("DoSignIn -> user Auth Validation"); //TEST
+				System.out.println("DoSignIn -> user Auth Validation"); // TEST
 				role = service.signIn(login, password);
 				userInfo = service.getUserInfo(login, password);
 			}
 			if (role != null && !role.equals("guest")) {
-					if (checkbox) {
-						response = addCookie(response, service.addUserToken(login, password));
-					}
-					signinSuccessful(request, response, role, userInfo);
+				if (checkbox) {
+					response = addCookie(response, service.addUserToken(login, password));
+				}
+				signinSuccessful(request, response, role, userInfo);
 			} else {
 				System.out.println("NOT exception"); // TEST
 				signinFailed(request, response, "Wrong login or password!!!");
@@ -78,8 +78,8 @@ public class DoSignIn implements Command {
 		}
 	}
 
-	private void signinSuccessful(HttpServletRequest request, HttpServletResponse response, String role, UserInfo userInfo)
-			throws ServletException, IOException {
+	private void signinSuccessful(HttpServletRequest request, HttpServletResponse response, String role,
+			UserInfo userInfo) throws ServletException, IOException {
 		System.out.println(role + " " + userInfo); //
 		request.getSession().removeAttribute("firstEnter");
 		request.getSession(true).setAttribute(AttributeParamName.JSP_USER_ACTIVE_ATTRIBUTE, true);
@@ -91,14 +91,16 @@ public class DoSignIn implements Command {
 	private void signinFailed(HttpServletRequest request, HttpServletResponse response, String message)
 			throws ServletException, IOException {
 		System.out.println("DoSIgnIn -> signInFailed -> message = " + message); // TEST
-		request.getSession().removeAttribute("firstEnter");
 		request.getSession(true).setAttribute(AttributeParamName.JSP_USER_ACTIVE_ATTRIBUTE, false);
-		request.getSession().setAttribute("errorMessage", message);
+		if (request.getSession().getAttribute("firstEnter") == null) {
+			request.getSession().setAttribute("errorMessage", message);
+		}
+		request.getSession().removeAttribute("firstEnter");
 		response.sendRedirect("error?command=go_to_base_page");
 	}
-	
-	private HttpServletResponse addCookie (HttpServletResponse response, Map <String, String> token) {
-		System.out.println("add Cookie"); //TEST
+
+	private HttpServletResponse addCookie(HttpServletResponse response, Map<String, String> token) {
+		System.out.println("add Cookie"); // TEST
 		String tokenKey = token.get(AttributeParamName.SELECTOR_PARAM);
 		String tokenValue = token.get(AttributeParamName.VALIDATOR_PARAM);
 		response.addCookie(new Cookie(AttributeParamName.SELECTOR_PARAM, tokenKey));

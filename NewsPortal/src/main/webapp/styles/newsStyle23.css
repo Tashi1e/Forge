@@ -42,12 +42,25 @@ input.button.grey {
 	color: white;
 }
 
+input.button.yellow {
+	border-color: rgb(250,250 ,0);
+	background-color: rgb(255, 255, 0);
+	color: black;
+	width: 150px;
+}
+
 input.button.transperent:hover,
 input.button.grey:hover {
 	scale: 1.02 1.1;
 	border-color: rgb(90, 90, 100);
 	background-color: rgb(90, 90, 100);
 	color: white;
+}
+
+input.button.yellow:hover {
+	scale: 1.02 1.1;
+	border-color: rgb(240, 240, 0);
+	background-color: rgb(245, 245, 0);
 }
 
 .page {
@@ -412,16 +425,17 @@ a:visited {
 
 .header-grid-container {
 	margin-top: 1px;
-	padding-right: 1%;
+	padding-right: 2%;
 	height: 100%;
 	align-self: center;
 	display: grid;
-	grid-template-columns: 15% auto 25%;
+	grid-template-columns: 15% auto 18%;
 	grid-template-rows: 20% 30% 50%;
 }
 
 .header-grid-item {
-	margin:1px;
+	margin:2px;
+	padding-top: 5px;
 	color: black;
 	font-size: 16px;
 	font-weight: bold;
@@ -429,12 +443,9 @@ a:visited {
 }
 
 .header-grid-item-message {
-	border: solid 1px;
-	border-color: black;
-	background-color: lightgrey;
-	font-size: 0.5em;
-	margin:1px;
-	color: black;
+	font-size: 1em;
+	padding-top: 4.5%;
+	text-align: center;
 	grid-column-start:2;
     grid-row-start: 1;
     grid-row-end: 3;
@@ -447,13 +458,94 @@ a:visited {
 }
 
 .header-grid-item-login {
-	border: solid 1px;
-	border-color: black;
-	background-color: lightgrey;
-	font-size: 0.5em;
 	margin:1px;
-	color: black;
+	padding-top: 1.5%;
     grid-row-start: 3;
     grid-column-start:2;
     grid-column-end: 4;
+}
+
+.ph-container {
+	position: relative;
+}
+
+.ph-container label {
+	pointer-events: none;
+	color: rgba(110, 110, 120, 0.6);
+	font-size: 18px;
+	font-weight: bold;
+	font-style: italic;
+	top: 23%;
+	left: 5%;
+	position: absolute;
+	transition: all 200ms;
+	visibility: hidden;
+}
+
+.ph-container>input:focus+label, .ph-container>input:not(:placeholder-shown)+label
+	{
+	top: -50%;
+/*	left: 10px;*/
+	font-size: 14px;
+}
+
+.text {
+	padding-left: 0px;
+	padding-right: 0px;
+	/*     border-left-width: 0px;  */
+	/*     border-right-width: 0px;   */
+	visibility: hidden;
+	width: 0%;
+}
+
+input.text.loginForm {
+	padding-left: 5px;
+	padding-right: 5px;
+	border-width: default;
+	white-space: normal;
+	visibility: visible;
+	width: 150px;
+}
+
+input#registration.loginForm {
+	opacity: 0;
+	width: 125px;
+	transition: all 1s;
+}
+
+input#remember.loginForm {
+	opacity: 1;
+	width: 125px;
+	transition: all 1s;
+}
+
+input.text {
+	border-color: rgba(110, 110, 120, 0.75);
+	background-color: transparent;
+	/* 	background-color: rgb(245, 255, 200); */
+	color: rgb(90, 90, 100);
+	height: 25px;
+	font-size: 18px;
+}
+
+input.text:focus {
+	outline: 0;
+	box-shadow: 0 0 0 0.2rem rgba(95, 95, 105, 0.25);
+}
+
+input#remember {
+	font-size: 18px;
+	font-weight: bold;
+	font-style: italic;
+	color: grey;
+	width: 150px;
+	background-color: transparent;
+	border: none;
+}
+
+input {
+	border-radius: 5px;
+	border-style: solid;
+	font-family: "Times New Roman";
+	transition: all 1s;
 }

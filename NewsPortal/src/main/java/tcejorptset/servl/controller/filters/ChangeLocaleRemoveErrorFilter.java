@@ -1,4 +1,4 @@
-package tcejorptset.servl.controller.filter;
+package tcejorptset.servl.controller.filters;
 
 import java.io.IOException;
 
@@ -26,7 +26,6 @@ public final class ChangeLocaleRemoveErrorFilter extends HttpFilter {
 		if(query!=null && query.matches(CHANGE_PAGE_COMMAND_REGEX)) {
 		request.getSession().setAttribute(CURRENT_PAGE_URL_ATTRIBUTE, pageURL);
 		}
-		System.out.println("change locale filter in work"); //TEST
 		request.getSession().removeAttribute(ERROR_MESSAGE_ATTRIBUTE);
 		chain.doFilter(request, response);
 	}

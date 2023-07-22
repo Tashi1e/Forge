@@ -26,7 +26,7 @@
 
 	<filter>
 		<filter-name>localeChangeFilter</filter-name>
-		<filter-class>tcejorptset.servl.controller.filter.ChangeLocaleRemoveErrorFilter</filter-class>
+		<filter-class>tcejorptset.servl.controller.filters.ChangeLocaleRemoveErrorFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
@@ -35,11 +35,11 @@
 	</filter-mapping>
 
 	<listener>
-		<listener-class>tcejorptset.servl.controller.listener.ConnectionPoolOpsListener</listener-class>
+		<listener-class>tcejorptset.servl.controller.listeners.ConnectionPoolOpsListener</listener-class>
 	</listener>
 
 	<listener>
-		<listener-class>tcejorptset.servl.controller.listener.LoginByTokenListener</listener-class>
+		<listener-class>tcejorptset.servl.controller.listeners.LoginByTokenListener</listener-class>
 	</listener>
 
 </web-app>
