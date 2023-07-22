@@ -14,9 +14,9 @@ final class SQLQuery {
 	static final String ADD_USER_ROLE_QUERY = "INSERT INTO users_has_roles (users_id, roles_id) VALUES (LAST_INSERT_ID(), ?);";
 	
 	static final String FIND_USER_TOKEN = "SELECT * FROM user_token WHERE users_id = ?;";
-	
+
 	static final String ADD_USER_TOKEN_QUERY = "INSERT INTO user_token (selector, validator, users_id) VALUES (?, ?, ?);";
-	
+
 	static final String UPDATE_USER_TOKEN_QUERY = "UPDATE user_token SET selector = ?, validator = ? WHERE users_id = ?;";
 
 	static final String GET_USER_ID_PASSWORD_BY_LOGIN = "SELECT id, password FROM users WHERE users.login = ?";
