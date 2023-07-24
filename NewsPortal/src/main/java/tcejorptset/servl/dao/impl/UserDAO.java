@@ -1,5 +1,6 @@
 package tcejorptset.servl.dao.impl;
 
+import tcejorptset.servl.bean.ErrorCode;
 import tcejorptset.servl.bean.User;
 import tcejorptset.servl.bean.UserInfo;
 import tcejorptset.servl.dao.DaoException;
@@ -161,10 +162,10 @@ public class UserDAO implements IUserDAO {
 		Timestamp sqlUserRegDate = new Timestamp(System.currentTimeMillis());
 
 		if (objectExists(login, SQLQuery.FIND_LOGIN_QUERY)) {
-			throw new DaoException("User with selected LOGIN already exists! Plese chose another one!");
+			throw new DaoException(ErrorCode.LOGIN_EXISTS.name().toLowerCase());
 		}
 		if (objectExists(email, SQLQuery.FIND_EMAIL_QUERY)) {
-			throw new DaoException("User with selected E-MAIL already exists! Plese chose another one!");
+			throw new DaoException(ErrorCode.EMAIL_EXSITS.name().toLowerCase());
 		}
 
 		Connection connection = null;
@@ -257,8 +258,7 @@ public class UserDAO implements IUserDAO {
 				throw new DaoException(e1); // DB rollback error
 			}
 			System.out.println("DAO exception"); // TEST
-//			throw new DaoException(e);
-			e.printStackTrace();
+			throw new DaoException("error.user.token", e);
 		} finally {
 			connectionPool.closeConnection(connection, preparedStatement);
 		}

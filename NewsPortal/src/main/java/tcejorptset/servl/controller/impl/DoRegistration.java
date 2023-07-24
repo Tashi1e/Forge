@@ -5,6 +5,7 @@ import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tcejorptset.servl.bean.ErrorCode;
 import tcejorptset.servl.bean.User;
 import tcejorptset.servl.bean.UserInfo;
 import tcejorptset.servl.controller.Command;
@@ -18,7 +19,7 @@ public class DoRegistration implements Command {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		String firstName;
 		String lastName;
 		String nickName;
@@ -36,22 +37,27 @@ public class DoRegistration implements Command {
 		User user = new User();
 		user.setLogin(login);
 		user.setPassword(password);
-		
+
 		UserInfo userInfo = new UserInfo();
 		userInfo.setFirstName(firstName);
 		userInfo.setLastName(lastName);
 		userInfo.setNickName(nickName);
 		userInfo.setEmail(email);
-		
+
 		try {
 			if (service.registration(user, userInfo))
-				request.getSession(true).setAttribute("message", "Thank You for registration");
-			response.sendRedirect("controller?command=go_to_base_page");
+				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE,
+						ErrorCode.REGISTRATION_SUCCESSFUL.name().toLowerCase());
+			response.sendRedirect("controller?command=go_to_registration_page");
 		} catch (ServiceException e) {
-			request.getSession(true).setAttribute("message", "Registration failed");
-			response.sendRedirect("controller?command=go_to_base_page");
+			if (e.getMessage() != null) {
+				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, e.getMessage());
+			} else {
+				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE,
+						ErrorCode.REGISTRATION_FAILED.name().toLowerCase());
+			}
+			response.sendRedirect("error?command=go_to_registration_page");
 			e.printStackTrace();
-			System.out.println(e.getMessage());
 		}
 
 	}

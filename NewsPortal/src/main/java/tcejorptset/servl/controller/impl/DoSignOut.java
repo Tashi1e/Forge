@@ -15,7 +15,6 @@ public class DoSignOut implements Command {
 			request.getSession(true).setAttribute(AttributeParamName.JSP_USER_ACTIVE_ATTRIBUTE, false);
 			request.getSession().setAttribute(AttributeParamName.JSP_ROLE_ATTRIBUTE, "guest");
 			request.getSession().removeAttribute(AttributeParamName.JSP_NICK_NAME_ATTRIBUTE);
-			
 			response.sendRedirect("controller?command=go_to_base_page");
 		
 	}

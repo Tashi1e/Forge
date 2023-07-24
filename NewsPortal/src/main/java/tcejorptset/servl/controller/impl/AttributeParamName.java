@@ -10,7 +10,7 @@ final class AttributeParamName {
 	static final String JSP_NEWS_BRIEF_PARAM = "brief";
 	static final String JSP_NEWS_CONTENT_PARAM = "content";
 	static final String JSP_REMEMBER_ME_PARAM = "remember_me";
-	static final String JSP_NEWS_ID_PARAM = "newsId";
+	static final String JSP_NEWS_ID_PARAM = "id";
 	static final String LOCALE_NAME_PARAM_ATTRIBUTE = "locale";
 	
 	static final String JSP_NICK_NAME_ATTRIBUTE = "nickname";
@@ -22,6 +22,7 @@ final class AttributeParamName {
 	static final String JSP_PRESENTATION_ATTRIBUTE = "presentation";
 	static final String JSP_ERROR_CODE_ATTRIBUTE = "errorCode";
 	static final String JSP_NEWS_AUTHOR_ATTRIBUTE = "author";
+	static final String JSP_HEADER_ERROR_MESSAGE_ATTRIBUTE ="errorMessage";
 	static final String SELECTOR_PARAM = "selector";
 	static final String VALIDATOR_PARAM = "validator";
 	

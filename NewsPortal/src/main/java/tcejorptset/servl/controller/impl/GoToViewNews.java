@@ -2,6 +2,7 @@ package tcejorptset.servl.controller.impl;
 
 import java.io.IOException;
 
+import tcejorptset.servl.bean.ErrorCode;
 import tcejorptset.servl.bean.News;
 import tcejorptset.servl.bean.UserInfo;
 import tcejorptset.servl.controller.Command;
@@ -24,25 +25,26 @@ public class GoToViewNews implements Command {
 		UserInfo userInfo;
 		String author;
 		
-		String id = request.getParameter("id"); 
+		String id = request.getParameter(AttributeParamName.JSP_NEWS_ID_PARAM); 
 		
 		if(id == null) {
-			response.sendRedirect("controller?command=go_to_news_list");
-			//TODO some error
+request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.FETCH_NEWS.name().toLowerCase());
+			response.sendRedirect("controller?command=go_to_error_page");
 		}
 		
 		try {
 			news  = newsService.findById(Integer.parseInt(id));
-			userInfo = userService.getUserInfo(news.getUserId());
-			author = userInfo.getFirstName() + " " + userInfo.getLastName();
-			
 			request.setAttribute(AttributeParamName.JSP_NEWS_ATTRIBUTE, news);
 			request.setAttribute(AttributeParamName.JSP_PRESENTATION_ATTRIBUTE, "viewNews");
+			
+			userInfo = userService.getUserInfo(news.getUserId());
+			author = userInfo.getFirstName() + " " + userInfo.getLastName();
 			request.setAttribute(AttributeParamName.JSP_NEWS_AUTHOR_ATTRIBUTE, author);
 
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		} catch (ServiceException e) {
-			response.sendRedirect("controller?command=go_to_news_list");
+			request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.FETCH_NEWS.name().toLowerCase());
+			response.sendRedirect("controller?command=go_to_error_page");
 			e.printStackTrace();
 		}
 		

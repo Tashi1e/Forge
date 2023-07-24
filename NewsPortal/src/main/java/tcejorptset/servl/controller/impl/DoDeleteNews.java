@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import tcejorptset.servl.bean.ErrorCode;
 import tcejorptset.servl.controller.Command;
 import tcejorptset.servl.service.INewsService;
 import tcejorptset.servl.service.ServiceException;
@@ -19,20 +20,18 @@ public class DoDeleteNews implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String [] newsId = request.getParameterValues("newsId");
-		int [] id = Stream.of(newsId)
-				  .mapToInt(Integer::parseInt)
-				  .toArray();
-		for (int s: id) {
-		System.out.println(s);
-		}
 			try {
+				int [] id = Stream.of(newsId)
+						  .mapToInt(Integer::parseInt)
+						  .toArray();
 				newsService.delete(id);
+				response.sendRedirect("controller?command=go_to_news_list");
 			} catch (ServiceException e) {
-				// TODO Auto-generated catch block
+				request.getSession().setAttribute (AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.DELETE_NEWS.name().toLowerCase());
+				response.sendRedirect("error?command=go_to_news_list");
 				e.printStackTrace();
 			}
-			
-			response.sendRedirect("controller?command=go_to_news_list");
+				
 		}
 	}
 

@@ -39,9 +39,11 @@
 		</form>
 	</div>
 	
+	<c:if test="${sessionScope.user_active == true}">
 	<div class="header-grid-item" align="right" style="padding-top: 15px;">
 	${sessionScope.user_info.nickName}
 	</div>
+	</c:if>
 	
 	<div class="header-grid-item-login" align="right">
 	<c:if test="${sessionScope.user_active == false}">

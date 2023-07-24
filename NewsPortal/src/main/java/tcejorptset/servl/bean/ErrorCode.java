@@ -1,0 +1,16 @@
+package tcejorptset.servl.bean;
+
+public enum ErrorCode {
+	ADD_NEWS,
+	UPDATE_NEWS,
+	DELETE_NEWS,
+	LOGIN,
+	REGISTRATION_SUCCESSFUL,
+	REGISTRATION_FAILED,
+	LOGIN_EXISTS,
+	EMAIL_EXSITS,
+	SIGN_IN,
+	FETCH_NEWS,
+	LATEST_NEWS_LITS,
+	
+}

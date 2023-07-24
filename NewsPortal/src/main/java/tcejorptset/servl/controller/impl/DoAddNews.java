@@ -2,6 +2,7 @@ package tcejorptset.servl.controller.impl;
 
 import java.io.IOException;
 
+import tcejorptset.servl.bean.ErrorCode;
 import tcejorptset.servl.bean.News;
 import tcejorptset.servl.bean.UserInfo;
 import tcejorptset.servl.controller.Command;
@@ -34,7 +35,8 @@ public class DoAddNews implements Command {
 				newsService.save(news);
 				response.sendRedirect("controller?command=go_to_news_list");
 			} catch (ServiceException e) {
-				// TODO Auto-generated catch block
+				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.ADD_NEWS.name().toLowerCase());
+				response.sendRedirect("error?command=go_to_news_list");
 				e.printStackTrace();
 			}
 	}

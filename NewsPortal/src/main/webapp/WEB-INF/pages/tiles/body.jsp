@@ -10,5 +10,5 @@
 </c:if>
 
 <c:if test="${requestScope.presentation eq 'addNews' || requestScope.presentation eq 'editNews' }">
-	<c:import url="/WEB-INF/pages/tiles/addNews.jsp" />
+	<c:import url="/WEB-INF/pages/tiles/addEditNews.jsp" />
 </c:if>
