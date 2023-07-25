@@ -1,5 +1,18 @@
-<!--<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>-->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value="${sessionScope.locale}" />
+<fmt:setBundle basename="localization.local" var="loc" />
+
+<fmt:message bundle="${loc}" key="local.login.button.name" var="loginButton" />
+<fmt:message bundle="${loc}" key="local.signup.button.name" var="signupButton" />
+<fmt:message bundle="${loc}" key="local.signin.button.name" var="signinButton" />
+<fmt:message bundle="${loc}" key="local.remember.button.name" var="remembButton" />
+<fmt:message bundle="${loc}" key="local.signout.button.name" var="signoutButton" />
+<fmt:message bundle="${loc}" key="local.error.code.${sessionScope.errorCode}" var="errorMessage" />
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +24,14 @@
 
 <body style = "background-image: url(images/newspaper_background.jpg)">
 <div align="center">
-<h1 align = "center">Please fill the registration form</h1>
+
+<c:if test="${sessionScope.errorCode eq null}">
+<h2 align = "center">Please fill the registration form</h2>
+</c:if>
+<c:if test="${not(sessionScope.errorCode eq null)}">
+<h2 align = "center">${errorMessage}</h2>
+</c:if>
+
 <form method="post" action="controller" class = "grid-container" >
 <input type="hidden" name="command" value="do_registration">
 
@@ -32,19 +52,7 @@
 <input type="email" name="email" id = "email" placeholder=" " required autocomplete = "new-email">
 <label for = "email">E-mail</label>
 </p>
-<!-- <p class = "ph-container"> -->
-<!-- <input type="text" name="birth" id = "birth" placeholder=" " -->
-<!--  onfocus="(this.type='date')" onblur="if(this.value==''){this.type='text'}"> -->
-<!-- <label for = "birth">Birth Date</label> -->
-<!-- </p> -->
-<!-- <p class = "ph-container"> -->
-<!-- <input type="text" name="country" id="country" placeholder=" " autocomplete="new-country"> -->
-<!-- <label for="tel">Country</label> -->
-<!-- </p> -->
-<!-- <p class = "ph-container"> -->
-<!-- <input type="tel" name="tel" id="tel" placeholder=" " autocomplete = "new-tel"> -->
-<!-- <label for="tel">Phone Number</label> -->
-<!-- </p> -->
+
 <p class = "ph-container">
 <input type="text" name="login" id = "login" placeholder=" " autocomplete = "new-name">
 <label for = "login">Login</label>

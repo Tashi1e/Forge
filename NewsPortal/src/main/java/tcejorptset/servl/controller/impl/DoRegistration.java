@@ -47,14 +47,14 @@ public class DoRegistration implements Command {
 		try {
 			if (service.registration(user, userInfo))
 				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE,
-						ErrorCode.REGISTRATION_SUCCESSFUL.name().toLowerCase());
+						ErrorCode.REGISTRATION_SUCCESSFUL.getCode());
 			response.sendRedirect("controller?command=go_to_registration_page");
 		} catch (ServiceException e) {
 			if (e.getMessage() != null) {
 				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, e.getMessage());
 			} else {
 				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE,
-						ErrorCode.REGISTRATION_FAILED.name().toLowerCase());
+						ErrorCode.REGISTRATION_FAILED.getCode());
 			}
 			response.sendRedirect("error?command=go_to_registration_page");
 			e.printStackTrace();

@@ -162,10 +162,10 @@ public class UserDAO implements IUserDAO {
 		Timestamp sqlUserRegDate = new Timestamp(System.currentTimeMillis());
 
 		if (objectExists(login, SQLQuery.FIND_LOGIN_QUERY)) {
-			throw new DaoException(ErrorCode.LOGIN_EXISTS.name().toLowerCase());
+			throw new DaoException(ErrorCode.LOGIN_EXISTS.getCode());
 		}
 		if (objectExists(email, SQLQuery.FIND_EMAIL_QUERY)) {
-			throw new DaoException(ErrorCode.EMAIL_EXSITS.name().toLowerCase());
+			throw new DaoException(ErrorCode.EMAIL_EXSITS.getCode());
 		}
 
 		Connection connection = null;

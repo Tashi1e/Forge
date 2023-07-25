@@ -37,7 +37,7 @@ input#publish {
 <c:if test=""></c:if>
 
 <div id="edit_field">
-<form action="controller" method="post" >
+<form action="controller" method="post" enctype="multipart/form-data">
 <c:if test="${requestScope.presentation eq 'editNews'}">
 <input type="hidden" name="command" value="do_edit_news" />
 <input type="hidden" name="id" value="${requestScope.news.id}" />
@@ -58,8 +58,10 @@ input#publish {
 <label for="content">Content</label>
 <textarea name="content" class="text_edit" id="content" placeholder="Enteer Your content here">${requestScope.news.content}</textarea>
 </p>
-<p>
+<p class="view-news-grid-container">
 <input type="submit" id="save_button" class="button grey all_buttons_size" value="Save" />
+<input type="file" name="add_image" id="add_image" accept="image/*" style="display: none" />
+<label for="add_image" id="add_image_label">Add image</label>
 </p>
 
 </form>

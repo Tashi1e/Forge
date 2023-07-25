@@ -72,7 +72,7 @@ public final class ConnectionPool {
 		}
 	}
 
-	public void dispose() {          //а меня за это ругали)
+	public void dispose() {
 		clearConnectionQueue();
 	}
 
@@ -91,7 +91,7 @@ public final class ConnectionPool {
 			connection = connectionQueue.take();
 			givenAwayConQueue.add(connection);
 		} catch (InterruptedException e) {
-			throw new ConnectionPoolException("Error connecting to the data source.", e);
+			throw new ConnectionPoolException("Error connecting to the data source!", e);
 		}
 		return connection;
 	}

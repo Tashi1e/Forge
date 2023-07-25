@@ -19,7 +19,7 @@ public class DoDeleteNews implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String [] newsId = request.getParameterValues("newsId");
+		String [] newsId = request.getParameterValues(AttributeParamName.JSP_NEWS_ID_PARAM);
 			try {
 				int [] id = Stream.of(newsId)
 						  .mapToInt(Integer::parseInt)
@@ -27,7 +27,7 @@ public class DoDeleteNews implements Command {
 				newsService.delete(id);
 				response.sendRedirect("controller?command=go_to_news_list");
 			} catch (ServiceException e) {
-				request.getSession().setAttribute (AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.DELETE_NEWS.name().toLowerCase());
+				request.getSession().setAttribute (AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.DELETE_NEWS.getCode());
 				response.sendRedirect("error?command=go_to_news_list");
 				e.printStackTrace();
 			}

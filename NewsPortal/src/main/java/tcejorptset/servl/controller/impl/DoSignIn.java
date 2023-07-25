@@ -5,6 +5,7 @@ import java.util.Map;
 
 import tcejorptset.servl.bean.ErrorCode;
 import tcejorptset.servl.bean.UserInfo;
+import tcejorptset.servl.bean.UserRoles;
 import tcejorptset.servl.controller.Command;
 import tcejorptset.servl.service.IUserService;
 import tcejorptset.servl.service.ServiceException;
@@ -27,7 +28,7 @@ public class DoSignIn implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		String role = "guest";
+		String role = UserRoles.GUEST.getRole();
 		UserInfo userInfo = null;
 		String selector = null;
 		String validator = null;
@@ -47,7 +48,7 @@ public class DoSignIn implements Command {
 //				System.out.println(role); // TEST
 			}
 		
-			if (role != null && !role.equals("guest")) {
+			if (role != null && !role.equals(UserRoles.GUEST.getRole())) {
 				System.out.println(role);
 //				System.out.println("DoSignIn -> update user token"); // TEST
 				response = addCookie(response, service.updateUserToken(selector, validator));
@@ -67,7 +68,7 @@ public class DoSignIn implements Command {
 				role = service.signIn(login, password);
 				userInfo = service.getUserInfo(login, password);
 			}
-			if (role != null && !role.equals("guest")) {
+			if (role != null && !role.equals(UserRoles.GUEST.getRole())) {
 				if (checkbox) {
 					response = addCookie(response, service.addUserToken(login, password));
 				}
@@ -98,7 +99,7 @@ public class DoSignIn implements Command {
 //		System.out.println("DoSIgnIn -> signInFailed -> message = " + message); // TEST
 		request.getSession(true).setAttribute(AttributeParamName.JSP_USER_ACTIVE_ATTRIBUTE, false);
 		if (request.getSession().getAttribute(FIRST_TIME_ENTER_ATTRIBUTE) == null) {
-			request.getSession().setAttribute(AttributeParamName.JSP_HEADER_ERROR_MESSAGE_ATTRIBUTE, ErrorCode.SIGN_IN.name().toLowerCase());
+			request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.SIGN_IN.getCode());
 		}
 		request.getSession().removeAttribute(FIRST_TIME_ENTER_ATTRIBUTE);
 		response.sendRedirect("error?command=go_to_base_page");

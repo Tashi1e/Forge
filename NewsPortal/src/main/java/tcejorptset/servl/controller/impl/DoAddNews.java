@@ -35,7 +35,7 @@ public class DoAddNews implements Command {
 				newsService.save(news);
 				response.sendRedirect("controller?command=go_to_news_list");
 			} catch (ServiceException e) {
-				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.ADD_NEWS.name().toLowerCase());
+				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.ADD_NEWS.getCode());
 				response.sendRedirect("error?command=go_to_news_list");
 				e.printStackTrace();
 			}

@@ -9,6 +9,7 @@
 <fmt:message bundle="${loc}" key="local.signin.button.name" var="signinButton" />
 <fmt:message bundle="${loc}" key="local.remember.button.name" var="remembButton" />
 <fmt:message bundle="${loc}" key="local.signout.button.name" var="signoutButton" />
+<fmt:message bundle="${loc}" key="local.error.code.${sessionScope.errorCode}" var="errorMessage" />
 
 <!-- <link rel="stylesheet" type="text/css" href="./styles/loginFormStyles123.css"> -->
 
@@ -20,11 +21,11 @@
 	</div>
 
 	<div class="header-grid-item-message">
-<%-- 				<c:if test="${not (sessionScope.errorMessage eq null)}"> --%>
+				<c:if test="${not (sessionScope.errorCode eq null)}">
 					<font color="red"> 
-						<c:out value="${sessionScope.errorMessage}" />
+						<c:out value="${errorMessage}" />
 					</font> 
-<%-- 				</c:if> --%>
+				</c:if>
 	</div>
 
 	<div class="header-grid-item" align="right">

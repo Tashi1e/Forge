@@ -5,6 +5,10 @@ public enum UserRoles {
 	ADMIN,
 	EDITOR,
 	USER,
-	GUEST,
+	GUEST;
+	
+	public String getRole () {
+		return name().toLowerCase();
+	}
 
 }

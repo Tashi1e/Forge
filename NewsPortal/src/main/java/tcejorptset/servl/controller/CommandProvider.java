@@ -3,6 +3,7 @@ package tcejorptset.servl.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import tcejorptset.servl.bean.ErrorCode;
 import tcejorptset.servl.controller.impl.DoAddNews;
 import tcejorptset.servl.controller.impl.DoChangeLocale;
 import tcejorptset.servl.controller.impl.DoDeleteNews;
@@ -49,7 +50,8 @@ public final class CommandProvider {
 		return command;
 		}
 		catch (Exception e) {
-			return new GoToErrorPage(hhh);
+			e.printStackTrace();
+			return new GoToErrorPage(ErrorCode.ERROR_404.name().toLowerCase());
 		}
 	}
 

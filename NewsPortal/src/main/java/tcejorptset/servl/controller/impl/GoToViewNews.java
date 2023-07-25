@@ -28,7 +28,7 @@ public class GoToViewNews implements Command {
 		String id = request.getParameter(AttributeParamName.JSP_NEWS_ID_PARAM); 
 		
 		if(id == null) {
-request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.FETCH_NEWS.name().toLowerCase());
+request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.FETCH_NEWS.getCode());
 			response.sendRedirect("controller?command=go_to_error_page");
 		}
 		
@@ -43,7 +43,7 @@ request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, E
 
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		} catch (ServiceException e) {
-			request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.FETCH_NEWS.name().toLowerCase());
+			request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.FETCH_NEWS.getCode());
 			response.sendRedirect("controller?command=go_to_error_page");
 			e.printStackTrace();
 		}

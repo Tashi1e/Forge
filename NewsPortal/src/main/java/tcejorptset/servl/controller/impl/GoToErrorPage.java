@@ -8,11 +8,22 @@ import jakarta.servlet.http.HttpServletResponse;
 import tcejorptset.servl.controller.Command;
 
 public class GoToErrorPage implements Command{
+	
+	private String errorCode;
 
+	public GoToErrorPage (){}
+	
+	public GoToErrorPage (String errorCode){
+		this.errorCode = errorCode;
+	}
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		if(request.getSession().getAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE) == null) {
+			request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, errorCode);
+		} else {
+			request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, "Unknown Error");
+		}
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 	}
-
 }

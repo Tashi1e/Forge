@@ -19,7 +19,7 @@ public class DoEditNews implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		int newsId = Integer.parseInt(request.getParameter("id"));
+		int newsId = Integer.parseInt(request.getParameter(AttributeParamName.JSP_NEWS_ID_PARAM));
 
 		String newsTitle = request.getParameter(AttributeParamName.JSP_NEWS_TITLE_PARAM);
 		String newsBrief = request.getParameter(AttributeParamName.JSP_NEWS_BRIEF_PARAM);
@@ -35,7 +35,7 @@ public class DoEditNews implements Command {
 			newsService.update(news);
 			response.sendRedirect("controller?command=go_to_news_list");
 		} catch (ServiceException e) {
-			request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.UPDATE_NEWS.name().toLowerCase());
+			request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.UPDATE_NEWS.getCode());
 			response.sendRedirect("error?command=go_to_base_page");
 			e.printStackTrace();
 		}
