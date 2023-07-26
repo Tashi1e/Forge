@@ -64,7 +64,7 @@ public class UserDAO implements IUserDAO {
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 
-		System.out.println(selector + "\n" + validator); // TEST
+//		System.out.println(selector + "\n" + validator); // TEST
 		try {
 			connection = connectionPool.takeConnection();
 			preparedStatement = connection.prepareStatement(SQLQuery.GET_USER_ID_BY_TOKEN);
@@ -233,7 +233,7 @@ public class UserDAO implements IUserDAO {
 		String selector = encryptorS.encrypt(RandomStringUtils.randomAlphabetic(16));
 		String validator = encryptorS.encrypt(RandomStringUtils.randomAlphabetic(32));
 
-		System.out.println("tokenOPS"); // TEST
+//		System.out.println("tokenOPS"); // TEST
 
 		try {
 			connection = connectionPool.takeConnection();
@@ -250,14 +250,14 @@ public class UserDAO implements IUserDAO {
 			token.put("selector", selector);
 			token.put("validator", validator);
 
-			System.out.println(token.toString()); // TEST
+//			System.out.println(token.toString()); // TEST
 		} catch (SQLException | ConnectionPoolException e) {
 			try {
 				connection.rollback();
 			} catch (SQLException e1) {
 				throw new DaoException(e1); // DB rollback error
 			}
-			System.out.println("DAO exception"); // TEST
+//			System.out.println("DAO exception"); // TEST
 			throw new DaoException("error.user.token", e);
 		} finally {
 			connectionPool.closeConnection(connection, preparedStatement);
@@ -283,50 +283,4 @@ public class UserDAO implements IUserDAO {
 			connectionPool.closeConnection(connection, preparedStatement, resultSet);
 		}
 	}
-
-//GARBAGE	
-//	private boolean emailExists(String email) throws DaoException { 
-//		Connection connection = null;
-//		PreparedStatement preparedStatement = null;
-//		ResultSet resultSet = null;
-//
-//		try {
-//			connection = connectionPool.takeConnection();
-//			preparedStatement = connection.prepareStatement(SQLQuery.FIND_EMAIL_QUERY);
-//			preparedStatement.setString(1, email);
-//			resultSet = preparedStatement.executeQuery();
-//			return resultSet.next();
-//
-//		} catch (SQLException e) {
-//			throw new DaoException(e);
-//		} catch (ConnectionPoolException e) {
-//			throw new DaoException(e);
-//		} finally {
-//			connectionPool.closeConnection(connection, preparedStatement, resultSet);
-//		}
-//	}
-//
-//	private boolean loginExists(String login) throws DaoException {
-//		Connection connection = null;
-//		PreparedStatement preparedStatement = null;
-//		ResultSet resultSet = null;
-//
-//		try {
-//			connection = connectionPool.takeConnection();
-//			preparedStatement = connection.prepareStatement(SQLQuery.FIND_LOGIN_QUERY);
-//			preparedStatement.setString(1, login);
-//			resultSet = preparedStatement.executeQuery();
-//			if (resultSet.next()) {
-//				return true;
-//			} else {
-//				return false;
-//			}
-//		} catch (SQLException e) {
-//			throw new DaoException(e);
-//		} catch (ConnectionPoolException e) {
-//			throw new DaoException(e);
-//		} finally {
-//			connectionPool.closeConnection(connection, preparedStatement, resultSet);
-//		}
-//	}
 }

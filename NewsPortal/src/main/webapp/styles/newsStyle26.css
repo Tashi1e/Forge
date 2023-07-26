@@ -397,7 +397,7 @@ a:visited {
 }
 
 .view-news-grid-container {
-	margin-left: 0px;
+	margin-left: 30px;
 	margin-bottom: 20px;
 	width: 20%;
 	display: grid;
@@ -557,6 +557,7 @@ input#remember {
 	background-color: rgb(255, 255, 0);
 	color: black;
 	width: 150px;
+	overflow: hidden;
 	transition: all 200ms;
 }
 

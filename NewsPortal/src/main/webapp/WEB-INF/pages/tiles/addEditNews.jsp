@@ -44,7 +44,6 @@ input#publish {
 </c:if>
 <c:if test="${requestScope.presentation eq 'addNews'}">
 <input type="hidden" name="command" value="do_add_news" />
-
 </c:if>
 <p> 
 <label for="title">Title</label>
@@ -58,11 +57,31 @@ input#publish {
 <label for="content">Content</label>
 <textarea name="content" class="text_edit" id="content" placeholder="Enteer Your content here">${requestScope.news.content}</textarea>
 </p>
-<p class="view-news-grid-container">
+<p class="view-news-grid-container" style="margin-left: 0px">
 <input type="submit" id="save_button" class="button grey all_buttons_size" value="Save" />
-<input type="file" name="add_image" id="add_image" accept="image/*" style="display: none" />
-<label for="add_image" id="add_image_label">Add image</label>
+<input type="file" name="add_image" id="add_image" accept="image/*" style="display: none" onchange="getName(this.value);" />
+<label for="add_image" id="add_image_label">
+Add image
+</label>
 </p>
 
 </form>
+
+<script type="text/javascript">
+function getName (str){
+    if (str.lastIndexOf('\\')){
+        var i = str.lastIndexOf('\\')+1;
+    }
+    else{
+        var i = str.lastIndexOf('/')+1;
+    }						
+    var filename = str.slice(i);			
+    var uploaded = document.getElementById("add_image_label");
+    var len = filename.length;
+    if (len > 20){
+   		filename = '...'+filename.substring((len-17),len);
+    }
+    uploaded.innerHTML = filename;
+}
+</script>
 </div>

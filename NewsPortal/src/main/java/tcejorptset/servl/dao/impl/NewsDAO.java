@@ -15,13 +15,11 @@ import tcejorptset.servl.dao.INewsDAO;
 import tcejorptset.servl.dao.NewsDAOException;
 import tcejorptset.servl.dao.impl.pool.ConnectionPool;
 import tcejorptset.servl.dao.impl.pool.ConnectionPoolException;
-import tcejorptset.servl.util.temp.TempArticleSource;
 
 public class NewsDAO implements INewsDAO {
 
-	private final TempArticleSource tempArticleSource = new TempArticleSource();
 	private final ConnectionPool connectionPool = ConnectionPool.getInstance();
-	private final ContentTextIO contentTextIO = ContentTextIO.getInstance();
+	private final ContentIO contentTextIO = ContentIO.getInstance();
 
 	
 	@Override
@@ -46,6 +44,7 @@ public class NewsDAO implements INewsDAO {
 				news.setTitle(resultSet.getString("title"));
 				news.setBrief(resultSet.getString("brief"));
 				news.setContent(contentTextIO.getContent(newsId));
+				news.setImage(contentTextIO.getImagePath(newsId));
 				news.setDate(resultSet.getTimestamp("news_date").toInstant());
 				news.setStatus(resultSet.getShort("status"));
 
@@ -64,14 +63,7 @@ public class NewsDAO implements INewsDAO {
 	@Override
 	public List<News> getListByKeyword(String keyword) throws NewsDAOException {
 		List<News> result = new ArrayList<News>();
-
-		for (Integer i = 1; i <= 5; i++) {
-			News news = tempArticleSource.article(i);
-			if (news == null)
-				continue;
-			else
-				result.add(tempArticleSource.article(i));
-		}
+		//TODO write method
 		return result;
 	}
 
@@ -95,13 +87,13 @@ public class NewsDAO implements INewsDAO {
 				news.setTitle(resultSet.getString("title"));
 				news.setBrief(resultSet.getString("brief"));
 				news.setContent(contentTextIO.getContent(id));
+				news.setImage(contentTextIO.getImagePath(id));
 				news.setDate(resultSet.getTimestamp("news_date").toInstant());
 				news.setStatus(resultSet.getShort("status"));
 			}
 			
 		} catch (ConnectionPoolException | SQLException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new NewsDAOException(e);
 		}
 		return news;
 	}
@@ -129,6 +121,7 @@ public class NewsDAO implements INewsDAO {
 			if(resultSet.next()) {
 			int newsId = resultSet.getInt(1);
 			contentTextIO.setContent(newsId, news.getContent());
+			contentTextIO.setImage(newsId, news.getImgPart());
 			}
 
 		} catch (ConnectionPoolException | SQLException | IOException e) {
@@ -162,6 +155,7 @@ public class NewsDAO implements INewsDAO {
 			preparedStatement.executeUpdate();
 
 			contentTextIO.setContent(news.getId(), news.getContent());
+			contentTextIO.setImage(news.getId(), news.getImgPart());
 
 		} catch (ConnectionPoolException | SQLException | IOException e) {
 			throw new NewsDAOException("News update fails!!!", e);

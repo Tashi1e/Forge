@@ -95,7 +95,7 @@ public class UserServiceImpl implements IUserService {
 	public Map <String, String> updateUserToken(String selector, String validator) throws ServiceException {
 		try {
 			Integer userId = userDAO.getUserIdByToken(selector, validator);
-			System.out.println("userId = " + userId); // TEST
+//			System.out.println("userId = " + userId); // TEST
 			return tokenOps(userId);
 		} catch (DaoException e) {
 			throw new ServiceException(e);

@@ -83,9 +83,11 @@ form #search_button:hover {
 background-color: gold;
 }
 </style>
+
+<div style="padding-left: 15px; padding-top: 7px; background-color: grey; height: 98%; width: 92%; position: absolute">
 <br>
-<span style="padding-left: 15px; font-size: 22px"><b><u>${news_management_title}</u></b></span> 
-<div style="padding-left: 15px; padding-top: 7px">
+<span style="padding-left: 15px; font-size: 22px; font-weight: bold; text-decoration: underline">${news_management_title}</span> 
+
 <form>
 <input type="search" id="search_field" placeholder="  search news" />
 <button id="search_button">
@@ -94,18 +96,19 @@ background-color: gold;
 </svg>
 </button>
 </form>
-</div>
-	<ul class="menu_list" style="list-style: none; text-align: left">
+	<ul class="menu_list" style="list-style: none; text-align: left; padding-left: 0px">
 		<li><form action="controller" method="post">
 		<a href="controller?command=go_to_news_list">${news_list_link}</a>
 		</form></li>
 		<c:if test="${sessionScope.role eq 'admin'}">
-			<li><a href="controller?command=go_to_edit_news_page&presentation=addNews">${add_news_link}</a></li>
+			<li><a href="controller?command=go_to_add_edit_news_page&presentation=addNews">${add_news_link}</a></li>
 			<li><form action="controller" method="post" id="delete_news_form">
 			<input type="hidden" name="command" value="do_delete_news" />
 			<input class="link_button" type="submit" value="${delete_news_link}" />
 			</form></li>
 		</c:if>
 	</ul>
+	<input type="button" class="button grey" value="Back" style="position: relative; margin-top: 190%; align-self: center" onclick="history.back()" />
+	</div>
 
 
