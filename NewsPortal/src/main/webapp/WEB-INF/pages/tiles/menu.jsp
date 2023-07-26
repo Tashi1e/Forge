@@ -100,7 +100,7 @@ background-color: gold;
 		<a href="controller?command=go_to_news_list">${news_list_link}</a>
 		</form></li>
 		<c:if test="${sessionScope.role eq 'admin'}">
-			<li><a href="controller?command=go_to_edit_news_page&presentation=addNews">${add_news_link}</a></li>
+			<li><a href="controller?command=go_to_add_edit_news_page&presentation=addNews">${add_news_link}</a></li>
 			<li><form action="controller" method="post" id="delete_news_form">
 			<input type="hidden" name="command" value="do_delete_news" />
 			<input class="link_button" type="submit" value="${delete_news_link}" />

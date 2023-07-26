@@ -12,6 +12,7 @@ import tcejorptset.servl.service.ServiceProvider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
 public class DoAddNews implements Command {
 	
@@ -24,12 +25,15 @@ public class DoAddNews implements Command {
 		String newsTitle = request.getParameter(AttributeParamName.JSP_NEWS_TITLE_PARAM);
 		String newsBrief = request.getParameter(AttributeParamName.JSP_NEWS_BRIEF_PARAM);
 		String newsContent = request.getParameter(AttributeParamName.JSP_NEWS_CONTENT_PARAM);
+		Part ImagePart = request.getPart(AttributeParamName.JSP_NEWS_IMAGE_PART_PARAM);
+		
 		
 		var news = new News();
 		news.setTitle(newsTitle);
 		news.setBrief(newsBrief);
 		news.setContent(newsContent);
 		news.setUserId(userInfo.getUserId());
+		news.setImgPart(ImagePart);
 		
 			try {
 				newsService.save(news);

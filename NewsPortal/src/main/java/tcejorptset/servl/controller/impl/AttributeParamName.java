@@ -11,6 +11,7 @@ final class AttributeParamName {
 	static final String JSP_NEWS_CONTENT_PARAM = "content";
 	static final String JSP_REMEMBER_ME_PARAM = "remember_me";
 	static final String JSP_NEWS_ID_PARAM = "id";
+	static final String JSP_NEWS_IMAGE_PART_PARAM = "add_image";
 	static final String LOCALE_NAME_PARAM_ATTRIBUTE = "locale";
 	
 	static final String JSP_NICK_NAME_ATTRIBUTE = "nickname";

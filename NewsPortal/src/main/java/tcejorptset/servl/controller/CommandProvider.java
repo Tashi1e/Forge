@@ -28,7 +28,7 @@ public final class CommandProvider {
 		commands.put(CommandName.GO_TO_REGISTRATION_PAGE, new GoToRegistrationPage());
 		commands.put(CommandName.GO_TO_NEWS_LIST, new GoToNewsList());
 		commands.put(CommandName.GO_TO_VIEW_NEWS, new GoToViewNews());
-		commands.put(CommandName.GO_TO_EDIT_NEWS_PAGE, new GoToAddEditNewsPage());
+		commands.put(CommandName.GO_TO_ADD_EDIT_NEWS_PAGE, new GoToAddEditNewsPage());
 		commands.put(CommandName.GO_TO_ERROR_PAGE, new GoToErrorPage());
 		commands.put(CommandName.DO_SIGN_IN, new DoSignIn());
 		commands.put(CommandName.DO_SIGN_OUT, new DoSignOut());
