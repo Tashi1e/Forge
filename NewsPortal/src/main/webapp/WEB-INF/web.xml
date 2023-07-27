@@ -31,12 +31,32 @@
 
 
 	<filter>
-		<filter-name>localeChangeFilter</filter-name>
-		<filter-class>tcejorptset.servl.controller.filters.ChangeLocaleRemoveErrorFilter</filter-class>
+		<filter-name>ChangeLocaleFilter</filter-name>
+		<filter-class>tcejorptset.servl.controller.filters.ChangeLocaleFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
-		<filter-name>localeChangeFilter</filter-name>
+		<filter-name>ChangeLocaleFilter</filter-name>
+		<url-pattern>/controller</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>RemoveErrorFilter</filter-name>
+		<filter-class>tcejorptset.servl.controller.filters.RemoveErrorFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>RemoveErrorFilter</filter-name>
+		<url-pattern>/controller</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>EncodingFilter</filter-name>
+		<filter-class>tcejorptset.servl.controller.filters.EncodingFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>EncodingFilter</filter-name>
 		<url-pattern>/controller</url-pattern>
 	</filter-mapping>
 

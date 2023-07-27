@@ -49,7 +49,7 @@ public class DoSignIn implements Command {
 			}
 		
 			if (role != null && !role.equals(UserRoles.GUEST.getRole())) {
-				System.out.println(role);
+//				System.out.println(role); //TEST
 //				System.out.println("DoSignIn -> update user token"); // TEST
 				response = addCookie(response, service.updateUserToken(selector, validator));
 			}
@@ -86,7 +86,7 @@ public class DoSignIn implements Command {
 
 	private void signinSuccessful(HttpServletRequest request, HttpServletResponse response, String role,
 			UserInfo userInfo) throws ServletException, IOException {
-		System.out.println(role + " " + userInfo); //
+//		System.out.println(role + " " + userInfo); //TEST
 		request.getSession().removeAttribute(FIRST_TIME_ENTER_ATTRIBUTE);
 		request.getSession(true).setAttribute(AttributeParamName.JSP_USER_ACTIVE_ATTRIBUTE, true);
 		request.getSession().setAttribute(AttributeParamName.JSP_ROLE_ATTRIBUTE, role);

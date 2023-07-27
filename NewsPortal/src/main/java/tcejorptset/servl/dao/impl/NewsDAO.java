@@ -15,11 +15,9 @@ import tcejorptset.servl.dao.INewsDAO;
 import tcejorptset.servl.dao.NewsDAOException;
 import tcejorptset.servl.dao.impl.pool.ConnectionPool;
 import tcejorptset.servl.dao.impl.pool.ConnectionPoolException;
-import tcejorptset.servl.util.temp.TempArticleSource;
 
 public class NewsDAO implements INewsDAO {
 
-	private final TempArticleSource tempArticleSource = new TempArticleSource();
 	private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 	private final ContentIO contentTextIO = ContentIO.getInstance();
 
@@ -65,14 +63,7 @@ public class NewsDAO implements INewsDAO {
 	@Override
 	public List<News> getListByKeyword(String keyword) throws NewsDAOException {
 		List<News> result = new ArrayList<News>();
-
-		for (Integer i = 1; i <= 5; i++) {
-			News news = tempArticleSource.article(i);
-			if (news == null)
-				continue;
-			else
-				result.add(tempArticleSource.article(i));
-		}
+		//TODO write method
 		return result;
 	}
 
@@ -102,8 +93,7 @@ public class NewsDAO implements INewsDAO {
 			}
 			
 		} catch (ConnectionPoolException | SQLException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new NewsDAOException(e);
 		}
 		return news;
 	}

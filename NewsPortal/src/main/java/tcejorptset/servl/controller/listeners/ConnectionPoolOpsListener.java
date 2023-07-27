@@ -2,10 +2,6 @@ package tcejorptset.servl.controller.listeners;
 
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
-import jakarta.servlet.ServletException;
-import tcejorptset.servl.controller.Command;
-import tcejorptset.servl.controller.CommandProvider;
-import tcejorptset.servl.controller.impl.GoToErrorPage;
 import tcejorptset.servl.dao.impl.pool.ConnectionPool;
 import tcejorptset.servl.dao.impl.pool.ConnectionPoolException;
 
