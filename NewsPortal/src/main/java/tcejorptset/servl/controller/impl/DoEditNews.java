@@ -1,9 +1,9 @@
 package tcejorptset.servl.controller.impl;
 
 import java.io.IOException;
-import java.util.Collection;
 
 import tcejorptset.servl.bean.ErrorCode;
+import tcejorptset.servl.bean.News;
 import tcejorptset.servl.controller.Command;
 import tcejorptset.servl.service.INewsService;
 import tcejorptset.servl.service.ServiceException;

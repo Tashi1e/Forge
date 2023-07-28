@@ -84,13 +84,14 @@ background-color: gold;
 }
 </style>
 
-<div style="padding-left: 15px; padding-top: 7px; background-color: grey; height: 98%; width: 92%; position: absolute">
-<br>
+<div style="padding-left: 15px; padding-top: 7px;">
 <span style="padding-left: 15px; font-size: 22px; font-weight: bold; text-decoration: underline">${news_management_title}</span> 
-
-<form>
-<input type="search" id="search_field" placeholder="  search news" />
-<button id="search_button">
+<br>
+<br>
+<form action="controller" method="post">
+<input type="hidden" name="command" value="go_to_news_list" />
+<input type="search" name="keyword" id="search_field" placeholder="  search news" />
+<button id="search_button" type="submit">
 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="black" class="bi bi-search" viewBox="0 0 16 16">
   	<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
 </svg>
@@ -108,7 +109,9 @@ background-color: gold;
 			</form></li>
 		</c:if>
 	</ul>
-	<input type="button" class="button grey" value="Back" style="position: relative; margin-top: 190%; align-self: center" onclick="history.back()" />
+	<c:if test="${not(requestScope.presentation eq 'newsList')}">
+	<input type="button" class="link_button" value="&#8678  Back" style="position: absolute; bottom: 20px; left: 35px" onclick="history.back()" />
+	</c:if>
 	</div>
 
 

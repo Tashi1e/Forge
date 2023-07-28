@@ -40,7 +40,7 @@ final class SQLQuery {
 	
 	static final String FETCH_NEWS_BY_ID = "SELECT * FROM news WHERE id = ?";
 	
-	static final String FETHC_NEWS_BY_KEYWORD = "SELECT * FROM news WHERE title LIKE %?% OR brief LIKE %?%";
+	static final String FETHC_NEWS_BY_KEYWORD = "SELECT * FROM news WHERE title LIKE ? OR brief LIKE ?;";
 	
 	private SQLQuery () {};
 }

@@ -63,7 +63,38 @@ public class NewsDAO implements INewsDAO {
 	@Override
 	public List<News> getListByKeyword(String keyword) throws NewsDAOException {
 		List<News> result = new ArrayList<News>();
-		//TODO write method
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		ResultSet resultSet = null;
+
+		try {
+			connection = connectionPool.takeConnection();
+			preparedStatement = connection.prepareStatement(SQLQuery.FETHC_NEWS_BY_KEYWORD);
+			preparedStatement.setString(1, "%"+keyword+"%");
+			preparedStatement.setString(2, "%"+keyword+"%");
+			resultSet = preparedStatement.executeQuery();
+			
+			while (resultSet.next()) {
+				var news = new News();
+				int newsId = resultSet.getInt("id");
+				news.setId(newsId);
+				news.setUserId(resultSet.getInt("users_id"));
+				news.setTitle(resultSet.getString("title"));
+				news.setBrief(resultSet.getString("brief"));
+				news.setContent(contentTextIO.getContent(newsId));
+				news.setImage(contentTextIO.getImagePath(newsId));
+				news.setDate(resultSet.getTimestamp("news_date").toInstant());
+				news.setStatus(resultSet.getShort("status"));
+
+				result.add(news);
+			}
+
+		} catch (ConnectionPoolException | SQLException | IOException e) {
+			throw new NewsDAOException(e);
+		} finally {
+			connectionPool.closeConnection(connection, preparedStatement, resultSet);
+		}
 		return result;
 	}
 
@@ -94,6 +125,8 @@ public class NewsDAO implements INewsDAO {
 			
 		} catch (ConnectionPoolException | SQLException | IOException e) {
 			throw new NewsDAOException(e);
+		} finally {
+			connectionPool.closeConnection(connection, preparedStatement, resultSet);
 		}
 		return news;
 	}

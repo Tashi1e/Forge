@@ -26,8 +26,11 @@ public class NewsServiceImpl implements INewsService{
 
 	@Override
 	public List<News> find(String keyWord) throws ServiceException {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			return	newsDAO.getListByKeyword(keyWord);
+		} catch (NewsDAOException e) {
+			throw new ServiceException(e);
+		}
 	}
 
 	@Override

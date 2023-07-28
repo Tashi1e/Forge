@@ -90,6 +90,8 @@ public final class ConnectionPool {
 		try {
 			connection = connectionQueue.take();
 			givenAwayConQueue.add(connection);
+//			System.out.println("Connection Pool -> takeConnection -> connectionQueue size = " + connectionQueue.size()); //TEST
+//			System.out.println("Connection Pool -> takeConnection -> givenAwayConQueue size = " + givenAwayConQueue.size()); //TEST
 		} catch (InterruptedException e) {
 			throw new ConnectionPoolException("Error connecting to the data source!", e);
 		}
@@ -187,7 +189,6 @@ public final class ConnectionPool {
 		@Override
 		public void close() throws SQLException {
 			if (connection.isClosed()) {
-
 				throw new SQLException("Attempting to close closed connection.");
 			}
 			if (connection.isReadOnly()) {
@@ -199,6 +200,8 @@ public final class ConnectionPool {
 			if (!connectionQueue.offer(this)) {
 				throw new SQLException("Error allocating connection in the pool.");
 			}
+//			System.out.println("Connection Pool -> close -> connectionQueue size = " + connectionQueue.size()); //TEST
+//			System.out.println("Connection Pool -> close -> givenAwayConQueue size = " + givenAwayConQueue.size()); //TEST
 		}
 
 		@Override

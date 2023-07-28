@@ -14,14 +14,19 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class GoToNewsList implements Command {
-	
+
 	private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
-	
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List <News> newsList;
+		List<News> newsList;
+		String keyword = request.getParameter(AttributeParamName.JSP_NEWS_KEYWORD_PARAM);
 		try {
-			newsList = newsService.latestList();
+			if (keyword != null) {
+				newsList = newsService.find(keyword);
+			} else {
+				newsList = newsService.latestList();
+			}
 			request.setAttribute(AttributeParamName.JSP_NEWS_ATTRIBUTE, newsList);
 			request.setAttribute(AttributeParamName.JSP_PRESENTATION_ATTRIBUTE, "newsList");
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
@@ -30,7 +35,5 @@ public class GoToNewsList implements Command {
 			response.sendRedirect("error?command=go_to_error_page");
 			e.printStackTrace();
 		}
-		
 	}
-
 }
