@@ -25,7 +25,8 @@ public class GoToAddEditNewsPage implements Command {
 		if (presentation.equals("editNews")) {
 			try {
 				int id  = Integer.parseInt(request.getParameter(AttributeParamName.JSP_NEWS_ID_PARAM)) ;
-				news = newsService.findById(id);
+				String currentLocale = (String) request.getSession().getAttribute(AttributeParamName.LOCALE_NAME_PARAM_ATTRIBUTE);
+				news = newsService.findById(id, currentLocale);
 			} catch (ServiceException e) {
 				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.FETCH_NEWS.getCode());
 				response.sendRedirect("error?command=go_to_error_page");

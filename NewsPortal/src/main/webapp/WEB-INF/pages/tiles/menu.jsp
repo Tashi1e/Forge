@@ -9,6 +9,7 @@
 <fmt:message bundle="${loc}" key="local.menu.newslist.name" var="news_list_link" />
 <fmt:message bundle="${loc}" key="local.menu.addnews.name" var="add_news_link" />
 <fmt:message bundle="${loc}" key="local.menu.deletenews.name" var="delete_news_link" />
+<fmt:message bundle="${loc}" key="local.menu.back.link" var="back_link" />
 
 <style>
 .menu_list li{
@@ -110,7 +111,7 @@ background-color: gold;
 		</c:if>
 	</ul>
 	<c:if test="${not(requestScope.presentation eq 'newsList')}">
-	<input type="button" class="link_button" value="&#8678  Back" style="position: absolute; bottom: 20px; left: 35px" onclick="history.back()" />
+	<input type="button" class="link_button" value="&#8678  ${back_link}" style="position: absolute; bottom: 20px; left: 35px" onclick="history.back()" />
 	</c:if>
 	</div>
 

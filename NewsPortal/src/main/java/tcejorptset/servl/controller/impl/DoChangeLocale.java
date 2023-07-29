@@ -20,10 +20,10 @@ public class DoChangeLocale implements Command {
 		String previousPageURL = (String) request.getSession().getAttribute(CURRENT_PAGE_URL_ATTRIBUTE);
 		request.getSession(true).setAttribute(AttributeParamName.LOCALE_NAME_PARAM_ATTRIBUTE, locale);
 		
-		if (previousPageURL == null) {
-			response.sendRedirect("controller?command=go_to_base_page");
-		} else {
+		if (previousPageURL != null) {
 			response.sendRedirect(previousPageURL);
+		} else {
+			response.sendRedirect("controller?command=go_to_base_page");
 		}
 	}
 }

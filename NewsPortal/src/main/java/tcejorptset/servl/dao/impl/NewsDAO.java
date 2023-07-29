@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,15 +16,17 @@ import tcejorptset.servl.dao.INewsDAO;
 import tcejorptset.servl.dao.NewsDAOException;
 import tcejorptset.servl.dao.impl.pool.ConnectionPool;
 import tcejorptset.servl.dao.impl.pool.ConnectionPoolException;
+import tcejorptset.servl.util.localeFormats.DateTimeFormatConverter;
 
 public class NewsDAO implements INewsDAO {
 
 	private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 	private final ContentIO contentTextIO = ContentIO.getInstance();
+	private final DateTimeFormatConverter formatConverter = DateTimeFormatConverter.getInstance(); 
 
 	
 	@Override
-	public List<News> getLatestsList(int count) throws NewsDAOException {
+	public List<News> getLatestsList(int count, String locale) throws NewsDAOException {
 		List<News> latestNews = new ArrayList<News>();
 
 		Connection connection = null;
@@ -45,8 +48,10 @@ public class NewsDAO implements INewsDAO {
 				news.setBrief(resultSet.getString("brief"));
 				news.setContent(contentTextIO.getContent(newsId));
 				news.setImage(contentTextIO.getImagePath(newsId));
-				news.setDate(resultSet.getTimestamp("news_date").toInstant());
 				news.setStatus(resultSet.getShort("status"));
+				
+				Instant dateTime = resultSet.getTimestamp("news_date").toInstant();
+				news.setDate(formatConverter.getLocalDateShort(locale, dateTime));
 
 				latestNews.add(news);
 			}
@@ -61,7 +66,7 @@ public class NewsDAO implements INewsDAO {
 
 	
 	@Override
-	public List<News> getListByKeyword(String keyword) throws NewsDAOException {
+	public List<News> getListByKeyword(String keyword, String locale) throws NewsDAOException {
 		List<News> result = new ArrayList<News>();
 		
 		Connection connection = null;
@@ -84,8 +89,10 @@ public class NewsDAO implements INewsDAO {
 				news.setBrief(resultSet.getString("brief"));
 				news.setContent(contentTextIO.getContent(newsId));
 				news.setImage(contentTextIO.getImagePath(newsId));
-				news.setDate(resultSet.getTimestamp("news_date").toInstant());
 				news.setStatus(resultSet.getShort("status"));
+				
+				Instant dateTime = resultSet.getTimestamp("news_date").toInstant();
+				news.setDate(formatConverter.getLocalDateShort(locale, dateTime));
 
 				result.add(news);
 			}
@@ -99,7 +106,7 @@ public class NewsDAO implements INewsDAO {
 	}
 
 	@Override
-	public News fetchById(int id) throws NewsDAOException {
+	public News fetchById(int id, String locale) throws NewsDAOException {
 		News news = new News();
 
 		Connection connection = null;
@@ -119,8 +126,10 @@ public class NewsDAO implements INewsDAO {
 				news.setBrief(resultSet.getString("brief"));
 				news.setContent(contentTextIO.getContent(id));
 				news.setImage(contentTextIO.getImagePath(id));
-				news.setDate(resultSet.getTimestamp("news_date").toInstant());
 				news.setStatus(resultSet.getShort("status"));
+				
+				Instant dateTime = resultSet.getTimestamp("news_date").toInstant();
+				news.setDate(formatConverter.getLocalDateTime(locale, dateTime));
 			}
 			
 		} catch (ConnectionPoolException | SQLException | IOException e) {
@@ -137,7 +146,7 @@ public class NewsDAO implements INewsDAO {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
-		Timestamp newsRegDate = new Timestamp(System.currentTimeMillis());
+		Timestamp newsRegDate = Timestamp.from(Instant.now());
 
 		try {
 			connection = connectionPool.takeConnection();
@@ -174,7 +183,7 @@ public class NewsDAO implements INewsDAO {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
-		Timestamp newsRegDate = new Timestamp(System.currentTimeMillis());
+		Timestamp newsRegDate = Timestamp.from(Instant.now());
 		
 		try {
 			connection = connectionPool.takeConnection();

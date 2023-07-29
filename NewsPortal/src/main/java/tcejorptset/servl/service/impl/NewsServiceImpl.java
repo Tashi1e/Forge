@@ -25,9 +25,9 @@ public class NewsServiceImpl implements INewsService{
 	}
 
 	@Override
-	public List<News> find(String keyWord) throws ServiceException {
+	public List<News> find(String keyWord, String locale) throws ServiceException {
 		try {
-			return	newsDAO.getListByKeyword(keyWord);
+			return	newsDAO.getListByKeyword(keyWord, locale);
 		} catch (NewsDAOException e) {
 			throw new ServiceException(e);
 		}
@@ -54,15 +54,15 @@ public class NewsServiceImpl implements INewsService{
 	}
 	
 	@Override
-	public List<News> latestList() throws ServiceException {
-			return latestList(5);
+	public List<News> latestList(String locale) throws ServiceException {
+			return latestList(5, locale);
 	}
 
 	@Override
-	public List<News> latestList(int count) throws ServiceException {
+	public List<News> latestList(int count, String locale) throws ServiceException {
 		
 		try {
-			return newsDAO.getLatestsList(count);
+			return newsDAO.getLatestsList(count, locale);
 		} catch (NewsDAOException e) {
 			throw new ServiceException(e);
 		}
@@ -70,9 +70,9 @@ public class NewsServiceImpl implements INewsService{
 
 
 	@Override
-	public News findById(int id) throws ServiceException {
+	public News findById(int id, String locale) throws ServiceException {
 		try {
-			return newsDAO.fetchById(id);
+			return newsDAO.fetchById(id, locale);
 		} catch (NewsDAOException e) {
 			throw new ServiceException(e);
 		}

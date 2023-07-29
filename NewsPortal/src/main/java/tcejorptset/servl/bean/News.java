@@ -26,7 +26,7 @@ public class News implements Serializable {
 	private String image;
 	private String brief;
 	private String content;
-	private Instant date;
+	private String date;
 	private Part imgPart;
 	private int userId=0;
 	private short status=0;

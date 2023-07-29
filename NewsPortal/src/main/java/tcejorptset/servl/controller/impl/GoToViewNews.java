@@ -25,7 +25,8 @@ public class GoToViewNews implements Command {
 		UserInfo userInfo;
 		String author;
 		
-		String id = request.getParameter(AttributeParamName.JSP_NEWS_ID_PARAM); 
+		String id = request.getParameter(AttributeParamName.JSP_NEWS_ID_PARAM);
+		String currentLocale = (String) request.getSession().getAttribute(AttributeParamName.LOCALE_NAME_PARAM_ATTRIBUTE);
 		
 		if(id == null) {
 request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.FETCH_NEWS.getCode());
@@ -33,7 +34,7 @@ request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, E
 		}
 		
 		try {
-			news  = newsService.findById(Integer.parseInt(id));
+			news  = newsService.findById(Integer.parseInt(id), currentLocale);
 			request.setAttribute(AttributeParamName.JSP_NEWS_ATTRIBUTE, news);
 			request.setAttribute(AttributeParamName.JSP_PRESENTATION_ATTRIBUTE, "viewNews");
 			
