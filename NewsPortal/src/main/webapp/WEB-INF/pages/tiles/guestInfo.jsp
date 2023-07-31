@@ -2,9 +2,9 @@
 
 <!-- guest info -->
 
-<div class="body-title">
-	 Latest News
-</div>
+<!-- <div class="body-title"> -->
+<!-- 	 Latest News -->
+<!-- </div> -->
 
 <form>
 	<c:forEach var="news" items="${requestScope.news}">

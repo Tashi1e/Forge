@@ -3,13 +3,14 @@
 
 
 <fmt:setLocale value="${sessionScope.locale}" />
-<fmt:setBundle basename="localization.local" var="loc" />
+<fmt:setBundle basename="localization.locale" var="loc" />
 
 <fmt:message bundle="${loc}" key="local.menu.news.management.title" var="news_management_title" />
 <fmt:message bundle="${loc}" key="local.menu.newslist.name" var="news_list_link" />
 <fmt:message bundle="${loc}" key="local.menu.addnews.name" var="add_news_link" />
 <fmt:message bundle="${loc}" key="local.menu.deletenews.name" var="delete_news_link" />
 <fmt:message bundle="${loc}" key="local.menu.back.link" var="back_link" />
+<fmt:message bundle="${loc}" key="local.menu.news.search" var="search_ph" />
 
 <style>
 .menu_list li{
@@ -70,7 +71,7 @@ background-color: gold;
 <br>
 <form action="controller" method="post">
 <input type="hidden" name="command" value="go_to_news_list" />
-<input type="search" name="keyword" id="search_field" placeholder="  search news" />
+<input type="search" name="keyword" id="search_field" placeholder="  ${search_ph}" />
 <button id="search_button" type="submit">
 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="black" class="bi bi-search" viewBox="0 0 16 16">
   	<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -91,8 +92,9 @@ background-color: gold;
 		</c:if>
 	</ul>
 	<c:if test="${not(requestScope.presentation eq 'newsList')}">
-	
+	<ul class="menu_list" style="list-style: none; text-align: left; padding-left: 0px"><li>
 	<a href="controller?command=go_to_news_list" style="position: absolute; bottom: 20px; left: 35px">&#8678  ${back_link}</a>
+	</li></ul>
 <%-- 	< class="link_button" value="&#8678  ${back_link}" style="position: absolute; bottom: 20px; left: 35px" onclick="history.back()" /> --%>
 	</c:if>
 	</div>

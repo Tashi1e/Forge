@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <fmt:setLocale value="${sessionScope.locale}" />
-<fmt:setBundle basename="localization.local" var="loc" />
+<fmt:setBundle basename="localization.locale" var="loc" />
 
 <fmt:message bundle="${loc}" key="local.login.button.name" var="loginButton" />
 <fmt:message bundle="${loc}" key="local.signup.button.name" var="signupButton" />
@@ -30,7 +30,7 @@
 
 	<div class="header-grid-item" align="right">
 		<form>
-			<a href="controller?locale=en&command=do_change_locale" style="text-decoration: none">
+			<a href="controller?locale=us&command=do_change_locale" style="text-decoration: none">
 			<img alt="" src="images/us.svg" style="height: 15px" />
 			</a> 
 			&nbsp;&nbsp; 

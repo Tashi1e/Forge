@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <fmt:setLocale value="${sessionScope.locale}" />
-<fmt:setBundle basename="localization.local" var="loc" />
+<fmt:setBundle basename="localization.locale" var="loc" />
 
 <fmt:message bundle="${loc}" key="local.news.save.button" var="save_button" />
 <fmt:message bundle="${loc}" key="local.news.add.image.button" var="add_image_button" />

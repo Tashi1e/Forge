@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <fmt:setLocale value="${sessionScope.locale}" />
-<fmt:setBundle basename="localization.local" var="loc" />
+<fmt:setBundle basename="localization.locale" var="loc" />
 
 <fmt:message bundle="${loc}" key="local.menu.welcome" var="welcome_guest" />
 
@@ -36,7 +36,6 @@
 				<h4 style = "padding-left: 15px">
 				    ${welcome_guest}
 				    </h4> 
-					<%-- <c:import url=""></c:import> --%>
 				</c:if>
 				<c:if test="${sessionScope.user_active == true}">
 					<c:import url="/WEB-INF/pages/tiles/menu.jsp" />
