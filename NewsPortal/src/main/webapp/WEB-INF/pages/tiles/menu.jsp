@@ -17,26 +17,6 @@
 }
 
 .menu_list li a {
-	color: dimgrey;
-	text-shadow: 1px 1px 0.5px rgba(255,255,0,0.3);
-	text-decoration: none;
-	font-family: "Times New Roman";
-	font-size: 22px;
-	font-weight: bold;
-	transition: all 200ms;
-/* 	font-style: italic; */
-}
-
-<style>
-.menu_list li {
-	padding-top: 5px;
-}
-
-.menu_list li a:hover {	
-	padding-left: 15px;
-}
-
-.menu_list li a {
 	color: black;
 	text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.4);
 	text-decoration: none;
@@ -47,7 +27,7 @@
 }
 
 .menu_list li a:hover {
-	padding-left: 10px;
+	padding-left: 15px;
 }
 
 form input, form button {
@@ -85,9 +65,8 @@ background-color: gold;
 }
 </style>
 
-<div style="padding-left: 15px; padding-top: 7px;">
-<span style="padding-left: 15px; font-size: 22px; font-weight: bold; text-decoration: underline">${news_management_title}</span> 
-<br>
+<div style="padding-left: 20px; padding-top: 5px;">
+<%-- <span style="padding-left: 15px; font-size: 22px; font-weight: bold; text-decoration: underline">${news_management_title}</span>  --%>
 <br>
 <form action="controller" method="post">
 <input type="hidden" name="command" value="go_to_news_list" />
@@ -98,6 +77,7 @@ background-color: gold;
 </svg>
 </button>
 </form>
+<br>
 	<ul class="menu_list" style="list-style: none; text-align: left; padding-left: 0px">
 		<li><form action="controller" method="post">
 		<a href="controller?command=go_to_news_list">${news_list_link}</a>
@@ -111,7 +91,9 @@ background-color: gold;
 		</c:if>
 	</ul>
 	<c:if test="${not(requestScope.presentation eq 'newsList')}">
-	<input type="button" class="link_button" value="&#8678  ${back_link}" style="position: absolute; bottom: 20px; left: 35px" onclick="history.back()" />
+	
+	<a href="controller?command=go_to_news_list" style="position: absolute; bottom: 20px; left: 35px">&#8678  ${back_link}</a>
+<%-- 	< class="link_button" value="&#8678  ${back_link}" style="position: absolute; bottom: 20px; left: 35px" onclick="history.back()" /> --%>
 	</c:if>
 	</div>
 

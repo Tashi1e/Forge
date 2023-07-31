@@ -21,7 +21,6 @@
 	</div>
 
 	<div class="header-grid-item-message">
-	${sessionScope.locale}
 				<c:if test="${not (sessionScope.errorCode eq null)}">
 					<font color="red"> 
 						<c:out value="${errorMessage}" />

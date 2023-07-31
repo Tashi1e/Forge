@@ -3,7 +3,7 @@
 
 <div class="body-title">
 <!-- 	<a href="">News >> </a>  -->
-	News List
+<!-- 	News List -->
 </div>
 
 <form action="" method="post">
@@ -70,14 +70,6 @@
 		</div>
 
 	</c:forEach>
-
-	<!-- 	<logic:notEmpty name="newsForm" property="newsList">
-		<div class="delete-button-position">
-			<html:submit>
-				<bean:message key="locale.newslink.deletebutton" />
-			</html:submit>
-		</div>
-	</logic:notEmpty> -->
 
 	<div class="no-news">
 		<c:if test="${requestScope.news eq null}">

@@ -47,13 +47,13 @@
 			<input type="hidden" name="command" value="go_to_add_edit_news_page" /> 
 			<input type="hidden" name="id" value="${requestScope.news.id}" /> 
 			<input type="hidden" name="presentation" value="editNews" />
-			<input type="submit" class="button grey all_buttons_size" value="${edit_button}" />
+			<input type="submit" class="button grey" value="${edit_button}" />
 		</form>
 
 		<form action="controller" method="post">
 			<input type="hidden" name="command" value="do_delete_news" /> 
 			<input type="hidden" name="id" value="${requestScope.news.id}" />
-			<input type="submit" class="button transperent all_buttons_size" value="${delete_button}" />
+			<input type="submit" class="button transperent" value="${delete_button}" />
 		</form>
 	</div>
 </c:if>

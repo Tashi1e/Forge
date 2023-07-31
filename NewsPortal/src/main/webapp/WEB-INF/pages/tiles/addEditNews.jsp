@@ -61,7 +61,7 @@ input#publish {
 <textarea name="content" class="text_edit" id="content" placeholder="Enteer Your content here">${requestScope.news.content}</textarea>
 </p>
 <p class="view-news-grid-container" style="margin-left: 0px">
-<input type="submit" id="save_button" class="button grey all_buttons_size" value="${save_button}" />
+<input type="submit" id="save_button" class="button grey" value="${save_button}" />
 <input type="file" name="add_image" id="add_image" accept="image/*" style="display: none" onchange="getName(this.value);" />
 <label for="add_image" id="add_image_label">
 ${add_image_button}
