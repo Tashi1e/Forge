@@ -1,5 +1,8 @@
 <%@page import="java.util.List"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<fmt:setLocale value="${sessionScope.locale}" />
 
 <div class="body-title">
 <!-- 	<a href="">News >> </a>  -->
@@ -16,7 +19,10 @@
 				</a>
 				</div>
 				<div class="news-date">
-					<c:out value="${news.date}" />
+<%-- 					<c:out value="${news.date}" /> --%>
+						<fmt:timeZone value="${sessionScope.locale}">
+						<fmt:formatDate type = "date" dateStyle = "short" value = "${news.date}"/>
+						</fmt:timeZone>
 				</div>
 
 				<div class="news-content">

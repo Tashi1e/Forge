@@ -1,7 +1,8 @@
 package tcejorptset.servl.bean;
 
 import java.io.Serializable;
-import java.time.Instant;
+import java.util.Date;
+
 import jakarta.servlet.http.Part;
 
 import lombok.EqualsAndHashCode;
@@ -26,7 +27,7 @@ public class News implements Serializable {
 	private String image;
 	private String brief;
 	private String content;
-	private String date;
+	private Date date;
 	private Part imgPart;
 	private int userId=0;
 	private short status=0;

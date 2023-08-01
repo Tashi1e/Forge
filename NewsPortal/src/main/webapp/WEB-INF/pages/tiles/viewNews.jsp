@@ -6,6 +6,7 @@
 
 <fmt:message bundle="${loc}" key="local.news.edit.button" var="edit_button" />
 <fmt:message bundle="${loc}" key="local.news.delete.button" var="delete_button" />
+<c:set var ="id" value="${requestScope.news.id}"/>
 
 <div class="add-table-margin">
 	<table class="news_text_format">
@@ -17,7 +18,10 @@
 		<tr>
 			<td class="space_around_view_text align_container">
 				<div class="word-breaker align_left" >
-					<c:out value="${requestScope.news.date}" />
+<%-- 					<c:out value="${requestScope.news.date}" /> --%>
+						<fmt:timeZone value="${sessionScope.locale}">
+						<fmt:formatDate type = "both" dateStyle = "long" timeStyle = "short" value = "${requestScope.news.date}"/>
+						</fmt:timeZone>
 					
 				</div>
 				<div class="word-breaker align_right"><br>
@@ -43,16 +47,16 @@
 
 <c:if test="${sessionScope.role eq 'admin' || sessionScope.role eq 'editor'}">
 	<div class="view-news-grid-container">
-		<form action="controller" method="post">
+		<form action="controller" method="get">
 			<input type="hidden" name="command" value="go_to_add_edit_news_page" /> 
-			<input type="hidden" name="id" value="${requestScope.news.id}" /> 
+			<input type="hidden" name="id" value="${id}" /> 
 			<input type="hidden" name="presentation" value="editNews" />
 			<input type="submit" class="button grey" value="${edit_button}" />
 		</form>
 
 		<form action="controller" method="post">
 			<input type="hidden" name="command" value="do_delete_news" /> 
-			<input type="hidden" name="id" value="${requestScope.news.id}" />
+			<input type="hidden" name="id" value="${id}" />
 			<input type="submit" class="button transperent" value="${delete_button}" />
 		</form>
 	</div>

@@ -30,7 +30,7 @@
 
 	<div class="header-grid-item" align="right">
 		<form>
-			<a href="controller?locale=us&command=do_change_locale" style="text-decoration: none">
+			<a href="controller?locale=en&command=do_change_locale" style="text-decoration: none">
 			<img alt="" src="images/us.svg" style="height: 15px" />
 			</a> 
 			&nbsp;&nbsp; 

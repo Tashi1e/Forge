@@ -16,6 +16,7 @@ final class AttributeParamName {
 	static final String JSP_NEWS_KEYWORD_PARAM ="keyword";
 	
 	static final String LOCALE_NAME_PARAM_ATTRIBUTE = "locale";
+	static final String TIMEZONE_NAME_PARAM_ATTRIBUTE = "timezone";
 	static final String JSP_NICK_NAME_ATTRIBUTE = "nickname";
 	static final String JSP_ROLE_ATTRIBUTE = "role";
 	static final String JSP_USER_ACTIVE_ATTRIBUTE = "user_active";
