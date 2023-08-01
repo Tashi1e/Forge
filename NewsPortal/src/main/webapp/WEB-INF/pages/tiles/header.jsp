@@ -30,7 +30,7 @@
 
 	<div class="header-grid-item" align="right">
 		<form>
-			<a href="controller?locale=us&command=do_change_locale" style="text-decoration: none">
+			<a href="controller?locale=en&command=do_change_locale" style="text-decoration: none">
 			<img alt="" src="images/us.svg" style="height: 15px" />
 			</a> 
 			&nbsp;&nbsp; 
@@ -48,7 +48,7 @@
 	
 	<div class="header-grid-item-login" align="right">
 	<c:if test="${sessionScope.user_active == false}">
-				<form action="controller" method="post" id="box">
+				<form action="controller" method="get" id="box">
 			<input type="hidden" name="command" value="go_to_registration_page" id="command" />
 			<input type="checkbox" name="remember_me" value="${remembButton}" id="checkbox" style="display: none" />
 			<input type="hidden" class = "button grey" value="${signinButton}" id="signin">
@@ -81,4 +81,4 @@
 	
 </div>
 
-<script type="text/javascript" src="./script/loginForms1234.js"></script>
+<script type="text/javascript" src="./script/loginForms13.js"></script>

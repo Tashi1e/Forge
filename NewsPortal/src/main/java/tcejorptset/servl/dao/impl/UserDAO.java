@@ -165,7 +165,7 @@ public class UserDAO implements IUserDAO {
 			throw new DaoException(ErrorCode.LOGIN_EXISTS.getCode());
 		}
 		if (objectExists(email, SQLQuery.FIND_EMAIL_QUERY)) {
-			throw new DaoException(ErrorCode.EMAIL_EXSITS.getCode());
+			throw new DaoException(ErrorCode.EMAIL_EXISTS.getCode());
 		}
 
 		Connection connection = null;

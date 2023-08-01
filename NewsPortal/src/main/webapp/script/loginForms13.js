@@ -5,7 +5,8 @@ let btn3 = document.getElementById('signin');
 let btn4 = document.getElementById('remember');
 let lable = document.querySelectorAll(".ph-container label");
 let check = document.getElementById('checkbox');
-let command = document.getElementById('command')
+let command = document.getElementById('command');
+let form = document.getElementById('box');
 
 btn1.onclick = function() {
 	for (let txt of text) {
@@ -15,6 +16,7 @@ btn1.onclick = function() {
 			btn3.type = 'submit';
 			btn2.type = 'hidden';
 			btn4.type = 'button';
+			form.method = 'post';
 			command.value = 'do_sign_in';
 			if (!check.checked) {
 				btn4.value = '\u{2717} '+check.value;
@@ -53,6 +55,7 @@ window.addEventListener('click', function(e) {
 				btn3.type = 'hidden';
 				btn2.type = 'submit';
 				btn4.type = 'hidden';
+				form.method = 'get';
 				command.value = 'go_to_registration_page';
 				for (let lbl of lable) {
 					lbl.style.visibility = 'hidden';
