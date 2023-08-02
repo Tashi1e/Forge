@@ -9,6 +9,8 @@
 <fmt:message bundle="${loc}" key="local.signin.button.name" var="signinButton" />
 <fmt:message bundle="${loc}" key="local.remember.button.name" var="remembButton" />
 <fmt:message bundle="${loc}" key="local.signout.button.name" var="signoutButton" />
+<fmt:message bundle="${loc}" key="local.login.label.name" var="loginLabel" />
+<fmt:message bundle="${loc}" key="local.password.label.name" var="passLabel" />
 <fmt:message bundle="${loc}" key="local.error.code.${sessionScope.errorCode}" var="errorMessage" />
 
 <!-- <link rel="stylesheet" type="text/css" href="./styles/loginFormStyles123.css"> -->
@@ -48,20 +50,20 @@
 	
 	<div class="header-grid-item-login" align="right">
 	<c:if test="${sessionScope.user_active == false}">
-				<form action="controller" method="get" id="box">
-			<input type="hidden" name="command" value="go_to_registration_page" id="command" />
+				<form action="controller" method="post" id="box">
+			<input type="hidden" name="command" value="do_sign_in" id="command" />
 			<input type="checkbox" name="remember_me" value="${remembButton}" id="checkbox" style="display: none" />
 			<input type="hidden" class = "button grey" value="${signinButton}" id="signin">
 			<input type="button" class = "button transperent" value="${loginButton}" id="login" /> 
 			<span class="ph-container"> 
 				<input type="text" name="login" id="logName" class="text" placeholder=" " autocomplete="new-username" /> 
-				<label for="logName"><fmt:message bundle="${loc}" key="local.login.label.name" /></label>
+				<label for="logName" class="logFormLabels" style="visibility: hidden">${loginLabel}</label>
 			</span> 
 			<span class="ph-container"> 
 			    <input type="password" name="password" id="password" class="text" placeholder=" " autocomplete="new-password" /> 
-				<label for="password"><fmt:message bundle="${loc}" key="local.password.label.name" /></label>
+				<label for="password" class="logFormLabels" style="visibility: hidden">${passLabel}</label>
 			</span> 
-			<input type="submit" value="${signupButton}" class="button yellow" id="registration" />
+			<input type="button" value="${signupButton}" class="button yellow" width="150" id="registration" />
 			<input type="hidden" class="registration_remember_btn" id="remember" />				
 				</form>
 		</c:if>
@@ -80,5 +82,3 @@
 	</div>
 	
 </div>
-
-<script type="text/javascript" src="./script/loginForms13.js"></script>

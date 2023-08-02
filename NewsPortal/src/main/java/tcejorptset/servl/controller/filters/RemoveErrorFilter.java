@@ -18,7 +18,7 @@ public final class RemoveErrorFilter extends HttpFilter {
 	@Override
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-		if (request.getSession().getAttribute(ERROR_CODE_ATTRIBUTE) != null) {
+		if (request.getSession().getAttribute(ERROR_CODE_ATTRIBUTE) != null) { 
 			request.getSession().removeAttribute(ERROR_CODE_ATTRIBUTE);
 		}
 		chain.doFilter(request, response);

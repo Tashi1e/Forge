@@ -48,7 +48,7 @@ public class DoRegistration implements Command {
 			if (service.registration(user, userInfo))
 				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE,
 						ErrorCode.REGISTRATION_SUCCESSFUL.getCode());
-			response.sendRedirect("error?command=go_to_registration_page");
+			response.sendRedirect("error?command=go_to_base_page");
 		} catch (ServiceException e) {
 			if (e.getMessage() != null) {
 				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, e.getMessage().replaceFirst(".+: ", ""));
@@ -57,7 +57,7 @@ public class DoRegistration implements Command {
 				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE,
 						ErrorCode.REGISTRATION_FAILED.getCode());
 			}
-			response.sendRedirect("error?command=go_to_registration_page");
+			response.sendRedirect("error?command=go_to_base_page");
 			e.printStackTrace();
 		}
 

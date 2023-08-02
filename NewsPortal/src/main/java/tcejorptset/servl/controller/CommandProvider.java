@@ -15,7 +15,6 @@ import tcejorptset.servl.controller.impl.GoToBasePage;
 import tcejorptset.servl.controller.impl.GoToAddEditNewsPage;
 import tcejorptset.servl.controller.impl.GoToErrorPage;
 import tcejorptset.servl.controller.impl.GoToNewsList;
-import tcejorptset.servl.controller.impl.GoToRegistrationPage;
 import tcejorptset.servl.controller.impl.GoToViewNews;
 
 public final class CommandProvider {
@@ -25,7 +24,6 @@ public final class CommandProvider {
 	
 	private CommandProvider() {
 		commands.put(CommandName.GO_TO_BASE_PAGE, new GoToBasePage());
-		commands.put(CommandName.GO_TO_REGISTRATION_PAGE, new GoToRegistrationPage());
 		commands.put(CommandName.GO_TO_NEWS_LIST, new GoToNewsList());
 		commands.put(CommandName.GO_TO_VIEW_NEWS, new GoToViewNews());
 		commands.put(CommandName.GO_TO_ADD_EDIT_NEWS_PAGE, new GoToAddEditNewsPage());

@@ -4,10 +4,10 @@
 
 <html>
 <body>
-	<c:if test="${sessionScope.firstEnter != null}">
+	<c:if test="${not(sessionScope.firstEnter eq null)}">
 	<c:redirect url="controller?command=do_sign_in"/>
 	</c:if>
-	<c:if test="${sessionScope.firstEnter == null}">
+	<c:if test="${sessionScope.firstEnter eq null}">
 	<c:redirect url="controller?command=go_to_base_page"/>
 	</c:if>
 </body>

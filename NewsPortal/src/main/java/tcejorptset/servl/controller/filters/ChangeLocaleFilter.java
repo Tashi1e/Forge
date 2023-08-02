@@ -20,7 +20,7 @@ public final class ChangeLocaleFilter extends HttpFilter {
 	
 		String query = request.getQueryString();
 		String pageURL = request.getRequestURL().toString()+"?"+query;
-		System.out.println(pageURL); //TEST
+//		System.out.println(pageURL); //TEST
 		
 		if(query!=null && query.matches(CHANGE_PAGE_COMMAND_REGEX)) {
 		request.getSession().setAttribute(CURRENT_PAGE_URL_ATTRIBUTE, pageURL);

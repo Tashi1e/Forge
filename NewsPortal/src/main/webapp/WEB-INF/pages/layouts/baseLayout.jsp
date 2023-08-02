@@ -19,10 +19,20 @@
 <fmt:message bundle="${loc}" key="local.headline.title" />
 </title>
 
-<link rel="stylesheet" type="text/css" href="./styles/newsStyle26.css">
+<link rel="stylesheet" type="text/css" href="./styles/newsStyle29.css">
 
 </head>
 <body style="background-image: url(images/newspaper_background.jpg)">
+
+<!-- The Modal -->
+<div id="regModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content" align="center" style="background-image: url(images/newspaper_background.jpg)">
+  		<c:import url="/WEB-INF/pages/modal/registration.jsp" />
+  </div>
+
+</div>
+
 	<div class="page" >
 		<div class="header">
 			<c:import url="/WEB-INF/pages/tiles/header.jsp" />
@@ -61,5 +71,8 @@
 			<c:import url="/WEB-INF/pages/tiles/footer.jsp" />
 		</div>
 	</div>
+	
+<script type="text/javascript" src="./script/logRegForm.js"></script>
+	
 </body>
 </html>
