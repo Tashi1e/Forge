@@ -35,6 +35,7 @@
 			</td>
 				
 		</tr>
+		<c:if test="${not(requestScope.news.image eq null)}">
 		<tr>
 			<td class="space_around_view_text"><div class="word-breaker">
 					<img src="${requestScope.news.image}" alt="img"
@@ -42,6 +43,7 @@
 					<c:out value="${requestScope.news.content}" />
 				</div></td>
 		</tr>
+		</c:if>
 	</table>
 </div>
 

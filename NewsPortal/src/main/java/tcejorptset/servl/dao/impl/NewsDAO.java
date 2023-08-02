@@ -25,7 +25,7 @@ public class NewsDAO implements INewsDAO {
 
 	
 	@Override
-	public List<News> getLatestsList(int count, String locale) throws NewsDAOException {
+	public List<News> getLatestsList(int count) throws NewsDAOException {
 		List<News> latestNews = new ArrayList<News>();
 
 		Connection connection = null;
@@ -63,7 +63,7 @@ public class NewsDAO implements INewsDAO {
 
 	
 	@Override
-	public List<News> getListByKeyword(String keyword, String locale) throws NewsDAOException {
+	public List<News> getListByKeyword(String keyword) throws NewsDAOException {
 		List<News> result = new ArrayList<News>();
 		
 		Connection connection = null;
@@ -101,7 +101,7 @@ public class NewsDAO implements INewsDAO {
 	}
 
 	@Override
-	public News fetchById(int id, String locale) throws NewsDAOException {
+	public News fetchById(int id) throws NewsDAOException {
 		News news = new News();
 
 		Connection connection = null;

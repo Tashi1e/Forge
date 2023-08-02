@@ -21,12 +21,11 @@ public class GoToNewsList implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<News> newsList;
 		String keyword = request.getParameter(AttributeParamName.JSP_NEWS_KEYWORD_PARAM);
-		String currentLocale = (String) request.getSession().getAttribute(AttributeParamName.LOCALE_NAME_PARAM_ATTRIBUTE);
 		try {
 			if (keyword != null) {
-				newsList = newsService.find(keyword, currentLocale);
+				newsList = newsService.find(keyword);
 			} else {
-				newsList = newsService.latestList(currentLocale);
+				newsList = newsService.latestList();
 			}
 			request.setAttribute(AttributeParamName.JSP_NEWS_ATTRIBUTE, newsList);
 			request.setAttribute(AttributeParamName.JSP_PRESENTATION_ATTRIBUTE, "newsList");

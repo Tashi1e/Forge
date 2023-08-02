@@ -24,8 +24,7 @@ public class GoToBasePage implements Command {
 //		System.out.println(request.getAttribute("firstEnter")); //TEST
 		try {
 //				System.out.println("GoToBasePage - > errorMessage attribute = " + request.getSession().getAttribute("errorMessage")); //TEST
-			String currentLocale = (String) request.getSession().getAttribute(AttributeParamName.LOCALE_NAME_PARAM_ATTRIBUTE);
-				latestNews = newsService.latestList(currentLocale);
+				latestNews = newsService.latestList();
 				request.setAttribute(AttributeParamName.JSP_NEWS_ATTRIBUTE, latestNews);
 				request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		} catch (ServiceException e) {
