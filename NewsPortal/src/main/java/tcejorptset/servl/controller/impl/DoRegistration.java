@@ -52,7 +52,6 @@ public class DoRegistration implements Command {
 		} catch (ServiceException e) {
 			if (e.getMessage() != null) {
 				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, e.getMessage().replaceFirst(".+: ", ""));
-				System.out.println(e.getMessage()); //TEST
 			} else {
 				request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE,
 						ErrorCode.REGISTRATION_FAILED.getCode());

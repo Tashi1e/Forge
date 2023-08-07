@@ -13,7 +13,6 @@ public class ConnectionPoolOpsListener implements ServletContextListener{
 	public void contextInitialized(ServletContextEvent event) {
 		try {
 			connectionPool.initPoolData();
-			System.out.println("Connection Pool Initialize Successful!"); //TEST
 		}
 		catch(ConnectionPoolException e){
 			// TODO logination

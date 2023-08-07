@@ -32,25 +32,20 @@ public class DoSignIn implements Command {
 		UserInfo userInfo = null;
 		String selector = null;
 		String validator = null;
-//		System.out.println("DoSignIn start -> role = " + role); // TEST
 
 		if (request.getSession().getAttribute(FIRST_TIME_ENTER_ATTRIBUTE) != null) {
 			CookiesOps cookiesOps = new CookiesOps();
 			selector = cookiesOps.findCookie(request, AttributeParamName.SELECTOR_PARAM);
 			validator = cookiesOps.findCookie(request, AttributeParamName.VALIDATOR_PARAM);
-//			System.out.println(selector + " " + validator); // TEST
 		}
 
 		try {
 			if (selector != null && validator != null) {
 				role = service.signInByToken(selector, validator);
 				userInfo = service.getUserInfoByToken(selector, validator);
-//				System.out.println(role); // TEST
 			}
 		
 			if (role != null && !role.equals(UserRoles.GUEST.getRole())) {
-//				System.out.println(role); //TEST
-//				System.out.println("DoSignIn -> update user token"); // TEST
 				response = addCookie(response, service.updateUserToken(selector, validator));
 			}
 		} catch (ServiceException e) {
@@ -64,7 +59,6 @@ public class DoSignIn implements Command {
 
 			try {
 			if (userAuthValidation.checkAUthData(login, password)) {
-//				System.out.println("DoSignIn -> user Auth Validation"); // TEST
 				role = service.signIn(login, password);
 				userInfo = service.getUserInfo(login, password);
 			}
@@ -74,19 +68,16 @@ public class DoSignIn implements Command {
 				}
 				signinSuccessful(request, response, role, userInfo);
 			} else {
-//				System.out.println("NOT exception"); // TEST
 				signinFailed(request, response);
 			}
 
 		} catch (ServiceException e) {
-//			System.out.println("exception"); // TEST
 				signinFailed(request, response);
 		}
 	}
 
 	private void signinSuccessful(HttpServletRequest request, HttpServletResponse response, String role,
 			UserInfo userInfo) throws ServletException, IOException {
-//		System.out.println(role + " " + userInfo); //TEST
 		request.getSession().removeAttribute(FIRST_TIME_ENTER_ATTRIBUTE);
 		request.getSession(true).setAttribute(AttributeParamName.JSP_USER_ACTIVE_ATTRIBUTE, true);
 		request.getSession().setAttribute(AttributeParamName.JSP_ROLE_ATTRIBUTE, role);
@@ -96,7 +87,6 @@ public class DoSignIn implements Command {
 
 	private void signinFailed(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		System.out.println("DoSIgnIn -> signInFailed -> message = " + message); // TEST
 		request.getSession(true).setAttribute(AttributeParamName.JSP_USER_ACTIVE_ATTRIBUTE, false);
 		if (request.getSession().getAttribute(FIRST_TIME_ENTER_ATTRIBUTE) == null) {
 			request.getSession().setAttribute(AttributeParamName.JSP_ERROR_CODE_ATTRIBUTE, ErrorCode.SIGN_IN.getCode());
@@ -106,7 +96,6 @@ public class DoSignIn implements Command {
 	}
 
 	private HttpServletResponse addCookie(HttpServletResponse response, Map <String, String> token) {
-//		System.out.println("add Cookie"); // TEST
 		String tokenKey = token.get(AttributeParamName.SELECTOR_PARAM);
 		String tokenValue = token.get(AttributeParamName.VALIDATOR_PARAM);
 		response.addCookie(new Cookie(AttributeParamName.SELECTOR_PARAM, tokenKey));

@@ -21,9 +21,7 @@ public class GoToBasePage implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		List<News> latestNews;
-//		System.out.println(request.getAttribute("firstEnter")); //TEST
 		try {
-//				System.out.println("GoToBasePage - > errorMessage attribute = " + request.getSession().getAttribute("errorMessage")); //TEST
 				latestNews = newsService.latestList();
 				request.setAttribute(AttributeParamName.JSP_NEWS_ATTRIBUTE, latestNews);
 				request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);

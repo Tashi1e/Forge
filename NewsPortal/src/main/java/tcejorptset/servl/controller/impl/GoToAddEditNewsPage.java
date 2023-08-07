@@ -21,7 +21,6 @@ public class GoToAddEditNewsPage implements Command {
 
 		News news = new News();
 		String presentation = request.getParameter(AttributeParamName.JSP_PRESENTATION_ATTRIBUTE);
-//		System.out.println(presentation); //TEST
 		if (presentation.equals("editNews")) {
 			try {
 				int id  = Integer.parseInt(request.getParameter(AttributeParamName.JSP_NEWS_ID_PARAM)) ;
