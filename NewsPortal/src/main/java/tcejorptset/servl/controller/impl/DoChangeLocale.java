@@ -17,7 +17,6 @@ public class DoChangeLocale implements Command {
 		String locale = request.getParameter(AttributeParamName.LOCALE_NAME_PARAM_ATTRIBUTE);
 		String previousPageURL = (String) request.getSession().getAttribute(CURRENT_PAGE_URL_ATTRIBUTE);
 		request.getSession(true).setAttribute(AttributeParamName.LOCALE_NAME_PARAM_ATTRIBUTE, locale);
-//		System.out.println(previousPageURL); //TEST
 		
 		if (previousPageURL != null) {
 			response.sendRedirect(previousPageURL);
