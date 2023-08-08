@@ -2,7 +2,7 @@ package tcejorptset.servl.util.encrypt;
 
 import com.lambdaworks.crypto.SCryptUtil;
 
-public class HashS implements Encryptor {
+public class SCryptOps implements Encryptor {
 
 	@Override
 	public String encrypt(String to_encrypt) {

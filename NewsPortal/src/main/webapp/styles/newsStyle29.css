@@ -570,6 +570,7 @@ input.text:focus,
 	font-family: "Times New Roman";
 	font-weight: bold;
 	height: 2em;
+	transition: all 200ms;
 }
 
 .regFormTable td {

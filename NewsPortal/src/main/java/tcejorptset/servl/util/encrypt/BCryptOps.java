@@ -2,7 +2,7 @@ package tcejorptset.servl.util.encrypt;
 
 import org.mindrot.jbcrypt.BCrypt;
 
-public class HashB implements Encryptor {
+public class BCryptOps implements Encryptor {
 
 	@Override
 	public String encrypt(String to_encrypt) {

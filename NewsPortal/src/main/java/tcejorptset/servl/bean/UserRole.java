@@ -1,6 +1,6 @@
 package tcejorptset.servl.bean;
 
-public enum UserRoles {
+public enum UserRole {
 	
 	ADMIN,
 	EDITOR,

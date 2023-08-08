@@ -4,7 +4,7 @@ import java.util.Map;
 
 import tcejorptset.servl.bean.User;
 import tcejorptset.servl.bean.UserInfo;
-import tcejorptset.servl.bean.UserRoles;
+import tcejorptset.servl.bean.UserRole;
 import tcejorptset.servl.dao.DaoException;
 import tcejorptset.servl.dao.DaoProvider;
 import tcejorptset.servl.dao.IUserDAO;
@@ -117,11 +117,11 @@ public class UserServiceImpl implements IUserService {
 		String role;
 		try {
 		if (userId == null) {
-			return UserRoles.GUEST.getRole();
+			return UserRole.GUEST.getRole();
 		}
 		role = userDAO.getRole(userId);
 		if (role == null) {
-			return UserRoles.GUEST.getRole();
+			return UserRole.GUEST.getRole();
 		}
 		return role;
 		} catch (DaoException e) {

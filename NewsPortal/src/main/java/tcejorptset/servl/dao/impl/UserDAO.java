@@ -8,8 +8,8 @@ import tcejorptset.servl.dao.IUserDAO;
 import tcejorptset.servl.dao.impl.pool.ConnectionPool;
 import tcejorptset.servl.dao.impl.pool.ConnectionPoolException;
 import tcejorptset.servl.util.encrypt.Encryptor;
-import tcejorptset.servl.util.encrypt.HashB;
-import tcejorptset.servl.util.encrypt.HashS;
+import tcejorptset.servl.util.encrypt.BCryptOps;
+import tcejorptset.servl.util.encrypt.SCryptOps;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -25,8 +25,8 @@ import java.sql.ResultSet;
 public class UserDAO implements IUserDAO {
 
 	private final ConnectionPool connectionPool = ConnectionPool.getInstance();
-	private final Encryptor encryptorB = new HashB();
-	private final Encryptor encryptorS = new HashS();
+	private final Encryptor encryptorB = new BCryptOps();
+	private final Encryptor encryptorS = new SCryptOps();
 
 	@Override
 	public Integer getUserId(String login, String password) throws DaoException {
