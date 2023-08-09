@@ -10,7 +10,7 @@
 
 	<servlet>
 		<servlet-name>Controller</servlet-name>
-		<servlet-class>tcejorptset.servl.controller.FrontController</servlet-class>
+		<servlet-class>com.tcejorptset.servl.controller.FrontController</servlet-class>
 		<multipart-config>
 			<location></location>
 			<max-file-size>20848820</max-file-size>
@@ -32,7 +32,7 @@
 
 	<filter>
 		<filter-name>ChangeLocaleFilter</filter-name>
-		<filter-class>tcejorptset.servl.controller.filters.ChangeLocaleFilter</filter-class>
+		<filter-class>com.tcejorptset.servl.controller.filters.ChangeLocaleFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
@@ -42,7 +42,7 @@
 	
 	<filter>
 		<filter-name>RemoveErrorFilter</filter-name>
-		<filter-class>tcejorptset.servl.controller.filters.RemoveErrorFilter</filter-class>
+		<filter-class>com.tcejorptset.servl.controller.filters.RemoveErrorFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
@@ -52,7 +52,7 @@
 
 	<filter>
 		<filter-name>EncodingFilter</filter-name>
-		<filter-class>tcejorptset.servl.controller.filters.EncodingFilter</filter-class>
+		<filter-class>com.tcejorptset.servl.controller.filters.EncodingFilter</filter-class>
 	</filter>
 
 	<filter-mapping>
@@ -61,11 +61,11 @@
 	</filter-mapping>
 
 	<listener>
-		<listener-class>tcejorptset.servl.controller.listeners.ConnectionPoolOpsListener</listener-class>
+		<listener-class>com.tcejorptset.servl.controller.listeners.ConnectionPoolOpsListener</listener-class>
 	</listener>
 
 	<listener>
-		<listener-class>tcejorptset.servl.controller.listeners.LoginByTokenListener</listener-class>
+		<listener-class>com.tcejorptset.servl.controller.listeners.LoginByTokenListener</listener-class>
 	</listener>
 
 </web-app>
