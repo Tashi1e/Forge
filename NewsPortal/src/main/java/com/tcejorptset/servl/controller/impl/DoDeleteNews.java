@@ -3,8 +3,8 @@ package com.tcejorptset.servl.controller.impl;
 import java.io.IOException;
 import java.util.stream.Stream;
 
-import com.tcejorptset.servl.bean.ErrorCode;
 import com.tcejorptset.servl.controller.Command;
+import com.tcejorptset.servl.globalConstants.ErrorCode;
 import com.tcejorptset.servl.service.INewsService;
 import com.tcejorptset.servl.service.ServiceException;
 import com.tcejorptset.servl.service.ServiceProvider;
@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class DoDeleteNews implements Command {
 	
-	INewsService newsService = ServiceProvider.getInstance().getNewsService();
+	private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

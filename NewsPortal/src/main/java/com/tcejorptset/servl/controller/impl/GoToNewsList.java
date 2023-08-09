@@ -3,9 +3,9 @@ package com.tcejorptset.servl.controller.impl;
 import java.io.IOException;
 import java.util.List;
 
-import com.tcejorptset.servl.bean.ErrorCode;
 import com.tcejorptset.servl.bean.News;
 import com.tcejorptset.servl.controller.Command;
+import com.tcejorptset.servl.globalConstants.ErrorCode;
 import com.tcejorptset.servl.service.INewsService;
 import com.tcejorptset.servl.service.ServiceException;
 import com.tcejorptset.servl.service.ServiceProvider;

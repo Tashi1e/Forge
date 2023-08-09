@@ -5,8 +5,8 @@ import org.mindrot.jbcrypt.BCrypt;
 public class BCryptOps implements Encryptor {
 
 	@Override
-	public String encrypt(String to_encrypt) {
-		return BCrypt.hashpw(to_encrypt, BCrypt.gensalt());
+	public String encrypt(String toEncrypt) {
+		return BCrypt.hashpw(toEncrypt, BCrypt.gensalt());
 	}
 	
 

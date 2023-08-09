@@ -2,8 +2,8 @@ package com.tcejorptset.servl.controller.impl;
 
 import java.io.IOException;
 
-import com.tcejorptset.servl.bean.UserRole;
 import com.tcejorptset.servl.controller.Command;
+import com.tcejorptset.servl.globalConstants.UserRole;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,4 +1,4 @@
-package com.tcejorptset.servl.bean;
+package com.tcejorptset.servl.globalConstants;
 
 public enum UserRole {
 	

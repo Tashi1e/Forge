@@ -3,10 +3,11 @@ package com.tcejorptset.servl.controller.impl;
 import java.io.IOException;
 import java.util.Map;
 
-import com.tcejorptset.servl.bean.ErrorCode;
 import com.tcejorptset.servl.bean.UserInfo;
-import com.tcejorptset.servl.bean.UserRole;
 import com.tcejorptset.servl.controller.Command;
+import com.tcejorptset.servl.globalConstants.ErrorCode;
+import com.tcejorptset.servl.globalConstants.UserRole;
+import com.tcejorptset.servl.globalConstants.UserToken;
 import com.tcejorptset.servl.service.IUserService;
 import com.tcejorptset.servl.service.ServiceException;
 import com.tcejorptset.servl.service.ServiceProvider;
@@ -34,8 +35,8 @@ public class DoSignIn implements Command {
 		String validator = null;
 
 		if (request.getSession().getAttribute(FIRST_TIME_ENTER_ATTRIBUTE) != null) {
-			selector = findCookie(request, AttributeParamName.SELECTOR_PARAM);
-			validator = findCookie(request, AttributeParamName.VALIDATOR_PARAM);
+			selector = findCookie(request, UserToken.SELECTOR.getParam());
+			validator = findCookie(request, UserToken.VALIDATOR.getParam());
 		}
 
 		try {
@@ -48,7 +49,8 @@ public class DoSignIn implements Command {
 				response = addCookie(response, service.updateUserToken(selector, validator));
 			}
 		} catch (ServiceException e) {
-			// TODO only some logging
+			// TODO only some logging, 
+			//'cause no mater if you can't login by token for some reason, you can always login by regular way
 			e.printStackTrace();
 	}
 
@@ -95,10 +97,10 @@ public class DoSignIn implements Command {
 	}
 
 	private HttpServletResponse addCookie(HttpServletResponse response, Map <String, String> token) {
-		String tokenKey = token.get(AttributeParamName.SELECTOR_PARAM);
-		String tokenValue = token.get(AttributeParamName.VALIDATOR_PARAM);
-		response.addCookie(new Cookie(AttributeParamName.SELECTOR_PARAM, tokenKey));
-		response.addCookie(new Cookie(AttributeParamName.VALIDATOR_PARAM, tokenValue));
+		String tokenKey = token.get(UserToken.SELECTOR.getParam());
+		String tokenValue = token.get(UserToken.VALIDATOR.getParam());
+		response.addCookie(new Cookie(UserToken.SELECTOR.getParam(), tokenKey));
+		response.addCookie(new Cookie(UserToken.VALIDATOR.getParam(), tokenValue));
 		return response;
 	}
 	

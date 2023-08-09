@@ -14,12 +14,4 @@ public class LoginByTokenListener implements HttpSessionListener{
 		se.getSession().setAttribute(FIRST_TIME_ENTER_ATTRIBUTE, "yes");
 		se.getSession().setAttribute(JSP_USER_ACTIVE_ATTRIBUTE, false);
 	}
-
-	@Override
-	public void sessionDestroyed(HttpSessionEvent se) {
-		
-	}
-
-	
-	
 }

@@ -4,10 +4,10 @@ import java.util.Map;
 
 import com.tcejorptset.servl.bean.User;
 import com.tcejorptset.servl.bean.UserInfo;
-import com.tcejorptset.servl.bean.UserRole;
 import com.tcejorptset.servl.dao.DaoException;
 import com.tcejorptset.servl.dao.DaoProvider;
 import com.tcejorptset.servl.dao.IUserDAO;
+import com.tcejorptset.servl.globalConstants.UserRole;
 import com.tcejorptset.servl.service.IUserService;
 import com.tcejorptset.servl.service.ServiceException;
 
@@ -119,10 +119,12 @@ public class UserServiceImpl implements IUserService {
 		if (userId == null) {
 			return UserRole.GUEST.getRole();
 		}
+		
 		role = userDAO.getRole(userId);
 		if (role == null) {
 			return UserRole.GUEST.getRole();
 		}
+		
 		return role;
 		} catch (DaoException e) {
 			throw new ServiceException(e);

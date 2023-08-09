@@ -25,8 +25,8 @@ final class AttributeParamName {
 	static final String JSP_PRESENTATION_ATTRIBUTE = "presentation";
 	static final String JSP_ERROR_CODE_ATTRIBUTE = "errorCode";
 	static final String JSP_NEWS_AUTHOR_ATTRIBUTE = "author";
-	static final String SELECTOR_PARAM = "selector";
-	static final String VALIDATOR_PARAM = "validator";
+//	static final String SELECTOR_PARAM = "selector";
+//	static final String VALIDATOR_PARAM = "validator";
 	
 	private AttributeParamName() {};
 	

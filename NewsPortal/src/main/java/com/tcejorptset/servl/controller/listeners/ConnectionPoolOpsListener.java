@@ -16,8 +16,8 @@ public class ConnectionPoolOpsListener implements ServletContextListener{
 			connectionPool.initPoolData();
 		}
 		catch(ConnectionPoolException e){
-			// TODO logination
-			e.printStackTrace();
+			// TODO some logging
+			throw new RuntimeException("Oops, something went wrong!", e);
 		}
 	}
 

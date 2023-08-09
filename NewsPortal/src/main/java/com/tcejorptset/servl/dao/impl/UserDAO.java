@@ -7,13 +7,14 @@ import java.util.Map;
 
 import org.apache.commons.lang.RandomStringUtils;
 
-import com.tcejorptset.servl.bean.ErrorCode;
 import com.tcejorptset.servl.bean.User;
 import com.tcejorptset.servl.bean.UserInfo;
 import com.tcejorptset.servl.dao.DaoException;
 import com.tcejorptset.servl.dao.IUserDAO;
 import com.tcejorptset.servl.dao.impl.pool.ConnectionPool;
 import com.tcejorptset.servl.dao.impl.pool.ConnectionPoolException;
+import com.tcejorptset.servl.globalConstants.ErrorCode;
+import com.tcejorptset.servl.globalConstants.UserToken;
 import com.tcejorptset.servl.util.encrypt.BCryptOps;
 import com.tcejorptset.servl.util.encrypt.Encryptor;
 import com.tcejorptset.servl.util.encrypt.SCryptOps;
@@ -205,7 +206,7 @@ public class UserDAO implements IUserDAO {
 			}
 			throw new DaoException("Save data failed", e);
 		} catch (ConnectionPoolException e) {
-			throw new DaoException();
+			throw new DaoException(e);
 		} finally {
 			login = "";
 			password = "";
@@ -245,8 +246,8 @@ public class UserDAO implements IUserDAO {
 			connection.commit();
 
 			token = new HashMap<>();
-			token.put("selector", selector);
-			token.put("validator", validator);
+			token.put(UserToken.SELECTOR.getParam(), selector);
+			token.put(UserToken.VALIDATOR.getParam(), validator);
 
 		} catch (SQLException | ConnectionPoolException e) {
 			try {
@@ -254,7 +255,7 @@ public class UserDAO implements IUserDAO {
 			} catch (SQLException e1) {
 				throw new DaoException(e1); // DB rollback error
 			}
-			throw new DaoException("error.user.token", e);
+			throw new DaoException(e);
 		} finally {
 			connectionPool.closeConnection(connection, preparedStatement);
 		}

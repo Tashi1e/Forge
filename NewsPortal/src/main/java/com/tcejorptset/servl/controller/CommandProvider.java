@@ -3,7 +3,6 @@ package com.tcejorptset.servl.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.tcejorptset.servl.bean.ErrorCode;
 import com.tcejorptset.servl.controller.impl.DoAddNews;
 import com.tcejorptset.servl.controller.impl.DoChangeLocale;
 import com.tcejorptset.servl.controller.impl.DoDeleteNews;
@@ -16,6 +15,7 @@ import com.tcejorptset.servl.controller.impl.GoToBasePage;
 import com.tcejorptset.servl.controller.impl.GoToErrorPage;
 import com.tcejorptset.servl.controller.impl.GoToNewsList;
 import com.tcejorptset.servl.controller.impl.GoToViewNews;
+import com.tcejorptset.servl.globalConstants.ErrorCode;
 
 public final class CommandProvider {
 	private static final CommandProvider instance = new CommandProvider();

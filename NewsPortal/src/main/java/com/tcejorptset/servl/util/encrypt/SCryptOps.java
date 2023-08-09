@@ -5,8 +5,8 @@ import com.lambdaworks.crypto.SCryptUtil;
 public class SCryptOps implements Encryptor {
 
 	@Override
-	public String encrypt(String to_encrypt) {
-		return SCryptUtil.scrypt(to_encrypt, 16, 16, 16);
+	public String encrypt(String toEncrypt) {
+		return SCryptUtil.scrypt(toEncrypt, 16, 16, 16);
 	}
 	
 

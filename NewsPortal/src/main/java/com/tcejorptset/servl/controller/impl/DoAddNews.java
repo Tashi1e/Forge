@@ -2,10 +2,10 @@ package com.tcejorptset.servl.controller.impl;
 
 import java.io.IOException;
 
-import com.tcejorptset.servl.bean.ErrorCode;
 import com.tcejorptset.servl.bean.News;
 import com.tcejorptset.servl.bean.UserInfo;
 import com.tcejorptset.servl.controller.Command;
+import com.tcejorptset.servl.globalConstants.ErrorCode;
 import com.tcejorptset.servl.service.INewsService;
 import com.tcejorptset.servl.service.ServiceException;
 import com.tcejorptset.servl.service.ServiceProvider;
@@ -17,7 +17,7 @@ import jakarta.servlet.http.Part;
 
 public class DoAddNews implements Command {
 	
-	INewsService newsService = ServiceProvider.getInstance().getNewsService();
+	private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
